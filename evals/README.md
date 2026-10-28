@@ -33,4 +33,12 @@ O relatório registra configuração, contagens indexadas, hashes SHA-256 do cor
 3. Crie exemplos separados de desenvolvimento e teste antes de calibrar limiar. Não ajuste e declare melhora usando apenas os mesmos 15 exemplos.
 4. Avalie respostas reais por fatos esperados e validade das citações; registre falhas, tempo e custo reais.
 
+Para preparar uma revisão manual de respostas reais:
+
+```bash
+python -m src.evaluate_answers --output evals/reports/answers-review.json
+```
+
+O comando indexa o corpus com embeddings reais em memória e chama o modelo para cada caso, podendo consumir quota. O relatório salva resposta, trechos e campos `facts_supported`, `citations_supported` e `notes` para preenchimento manual. Ele registra resultados a cada caso e interrompe no primeiro erro, inclusive quota ou geração incompleta; `complete=false` indica rodada parcial. A saída é sobrescrita, portanto use nomes diferentes. Os campos de revisão começam em `null`: não representam avaliação automática. Revise cada afirmação e sua citação contra os trechos e os documentos originais, inclusive casos de abstenção indevida.
+
 Os relatórios versionados em `baselines/` registram uma execução real com o corpus e dataset atuais. Valores controlados dos testes validam o cálculo, não o sistema de embeddings. As métricas das 15 perguntas são exploratórias e não substituem uma avaliação independente.

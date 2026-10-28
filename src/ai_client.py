@@ -7,6 +7,12 @@ from google.genai import errors, types
 RETRYABLE_STATUS_CODES = [408, 429, 500, 502, 503, 504]
 
 
+class IncompleteGeneration(RuntimeError):
+    def __init__(self, reason) -> None:
+        self.reason = str(reason) if reason is not None else "UNKNOWN"
+        super().__init__(f"A geração não terminou normalmente (motivo: {self.reason}). Tente novamente.")
+
+
 class GeminiClient:
     """Adapter around Gemini generation and embedding APIs with transient-error resilience."""
 
@@ -85,6 +91,10 @@ class GeminiClient:
             contents=prompt,
             config=types.GenerateContentConfig(temperature=0.2, max_output_tokens=700),
         )
+        candidates = response.candidates or []
+        reason = candidates[0].finish_reason if candidates else None
+        if reason != types.FinishReason.STOP:
+            raise IncompleteGeneration(reason)
         text = (response.text or "").strip()
         if not text:
             raise RuntimeError("A API Gemini retornou uma resposta vazia.")

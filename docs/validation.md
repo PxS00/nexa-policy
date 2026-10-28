@@ -2,6 +2,8 @@
 
 ## Atualização posterior: execução real
 
+Na rodada seguinte, o novo avaliador registrou dois casos respondidos e interrompeu o terceiro por `MAX_TOKENS`; a execução ficou incompleta (3/15). As duas respostas sobre férias e suas citações foram conferidas manualmente contra a política. O código agora rejeita respostas interrompidas; o teste real identificou o motivo, mas não demonstra que todas as perguntas podem ser respondidas dentro do limite atual.
+
 Com a chave configurada, foram executados os baselines de recuperação real ([top-1](../evals/baselines/retrieval-top1.json), [top-4](../evals/baselines/retrieval-top4.json)); os detalhes e limites estão no README. A imagem Docker foi construída e o container ficou saudável. Uma pergunta sobre férias recebeu resposta citada e uma pergunta sobre estacionamento recebeu abstenção. Esses dois exemplos não constituem uma avaliação estatística da geração. A validação sintática de citações foi adicionada posteriormente e a suíte passou com 38 testes.
 
 Uma rodada exploratória posterior em 28/10/2026 usou o mesmo dataset, `TOP_K=4`, limiar 0,65, `gemini-3.5-flash` e a validação de citações ativa no código local. [Resultados brutos](../evals/baselines/answers-exploratory.json): dez respostas e cinco erros 429. Das dez respostas, quatro negativas tiveram abstenção; uma pergunta respondível teve abstenção e uma resposta terminou incompleta. As fontes listadas são todo o contexto recuperado, não necessariamente as fontes efetivamente citadas. Não houve avaliação manual sistemática de todas as afirmações; a execução não é um benchmark completo.
