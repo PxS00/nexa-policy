@@ -1,4 +1,5 @@
 from dataclasses import replace
+from contextlib import nullcontext
 
 import pytest
 
@@ -14,6 +15,9 @@ def test_embedding_count_mismatch_preserves_existing_index(tmp_path):
             return []
 
     class UntouchedStore:
+        def rebuild_lock(self):
+            return nullcontext()
+
         def replace_all(self, chunks, embeddings):
             pytest.fail("Invalid embeddings must not replace the existing index")
 
@@ -43,6 +47,9 @@ def test_documents_changed_during_embedding_do_not_replace_active_index(tmp_path
             return [[1.0, 0.0] for _ in texts]
 
     class UntouchedStore:
+        def rebuild_lock(self):
+            return nullcontext()
+
         def replace_all(self, *args, **kwargs):
             pytest.fail("O índice antigo deve ser preservado")
 

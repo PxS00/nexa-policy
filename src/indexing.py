@@ -38,6 +38,11 @@ def rebuild_index(
     vector_store: VectorStore,
 ) -> IndexingResult:
     """Rebuild the vector index from the curated document directory."""
+    with vector_store.rebuild_lock():
+        return _rebuild_index(settings, ai_client, vector_store)
+
+
+def _rebuild_index(settings: Settings, ai_client: GeminiClient, vector_store: VectorStore) -> IndexingResult:
     before = index_fingerprint(settings)
     loader = DocumentLoader(settings.documents_path)
     sections = loader.load_directory()

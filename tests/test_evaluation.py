@@ -53,6 +53,16 @@ def test_curated_dataset_references_real_corpus_and_covers_multiple_sources():
     assert any(not c["expected_sources"] for c in cases)
 
 
+def test_holdout_is_disjoint_and_has_review_facts():
+    development = load_cases(Path("evals/policy_questions.json"))
+    holdout = load_cases(Path("evals/policy_holdout.json"))
+    assert not {c["id"] for c in development} & {c["id"] for c in holdout}
+    assert not {c["question"] for c in development} & {c["question"] for c in holdout}
+    sources = {s.metadata["source_path"] for s in DocumentLoader(Path("documents")).load_directory()}
+    assert all(set(c["expected_sources"]).issubset(sources) for c in holdout)
+    assert all(bool(c["expected_facts"]) == bool(c["expected_sources"]) for c in holdout)
+
+
 def test_empty_evaluation_is_rejected():
     with pytest.raises(ValueError):
         evaluate([], lambda _: [])

@@ -1,7 +1,10 @@
 from pathlib import Path
 from uuid import uuid4
+import subprocess
+import sys
 
 import pytest
+from filelock import Timeout
 
 from src.models import TextChunk
 from src.vector_store import VectorStore
@@ -42,6 +45,7 @@ def test_persistent_index_can_be_reopened(tmp_path):
 def test_failed_staging_preserves_previous_index_and_fingerprint(monkeypatch):
     store = VectorStore(Path("unused"), "test-" + uuid4().hex, persistent=False)
     store.replace_all([TextChunk("old", "Antigo", {"source_path": "old.md"})], [[1.0, 0.0]], fingerprint="old")
+    before = {c.name for c in store._client.list_collections()}
     original_create = store._client.create_collection
 
     def failing_create(*args, **kwargs):
@@ -56,3 +60,18 @@ def test_failed_staging_preserves_previous_index_and_fingerprint(monkeypatch):
         store.replace_all([TextChunk("new", "Novo", {"source_path": "new.md"})], [[1.0, 0.0]], fingerprint="new")
     assert store.search([1.0, 0.0], 1)[0].text == "Antigo"
     assert store.fingerprint() == "old"
+    assert {c.name for c in store._client.list_collections()} == before
+
+
+def test_persistent_rebuild_lock_prevents_parallel_rebuilds(tmp_path):
+    first = VectorStore(tmp_path, "shared-index")
+    second = VectorStore(tmp_path, "shared-index")
+    with first.rebuild_lock():
+        with pytest.raises(Timeout):
+            with second.rebuild_lock():
+                pytest.fail("Second rebuild must not enter")
+        code = "from filelock import FileLock, Timeout; import sys\ntry:\n with FileLock(sys.argv[1], timeout=0): pass\nexcept Timeout: sys.exit(7)"
+        child = subprocess.run([sys.executable, "-c", code, str(first._lock_path)], timeout=15)
+        assert child.returncode == 7
+    with second.rebuild_lock():
+        pass

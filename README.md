@@ -53,7 +53,7 @@ python -m venv .venv
 Ative com `source .venv/bin/activate` no Linux/macOS ou `.venv\Scripts\Activate.ps1` no PowerShell.
 
 ```bash
-python -m pip install -r requirements-dev.txt
+python -m pip install -r requirements-dev.lock
 ```
 
 Copie `.env.example` para `.env` (`cp .env.example .env` ou `Copy-Item .env.example .env` no PowerShell). Defina `GEMINI_API_KEY` e confirme modelos disponíveis na sua conta. Os nomes padrão são herdados do projeto original; disponibilidade e quotas não foram revalidadas nesta evolução. Nunca versione a chave.
@@ -145,7 +145,9 @@ Na segunda captura a versão anterior ainda anexava `faq.md` à abstenção. Est
 
 Próximo marco: baseline real, comparação top-1/top-k e calibração com dados separados; depois integridade do índice e avaliação das respostas. [Diagnóstico e plano com critérios de conclusão](docs/portfolio-plan.md).
 
-Limitações: cinco documentos fictícios; sem autenticação, autorização por documento, OCR, sincronização externa, reranking ou observabilidade centralizada. Reindexação é integral; coleções anteriores e tentativas de staging podem ocupar espaço e não há coordenação de reindexações concorrentes entre processos. Histórico é exibido na sessão, mas não enviado como memória ao modelo. Dependências têm intervalos de versões, sem lockfile. O protótipo não está pronto para documentos confidenciais.
+Limitações: cinco documentos fictícios; sem autenticação, autorização por documento, OCR, sincronização externa, reranking ou observabilidade centralizada. Reindexação é integral; coleções anteriores e tentativas com resultado ambíguo podem ocupar espaço. O bloqueio coordena processos locais que compartilham o mesmo diretório, não instalações distribuídas. Histórico é exibido na sessão, mas não enviado como memória ao modelo. Os arquivos `.lock` fixam versões, mas não incluem hashes de pacotes. O protótipo não está pronto para documentos confidenciais.
+
+O [escopo proposto para acesso por usuário e documento](docs/access-design.md) define critérios de teste; ainda não está implementado.
 
 ## Origem e autoria
 

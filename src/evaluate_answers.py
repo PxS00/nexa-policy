@@ -22,7 +22,8 @@ def evaluate_answers(cases, ask, on_row=lambda rows: None):
     rows = []
     for case in cases:
         row = {"id": case["id"], "question": case["question"],
-               "expected_sources": case["expected_sources"]}
+               "expected_sources": case["expected_sources"],
+               "expected_facts": case.get("expected_facts", [])}
         try:
             response = ask(case["question"])
             row.update(status="abstained" if response.answer == FALLBACK_ANSWER else "answered",

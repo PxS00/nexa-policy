@@ -24,7 +24,7 @@ Todas usam os resultados aprovados pelo limiar e até `TOP_K` chunks. No ranking
 
 Classe ausente produz `null`. Recuperar todas as fontes não penaliza fontes extras. As métricas são por documento, não por fato: o arquivo certo pode conter o chunk errado. A abstenção do gerador está fora do escopo. Revise também os resultados por pergunta.
 
-O relatório registra configuração, contagens indexadas, hashes SHA-256 do corpus/dataset, timestamp UTC, revisão Git e indicador de alterações locais, sem chave. Dependências não estão travadas; registre `python -m pip freeze` para comparações rigorosas. Revisão com alterações locais não identifica todos os bytes do código executado.
+O relatório registra configuração, contagens indexadas, hashes SHA-256 do corpus/dataset, timestamp UTC, revisão Git e indicador de alterações locais, sem chave. Dependências estão fixadas em arquivos `.lock`; registre também `python -m pip freeze` para comparações rigorosas. Revisão com alterações locais não identifica todos os bytes do código executado.
 
 ## Próximo experimento
 
@@ -40,5 +40,7 @@ python -m src.evaluate_answers --output evals/reports/answers-review.json
 ```
 
 O comando indexa o corpus com embeddings reais em memória e chama o modelo para cada caso, podendo consumir quota. O relatório salva resposta, trechos e campos `facts_supported`, `citations_supported` e `notes` para preenchimento manual. Ele registra resultados a cada caso e interrompe no primeiro erro, inclusive quota ou geração incompleta; `complete=false` indica rodada parcial. A saída é sobrescrita, portanto use nomes diferentes. Os campos de revisão começam em `null`: não representam avaliação automática. Revise cada afirmação e sua citação contra os trechos e os documentos originais, inclusive casos de abstenção indevida.
+
+Um segundo conjunto separado de 15 perguntas está em `policy_holdout.json`; contém fatos esperados para facilitar a revisão. Veja a [rubrica de revisão](review-rubric.md). Ele ainda não foi executado com o Gemini.
 
 Os relatórios versionados em `baselines/` registram uma execução real com o corpus e dataset atuais. Valores controlados dos testes validam o cálculo, não o sistema de embeddings. As métricas das 15 perguntas são exploratórias e não substituem uma avaliação independente.

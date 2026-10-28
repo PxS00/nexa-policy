@@ -2,6 +2,8 @@
 
 ## Atualização posterior: execução real
 
+Em outra evolução local, 48 testes passaram usando as versões fixadas em `requirements-dev.lock`. Testes incluem bloqueio do mesmo índice em outro processo local, remoção da coleção temporária quando a escrita falha antes da promoção e validação do novo conjunto separado de perguntas. Nenhuma chamada Gemini foi feita nessa evolução. O bloqueio não garante coordenação em instalações distribuídas; coleções antigas continuam preservadas.
+
 Na evolução da integridade do índice, 46 testes locais passaram sem chamadas Gemini. Uma falha simulada de escrita na coleção temporária preservou os resultados e o fingerprint do índice anterior; uma alteração dos documentos durante a geração de embeddings também impediu a troca. Os testes não simulam interrupção de energia, múltiplos processos ou falhas ambíguas da operação de troca.
 
 Na rodada seguinte, o novo avaliador registrou dois casos respondidos e interrompeu o terceiro por `MAX_TOKENS`; a execução ficou incompleta (3/15). As duas respostas sobre férias e suas citações foram conferidas manualmente contra a política. O código agora rejeita respostas interrompidas; o teste real identificou o motivo, mas não demonstra que todas as perguntas podem ser respondidas dentro do limite atual.

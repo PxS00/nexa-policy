@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 from pathlib import Path
+from contextlib import nullcontext
+import hashlib
 from uuid import uuid4
 
 import chromadb
+from filelock import FileLock
 
 from src.models import SearchResult, TextChunk
 
@@ -16,6 +19,12 @@ class VectorStore:
                         if persistent else chromadb.EphemeralClient())
         self._collection_name = collection_name
         self._collection = self._get_or_create_collection()
+        lock_id = hashlib.sha256(collection_name.encode()).hexdigest()[:24]
+        self._lock_path = path / f".rebuild-{lock_id}.lock" if persistent else None
+
+    def rebuild_lock(self):
+        """Serialize rebuilds of the same persistent collection across local processes."""
+        return FileLock(str(self._lock_path), timeout=0) if self._lock_path else nullcontext()
 
     def _get_or_create_collection(self):
         return self._client.get_or_create_collection(
@@ -43,19 +52,26 @@ class VectorStore:
         stage_name = "stage-" + uuid4().hex
         stage = self._client.create_collection(name=stage_name, metadata={"hnsw:space": "cosine"})
 
-        batch_size = 100
-        for start in range(0, len(chunks), batch_size):
-            batch = chunks[start:start + batch_size]
-            batch_embeddings = embeddings[start:start + batch_size]
-            stage.upsert(
-                ids=[chunk.id for chunk in batch],
-                documents=[chunk.text for chunk in batch],
-                metadatas=[chunk.metadata for chunk in batch],
-                embeddings=batch_embeddings,
-            )
-
-        if stage.count() != len(chunks):
-            raise RuntimeError("A coleção temporária está incompleta; o índice anterior foi preservado.")
+        try:
+            batch_size = 100
+            for start in range(0, len(chunks), batch_size):
+                batch = chunks[start:start + batch_size]
+                batch_embeddings = embeddings[start:start + batch_size]
+                stage.upsert(
+                    ids=[chunk.id for chunk in batch],
+                    documents=[chunk.text for chunk in batch],
+                    metadatas=[chunk.metadata for chunk in batch],
+                    embeddings=batch_embeddings,
+                )
+            if stage.count() != len(chunks):
+                raise RuntimeError("A coleção temporária está incompleta; o índice anterior foi preservado.")
+        except Exception:
+            # Only delete before promotion; a failed pointer update can be ambiguous.
+            try:
+                self._client.delete_collection(stage_name)
+            except Exception:
+                pass
+            raise
         anchor = self._client.get_collection(self._collection_name)
         metadata = {**(anchor.metadata or {}), "active_collection": stage_name}
         metadata.pop("hnsw:space", None)  # Chroma rejects this key in modify metadata.

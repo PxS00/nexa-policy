@@ -35,8 +35,8 @@ Estimativas são de esforço, não compromisso de calendário. Encerrar um marco
 | --- | --- | --- |
 | 1 — 1 a 2 dias | Baseline real top-1/top-4 | Relatórios com mesma base/modelo, revisão, configuração e análise de falhas, incluindo negativas e compostas |
 | 2 — 2 a 3 dias | 30 a 50 casos e avaliação de respostas | Desenvolvimento/teste separados; fatos esperados e rubrica de sustentação/citações; modelo real identificado |
-| 3 — parcialmente implementado | Integridade do índice | Fingerprint e staging implementados; faltam rollback explícito, limpeza, coordenação e testes de falhas entre processos |
-| 4 — 1 a 2 dias | Reprodutibilidade e nova demo | Dependências travadas, build validado, gravação curta, revisão implantada identificada e rollback documentado |
+| 3 — parcialmente implementado | Integridade do índice | Fingerprint, staging, bloqueio local e limpeza de staging que falhou; faltam rollback explícito, coleta de coleções antigas e coordenação distribuída |
+| 4 — parcialmente implementado | Reprodutibilidade e nova demo | Dependências fixadas; faltam gravação curta, revisão implantada identificada e rollback documentado |
 | 5 — condicionado a evidência | Busca híbrida ou reranker | Ganho medido em teste separado com custo/latência; manter somente se justificar |
 
 Próximo corte: marcos 1 e 2. Evitar expandir simultaneamente para multiagentes, conectores, Kubernetes ou vários provedores. Autenticação e autorização por documento são pré-requisitos para qualquer dado interno real.
