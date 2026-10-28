@@ -1,0 +1,107 @@
+[
+  {
+    "id": "vacation-days",
+    "answer": "Você tem direito a 30 dias corridos de férias após cada período aquisitivo de 12 meses [FONTE 1].",
+    "abstained": false,
+    "sources": [
+      "rh/politica_ferias.md",
+      "comunicacao/faq.md",
+      "operacional/onboarding.html",
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "vacation-notice",
+    "answer": "O pedido de férias deve ser enviado ao RH com no mínimo 30 dias de antecedência [FONTE 1].",
+    "abstained": false,
+    "sources": [
+      "rh/politica_ferias.md",
+      "comunicacao/faq.md",
+      "operacional/onboarding.html",
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "vacation-split",
+    "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+    "abstained": true,
+    "sources": []
+  },
+  {
+    "id": "meal",
+    "answer": "O limite diário para despesas de alimentação em viagens corporativas previamente aprovadas é de R$ 120 por dia [FONTE 1]. O prazo para solicitar o reembolso é de até 30 dias após a realização da despesa [FONTE 1].",
+    "abstained": false,
+    "sources": [
+      "financeiro/politica_reembolso.csv",
+      "rh/politica_ferias.md",
+      "comunicacao/faq.md",
+      "operacional/onboarding.html"
+    ]
+  },
+  {
+    "id": "equipment",
+    "answer": "Sim, para o reembolso de material de trabalho é exigida a aprovação prévia da liderança [FONTE 1]. \n\nAlém disso,",
+    "abstained": false,
+    "sources": [
+      "financeiro/politica_reembolso.csv",
+      "comunicacao/faq.md",
+      "rh/politica_ferias.md",
+      "operacional/onboarding.html"
+    ]
+  },
+  {
+    "id": "education",
+    "answer": "Você pode utilizar até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança [FONTE 1].",
+    "abstained": false,
+    "sources": [
+      "comunicacao/faq.md",
+      "financeiro/politica_reembolso.csv",
+      "rh/politica_ferias.md",
+      "operacional/onboarding.html"
+    ]
+  },
+  {
+    "id": "remote",
+    "error": "ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your c"
+  },
+  {
+    "id": "training",
+    "error": "ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your c"
+  },
+  {
+    "id": "ethics",
+    "error": "ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your c"
+  },
+  {
+    "id": "onboarding-education",
+    "error": "ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your c"
+  },
+  {
+    "id": "vacation-meal",
+    "error": "ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your c"
+  },
+  {
+    "id": "parking",
+    "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+    "abstained": true,
+    "sources": []
+  },
+  {
+    "id": "dental",
+    "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+    "abstained": true,
+    "sources": []
+  },
+  {
+    "id": "revenue",
+    "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+    "abstained": true,
+    "sources": []
+  },
+  {
+    "id": "weather",
+    "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+    "abstained": true,
+    "sources": []
+  }
+]

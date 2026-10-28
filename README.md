@@ -2,6 +2,8 @@
 
 Assistente RAG para consultar férias, reembolsos, benefícios e onboarding da **NexaCorp, empresa fictícia**, com trechos recuperados para conferência. Projeto de portfólio de AI Engineering, originado no Challenge AluraAgente — ONE IA for Tech.
 
+O projeto ajuda a localizar regras dispersas e a conferir sua origem. Uma resposta pode reunir informações de documentos diferentes, preservando os trechos consultados. Foi desenvolvido para demonstrar ingestão documental, recuperação semântica, avaliação e tratamento explícito de falhas; não há medição de economia de tempo ou uso por empresas reais.
+
 **Caso de uso:** um colaborador precisa descobrir quais políticas se aplicam a uma solicitação e onde conferir a informação. Exemplo: “Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?”. A recuperação pode fornecer evidências de onboarding e benefícios no mesmo contexto.
 
 Não há dados de clientes, métricas de impacto ou uso em produção comprovados. O sistema consulta documentos; não aprova solicitações nem executa ações corporativas. Instruções de prompt não garantem correção ou resistência a prompt injection.
@@ -11,7 +13,7 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 - Ingestão recursiva de PDF, DOCX, XLSX, PPTX, Markdown, CSV, JSON e HTML, com metadados e IDs SHA-256 determinísticos.
 - Embeddings Gemini e índice ChromaDB persistente, com busca por distância de cosseno.
 - Até `TOP_K` trechos abaixo do limiar, permitindo contexto com múltiplas fontes.
-- Evidências com caminho relativo, localização, texto e distância. O prompt solicita citações `[FONTE n]`; citações geradas ainda não são verificadas automaticamente.
+- Evidências com caminho relativo, localização, texto e distância. Respostas sem citação ou com número de fonte inválido são substituídas pela abstenção. A checagem não verifica se a fonte sustenta a afirmação.
 - Abstenção sem geração quando nenhum trecho passa pelo limiar. A mensagem padrão de abstenção retornada pelo modelo também não recebe fontes.
 - Avaliação de recuperação com 15 perguntas curadas, incluindo duas compostas e quatro sem resposta.
 - Testes sem credenciais, incluindo Chroma real com vetores controlados e interface Streamlit com serviços simulados; workflow de CI.
@@ -108,7 +110,18 @@ python -m src.evaluation --output evals/reports/retrieval.json
 
 O comando envia corpus e perguntas ao Gemini para gerar embeddings e pode consumir quota/cobrança. O relatório registra recall de fontes, MRR, recuperação de todas as fontes, abstenção correta, tempo de recuperação, configuração, revisão e hashes do corpus/dataset. [Metodologia](evals/README.md).
 
-**Resultados semânticos reais ainda não publicados.** A suíte valida o cálculo com dados controlados. [Registro de validação desta evolução](docs/validation.md).
+### Baseline real de recuperação
+
+Em 28/10/2026, com Gemini `gemini-embedding-001`, cinco documentos fictícios, limiar 0,65 e 15 perguntas curadas (11 respondíveis e quatro negativas):
+
+| Configuração | Todas as fontes esperadas | Abstenção na recuperação para negativas |
+| --- | --- | --- |
+| top-1 | 9/11 | 0/4 |
+| top-4 | 11/11 | 0/4 |
+
+Top-4 recuperou as fontes das duas perguntas compostas; o filtro não rejeitou nenhuma negativa. Isso é um experimento pequeno de recuperação por documento, não uma medida de qualidade de respostas nem resultado em produção. Os relatórios incluem distâncias, tempos, configuração, hash e revisão: [top-1](evals/baselines/retrieval-top1.json) e [top-4](evals/baselines/retrieval-top4.json). A revisão registrada antecede a validação de citações, que não altera a recuperação. [Registro de validação](docs/validation.md).
+
+Em uma rodada exploratória de geração com a validação de citações ativa, 10 das 15 perguntas retornaram respostas; cinco falharam por limite de quota (429). As quatro negativas que retornaram resposta receberam a abstenção padrão; uma pergunta respondível também recebeu abstenção e outra resposta ficou incompleta. [Respostas e erros registrados](evals/baselines/answers-exploratory.json). A rodada não mede precisão geral, e a razão da abstenção indevida não foi identificada.
 
 ## Demonstração
 

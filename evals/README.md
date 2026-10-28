@@ -33,4 +33,4 @@ O relatório registra configuração, contagens indexadas, hashes SHA-256 do cor
 3. Crie exemplos separados de desenvolvimento e teste antes de calibrar limiar. Não ajuste e declare melhora usando apenas os mesmos 15 exemplos.
 4. Avalie respostas reais por fatos esperados e validade das citações; registre falhas, tempo e custo reais.
 
-Nenhum desempenho semântico real foi medido nesta revisão. Valores controlados dos testes validam o cálculo, não o sistema de embeddings.
+Os relatórios versionados em `baselines/` registram uma execução real com o corpus e dataset atuais. Valores controlados dos testes validam o cálculo, não o sistema de embeddings. As métricas das 15 perguntas são exploratórias e não substituem uma avaliação independente.

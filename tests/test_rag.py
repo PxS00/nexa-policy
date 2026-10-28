@@ -16,7 +16,7 @@ class FakeAiClient:
 
     def generate(self, prompt: str) -> str:
         self.generated_prompt = prompt
-        return "O pedido de férias deve ser enviado com 30 dias de antecedência."
+        return "O pedido de férias deve ser enviado com 30 dias de antecedência [FONTE 1]."
 
 
 class FakeVectorStore:
@@ -162,3 +162,12 @@ def test_empty_index_abstains_without_generation():
     assert response.answer == FALLBACK_ANSWER
     assert not response.sources
     assert ai.generated_prompt is None
+
+
+@pytest.mark.parametrize("answer", ["Resposta sem referência.", "Resposta [FONTE 0].", "Resposta [FONTE 2].", "Resposta [FONTE 1] e [FONTE 99]."])
+def test_invalid_or_missing_citations_trigger_abstention(answer):
+    ai = FakeAiClient()
+    ai.generate = lambda _: answer
+    response = RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")
+    assert response.answer == FALLBACK_ANSWER
+    assert response.sources == ()

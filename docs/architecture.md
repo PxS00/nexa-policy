@@ -7,7 +7,7 @@
 | Manter Streamlit e Chroma local | Demonstração pequena e executável | Sem API independente ou escala distribuída |
 | Todos os trechos elegíveis até top-k | Perguntas que cruzam documentos | Mais contexto e distrações; comparar com top-1 |
 | Separar recuperação e resposta | Isolar erros de busca dos erros de geração | Avaliação da resposta ainda pendente |
-| Referência por trecho na ordem do prompt | Preservar evidências diferentes de um arquivo | Pode repetir documentos; citações não são verificadas |
+| Referência por trecho na ordem do prompt | Preservar evidências diferentes de um arquivo | Pode repetir documentos; sustentação semântica não é verificada |
 | Mostrar texto e caminho da evidência | Permitir conferência | Sem controle de acesso |
 | Chroma em memória na avaliação | Preservar índice da aplicação | Benchmark não testa persistência |
 | Propagar erro de exclusão da coleção | Não ocultar falha e misturar conteúdo velho/novo | Substituição continua não atômica |
@@ -16,7 +16,7 @@
 
 - O filtro ordena resultados e rejeita distâncias não finitas; não detecta se um trecho responde à pergunta. Distância não é confiança calibrada.
 - Perguntas sem resposta podem recuperar conteúdo parecido e chegar ao gerador. O prompt não garante fundamentação ou resistência a prompt injection.
-- Fontes representam contexto fornecido ao modelo, não prova de sustentação de cada afirmação. Só a mensagem padrão de abstenção é reconhecida; paráfrases não são detectadas automaticamente.
+- Fontes representam contexto fornecido ao modelo, não prova de sustentação de cada afirmação. Respostas sem citações ou com números inválidos resultam em abstenção; essa verificação sintática não valida a relação entre afirmação e trecho. Só a mensagem padrão de abstenção é reconhecida; paráfrases não são detectadas automaticamente.
 - Exclusão e recriação da coleção podem perder o índice se a escrita falhar. Uma coleção de staging e rollback são próximos passos.
 - O índice não persiste fingerprint de modelo/dimensão; mudanças exigem nova coleção ou reindexação manual.
 - Deduplicação por texto preserva apenas a primeira origem. Data de atualização é o mtime do arquivo, não vigência da política; não há resolução de versões conflitantes.
