@@ -24,3 +24,16 @@ def test_real_chroma_search_and_replacement():
     with pytest.raises(ValueError):
         store.replace_all([], [[1.0, 0.0]])
     assert store.count() == 1
+
+
+def test_persistent_index_can_be_reopened(tmp_path):
+    path = tmp_path / "chroma"
+    name = "test-" + uuid4().hex
+    store = VectorStore(path, name)
+    store.replace_all([TextChunk("a", "Política de férias", {"source_path": "rh/ferias.md"})], [[1.0, 0.0]])
+
+    reopened = VectorStore(path, name)
+    results = reopened.search([1.0, 0.0], 1)
+    assert reopened.count() == 1
+    assert results[0].text == "Política de férias"
+    assert results[0].metadata["source_path"] == "rh/ferias.md"

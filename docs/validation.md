@@ -2,6 +2,8 @@
 
 Data: 28/10/2026. Base auditada: `da53e6f`. Ambiente local Windows, Python 3.12.14, ChromaDB 1.5.9, Streamlit 1.66.1, pytest 8.4.2. Dependências instaladas a partir dos intervalos de `requirements-dev.txt` em ambiente virtual isolado.
 
+Na validação posterior, a suíte passou com **34 testes**; foi acrescentado um teste que reabre uma coleção Chroma persistente e consulta seu conteúdo. A reabertura ocorre no mesmo processo, portanto não comprova reinício completo da aplicação.
+
 ## Executado
 
 ```text
