@@ -10,8 +10,9 @@ from src.models import SearchResult, TextChunk
 class VectorStore:
     """Persistent Chroma collection configured for cosine similarity."""
 
-    def __init__(self, path: Path, collection_name: str) -> None:
-        self._client = chromadb.PersistentClient(path=str(path))
+    def __init__(self, path: Path, collection_name: str, *, persistent: bool = True) -> None:
+        self._client = (chromadb.PersistentClient(path=str(path))
+                        if persistent else chromadb.EphemeralClient())
         self._collection_name = collection_name
         self._collection = self._get_or_create_collection()
 
@@ -28,10 +29,8 @@ class VectorStore:
         if len(chunks) != len(embeddings):
             raise ValueError("A quantidade de chunks e embeddings deve ser igual.")
 
-        try:
-            self._client.delete_collection(self._collection_name)
-        except Exception:
-            pass
+        # A failed deletion must surface rather than mixing old and new content.
+        self._client.delete_collection(self._collection_name)
 
         self._collection = self._get_or_create_collection()
         if not chunks:

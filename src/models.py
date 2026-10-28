@@ -37,6 +37,10 @@ class SourceReference:
     source: str
     category: str
     location: str
+    citation_id: int = 1
+    source_path: str = ""
+    excerpt: str = ""
+    distance: float = 0.0
 
 
 @dataclass(frozen=True, slots=True)

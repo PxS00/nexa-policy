@@ -1,0 +1,17 @@
+[
+  {"id":"vacation-days","question":"Quantos dias de férias tenho e após quanto tempo?","expected_sources":["rh/politica_ferias.md"]},
+  {"id":"vacation-notice","question":"Com qual antecedência devo solicitar férias?","expected_sources":["rh/politica_ferias.md"]},
+  {"id":"vacation-split","question":"Como posso dividir minhas férias?","expected_sources":["rh/politica_ferias.md"]},
+  {"id":"meal","question":"Qual o limite diário de alimentação em viagem e o prazo para pedir reembolso?","expected_sources":["financeiro/politica_reembolso.csv"]},
+  {"id":"equipment","question":"Preciso de aprovação para reembolsar material de trabalho?","expected_sources":["financeiro/politica_reembolso.csv"]},
+  {"id":"education","question":"Quanto posso usar por ano em cursos e certificações?","expected_sources":["comunicacao/faq.md"]},
+  {"id":"remote","question":"Quantos dias por semana posso trabalhar remotamente?","expected_sources":["comunicacao/faq.md"]},
+  {"id":"training","question":"Quais treinamentos são obrigatórios na primeira semana?","expected_sources":["operacional/onboarding.html"]},
+  {"id":"ethics","question":"Como comunicar um conflito de interesse?","expected_sources":["legal/codigo_conduta.json"]},
+  {"id":"onboarding-education","question":"Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?","expected_sources":["operacional/onboarding.html","comunicacao/faq.md"]},
+  {"id":"vacation-meal","question":"Com quanto tempo peço férias e qual o teto de alimentação em viagem?","expected_sources":["rh/politica_ferias.md","financeiro/politica_reembolso.csv"]},
+  {"id":"parking","question":"Qual é o valor do auxílio estacionamento?","expected_sources":[]},
+  {"id":"dental","question":"Qual é a coparticipação do plano odontológico?","expected_sources":[]},
+  {"id":"revenue","question":"Qual foi o faturamento da NexaCorp em 2025?","expected_sources":[]},
+  {"id":"weather","question":"Vai chover amanhã em Curitiba?","expected_sources":[]}
+]
