@@ -14,6 +14,11 @@ def test_chat_renders_evidence_and_retains_it_in_history():
         def count(self):
             return 5
 
+        def fingerprint(self):
+            from src.indexing import index_fingerprint
+            from src.config import Settings
+            return index_fingerprint(Settings.from_env())
+
     class Agent:
         def __init__(self, *args):
             pass

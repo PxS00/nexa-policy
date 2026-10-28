@@ -37,3 +37,22 @@ def test_persistent_index_can_be_reopened(tmp_path):
     assert reopened.count() == 1
     assert results[0].text == "Política de férias"
     assert results[0].metadata["source_path"] == "rh/ferias.md"
+
+
+def test_failed_staging_preserves_previous_index_and_fingerprint(monkeypatch):
+    store = VectorStore(Path("unused"), "test-" + uuid4().hex, persistent=False)
+    store.replace_all([TextChunk("old", "Antigo", {"source_path": "old.md"})], [[1.0, 0.0]], fingerprint="old")
+    original_create = store._client.create_collection
+
+    def failing_create(*args, **kwargs):
+        collection = original_create(*args, **kwargs)
+        def fail(**kwargs):
+            raise RuntimeError("Falha simulada de escrita")
+        monkeypatch.setattr(collection, "upsert", fail)
+        return collection
+
+    monkeypatch.setattr(store._client, "create_collection", failing_create)
+    with pytest.raises(RuntimeError, match="Falha simulada"):
+        store.replace_all([TextChunk("new", "Novo", {"source_path": "new.md"})], [[1.0, 0.0]], fingerprint="new")
+    assert store.search([1.0, 0.0], 1)[0].text == "Antigo"
+    assert store.fingerprint() == "old"

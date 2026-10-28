@@ -35,7 +35,7 @@ Estimativas são de esforço, não compromisso de calendário. Encerrar um marco
 | --- | --- | --- |
 | 1 — 1 a 2 dias | Baseline real top-1/top-4 | Relatórios com mesma base/modelo, revisão, configuração e análise de falhas, incluindo negativas e compostas |
 | 2 — 2 a 3 dias | 30 a 50 casos e avaliação de respostas | Desenvolvimento/teste separados; fatos esperados e rubrica de sustentação/citações; modelo real identificado |
-| 3 — 2 a 3 dias | Integridade do índice | Fingerprint modelo/dimensão/corpus, staging/rollback e testes de alteração, exclusão e falha de escrita |
+| 3 — parcialmente implementado | Integridade do índice | Fingerprint e staging implementados; faltam rollback explícito, limpeza, coordenação e testes de falhas entre processos |
 | 4 — 1 a 2 dias | Reprodutibilidade e nova demo | Dependências travadas, build validado, gravação curta, revisão implantada identificada e rollback documentado |
 | 5 — condicionado a evidência | Busca híbrida ou reranker | Ganho medido em teste separado com custo/latência; manter somente se justificar |
 

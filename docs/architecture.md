@@ -10,15 +10,15 @@
 | Referência por trecho na ordem do prompt | Preservar evidências diferentes de um arquivo | Pode repetir documentos; sustentação semântica não é verificada |
 | Mostrar texto e caminho da evidência | Permitir conferência | Sem controle de acesso |
 | Chroma em memória na avaliação | Preservar índice da aplicação | Benchmark não testa persistência |
-| Propagar erro de exclusão da coleção | Não ocultar falha e misturar conteúdo velho/novo | Substituição continua não atômica |
+| Construir coleção separada e trocar ponteiro após concluir | Falhas de escrita não substituem o índice ativo | Coleções antigas permanecem; concorrência entre processos não é coordenada |
 
 ## Fronteiras de confiabilidade
 
 - O filtro ordena resultados e rejeita distâncias não finitas; não detecta se um trecho responde à pergunta. Distância não é confiança calibrada.
 - Perguntas sem resposta podem recuperar conteúdo parecido e chegar ao gerador. O prompt não garante fundamentação ou resistência a prompt injection.
 - Fontes representam contexto fornecido ao modelo, não prova de sustentação de cada afirmação. Respostas sem citações ou com números inválidos resultam em abstenção; essa verificação sintática não valida a relação entre afirmação e trecho. Só a mensagem padrão de abstenção é reconhecida; paráfrases não são detectadas automaticamente.
-- Exclusão e recriação da coleção podem perder o índice se a escrita falhar. Uma coleção de staging e rollback são próximos passos.
-- O índice não persiste fingerprint de modelo/dimensão; mudanças exigem nova coleção ou reindexação manual.
+- Um fingerprint inclui arquivos, modelo/dimensão e parâmetros de chunking; a interface bloqueia consultas se houver divergência ou índice legado. Isso não captura mudanças na implementação do extrator nem detecta modificações durante a leitura que sejam revertidas antes da segunda verificação.
+- A troca do ponteiro só acontece após preparar a coleção. Não há transação distribuída, rollback automático após troca, coleta de coleções antigas ou coordenação entre reindexações simultâneas; uma falha ambígua na atualização do ponteiro precisa ser investigada antes de remover coleções.
 - Deduplicação por texto preserva apenas a primeira origem. Data de atualização é o mtime do arquivo, não vigência da política; não há resolução de versões conflitantes.
 - O histórico não é memória do LLM. Reindexação concorrente não tem coordenação dedicada. A coleção é compartilhada pelo processo.
 

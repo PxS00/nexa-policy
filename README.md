@@ -17,6 +17,7 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 - Abstenção sem geração quando nenhum trecho passa pelo limiar. A mensagem padrão de abstenção retornada pelo modelo também não recebe fontes.
 - Avaliação de recuperação com 15 perguntas curadas, incluindo duas compostas e quatro sem resposta.
 - Testes sem credenciais, incluindo Chroma real com vetores controlados e interface Streamlit com serviços simulados; workflow de CI.
+- Reindexação em coleção separada, com troca após escrita completa e fingerprint da base e dos parâmetros de indexação.
 - Docker com usuário não privilegiado, healthcheck HTTP e volume para o índice.
 
 ## Arquitetura
@@ -61,7 +62,7 @@ Copie `.env.example` para `.env` (`cp .env.example .env` ou `Copy-Item .env.exam
 streamlit run app.py
 ```
 
-Abra [localhost:8501](http://localhost:8501). A primeira execução indexa `documents/` e faz chamadas de embeddings. A reindexação manual gera novas chamadas e substitui o índice completo.
+Abra [localhost:8501](http://localhost:8501). A primeira execução indexa `documents/` e faz chamadas de embeddings. A reindexação manual gera novas chamadas e prepara uma coleção completa antes de trocar a coleção ativa. Índices antigos sem fingerprint exigem reindexação manual; mudanças de documentos ou de configuração também bloqueiam novas consultas até reindexar.
 
 ### Configuração
 
@@ -144,7 +145,7 @@ Na segunda captura a versão anterior ainda anexava `faq.md` à abstenção. Est
 
 Próximo marco: baseline real, comparação top-1/top-k e calibração com dados separados; depois integridade do índice e avaliação das respostas. [Diagnóstico e plano com critérios de conclusão](docs/portfolio-plan.md).
 
-Limitações: cinco documentos fictícios; sem autenticação, autorização por documento, OCR, sincronização externa, reranking ou observabilidade centralizada. Reindexação integral e não atômica. Histórico é exibido na sessão, mas não enviado como memória ao modelo. Dependências têm intervalos de versões, sem lockfile. O protótipo não está pronto para documentos confidenciais.
+Limitações: cinco documentos fictícios; sem autenticação, autorização por documento, OCR, sincronização externa, reranking ou observabilidade centralizada. Reindexação é integral; coleções anteriores e tentativas de staging podem ocupar espaço e não há coordenação de reindexações concorrentes entre processos. Histórico é exibido na sessão, mas não enviado como memória ao modelo. Dependências têm intervalos de versões, sem lockfile. O protótipo não está pronto para documentos confidenciais.
 
 ## Origem e autoria
 

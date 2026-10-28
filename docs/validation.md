@@ -2,6 +2,8 @@
 
 ## Atualização posterior: execução real
 
+Na evolução da integridade do índice, 46 testes locais passaram sem chamadas Gemini. Uma falha simulada de escrita na coleção temporária preservou os resultados e o fingerprint do índice anterior; uma alteração dos documentos durante a geração de embeddings também impediu a troca. Os testes não simulam interrupção de energia, múltiplos processos ou falhas ambíguas da operação de troca.
+
 Na rodada seguinte, o novo avaliador registrou dois casos respondidos e interrompeu o terceiro por `MAX_TOKENS`; a execução ficou incompleta (3/15). As duas respostas sobre férias e suas citações foram conferidas manualmente contra a política. O código agora rejeita respostas interrompidas; o teste real identificou o motivo, mas não demonstra que todas as perguntas podem ser respondidas dentro do limite atual.
 
 Com a chave configurada, foram executados os baselines de recuperação real ([top-1](../evals/baselines/retrieval-top1.json), [top-4](../evals/baselines/retrieval-top4.json)); os detalhes e limites estão no README. A imagem Docker foi construída e o container ficou saudável. Uma pergunta sobre férias recebeu resposta citada e uma pergunta sobre estacionamento recebeu abstenção. Esses dois exemplos não constituem uma avaliação estatística da geração. A validação sintática de citações foi adicionada posteriormente e a suíte passou com 38 testes.

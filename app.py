@@ -6,7 +6,7 @@ import streamlit as st
 
 from src.ai_client import GeminiClient
 from src.config import Settings
-from src.indexing import rebuild_index
+from src.indexing import index_fingerprint, rebuild_index
 from src.rag import RagAgent
 from src.vector_store import VectorStore
 
@@ -86,6 +86,15 @@ if vector_store.count() == 0:
     except Exception as exc:
         st.error(f"Não foi possível preparar a base: {exc}")
         st.stop()
+
+try:
+    saved_fingerprint = vector_store.fingerprint()
+    if not saved_fingerprint or saved_fingerprint != index_fingerprint(settings):
+        st.warning("A base ou a configuração de embeddings mudou (ou o índice é antigo). Reindexe para continuar.")
+        st.stop()
+except (OSError, ValueError) as exc:
+    st.warning(f"Não foi possível verificar a versão da base: {exc}")
+    st.stop()
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
