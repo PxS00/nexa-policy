@@ -1,0 +1,4115 @@
+{
+  "revision": "4147778797e5ae722dc1eca8f6aec32a92c8f55b",
+  "working_tree_dirty": true,
+  "dataset_hashes": {
+    "multisource_stress.json": "a371df500b28f563259615e37f9122f1d387bc8f718b54b96f8ebf9bdde64567",
+    "policy_holdout.json": "41288050432306976367895b812e0db379bda504421226481745e9ea08f9665d",
+    "policy_questions.json": "535d6e489dfcb45db63c6904e7b2ad2625d16181d426aee1e8bc2629e064e178",
+    "retrieval_extra_cases.json": "5e5e55d6a2852c606eaf0a03d6174ebc34a8f401114b71b5ad82c0537b8f5176",
+    "retrieval_gap_check.json": "8df2a486703c8b9d9a1b31de40a7cc14be74ff20dbb7acaecd159ac51bc7c645"
+  },
+  "settings": {
+    "top_k": 4,
+    "threshold": 0.65,
+    "model": "embeddinggemma"
+  },
+  "datasets": {
+    "policy_questions": {
+      "current": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 0.9545454545454546,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "vacation-days",
+            "question": "Quantos dias de férias tenho e após quanto tempo?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.44095689058303833,
+              0.6248669624328613,
+              0.6336987018585205
+            ],
+            "retrieval_ms": 88.97110000543762,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-notice",
+            "question": "Com qual antecedência devo solicitar férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4565253257751465,
+              0.6142386794090271
+            ],
+            "retrieval_ms": 222.44040000077803,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-split",
+            "question": "Como posso dividir minhas férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4783481955528259
+            ],
+            "retrieval_ms": 186.81700000888668,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "meal",
+            "question": "Qual o limite diário de alimentação em viagem e o prazo para pedir reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.3926085829734802
+            ],
+            "retrieval_ms": 47.7653999987524,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "equipment",
+            "question": "Preciso de aprovação para reembolsar material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4915992021560669,
+              0.6156454682350159,
+              0.6192859411239624,
+              0.6423481702804565
+            ],
+            "retrieval_ms": 195.2296999952523,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "education",
+            "question": "Quanto posso usar por ano em cursos e certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5407687425613403,
+              0.599036455154419,
+              0.6486315727233887
+            ],
+            "retrieval_ms": 221.4955999952508,
+            "source_recall": 1.0,
+            "reciprocal_rank": 0.5,
+            "all_sources_found": true
+          },
+          {
+            "id": "remote",
+            "question": "Quantos dias por semana posso trabalhar remotamente?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4943352937698364,
+              0.596398115158081,
+              0.6136888265609741
+            ],
+            "retrieval_ms": 83.89490000263322,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "training",
+            "question": "Quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html"
+            ],
+            "distances": [
+              0.550079345703125
+            ],
+            "retrieval_ms": 37.98140000435524,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "ethics",
+            "question": "Como comunicar um conflito de interesse?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.6089960336685181
+            ],
+            "retrieval_ms": 188.94259999797214,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "onboarding-education",
+            "question": "Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5801390409469604,
+              0.5835623741149902,
+              0.6278808116912842,
+              0.647993803024292
+            ],
+            "retrieval_ms": 154.6682000043802,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-meal",
+            "question": "Com quanto tempo peço férias e qual o teto de alimentação em viagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5447962880134583,
+              0.5821337699890137
+            ],
+            "retrieval_ms": 190.4900999943493,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 46.53979999420699,
+            "correct_abstention": false
+          },
+          {
+            "id": "dental",
+            "question": "Qual é a coparticipação do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 192.63030000729486,
+            "correct_abstention": true
+          },
+          {
+            "id": "revenue",
+            "question": "Qual foi o faturamento da NexaCorp em 2025?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.49905264377593994,
+              0.5523703694343567,
+              0.5910201072692871,
+              0.6169627904891968
+            ],
+            "retrieval_ms": 125.91519999841694,
+            "correct_abstention": false
+          },
+          {
+            "id": "weather",
+            "question": "Vai chover amanhã em Curitiba?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 78.73059999838006,
+            "correct_abstention": true
+          }
+        ],
+        "extra_sources": 12
+      },
+      "relative": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 0.9545454545454546,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "vacation-days",
+            "question": "Quantos dias de férias tenho e após quanto tempo?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.44095689058303833
+            ],
+            "retrieval_ms": 0.00340001133736223,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-notice",
+            "question": "Com qual antecedência devo solicitar férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4565253257751465
+            ],
+            "retrieval_ms": 0.0011999945854768157,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-split",
+            "question": "Como posso dividir minhas férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4783481955528259
+            ],
+            "retrieval_ms": 0.001200009137392044,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "meal",
+            "question": "Qual o limite diário de alimentação em viagem e o prazo para pedir reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.3926085829734802
+            ],
+            "retrieval_ms": 0.001200009137392044,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "equipment",
+            "question": "Preciso de aprovação para reembolsar material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4915992021560669,
+              0.6156454682350159,
+              0.6192859411239624
+            ],
+            "retrieval_ms": 0.0014999968698248267,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "education",
+            "question": "Quanto posso usar por ano em cursos e certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5407687425613403,
+              0.599036455154419,
+              0.6486315727233887
+            ],
+            "retrieval_ms": 0.0011999945854768157,
+            "source_recall": 1.0,
+            "reciprocal_rank": 0.5,
+            "all_sources_found": true
+          },
+          {
+            "id": "remote",
+            "question": "Quantos dias por semana posso trabalhar remotamente?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4943352937698364,
+              0.596398115158081,
+              0.6136888265609741
+            ],
+            "retrieval_ms": 0.0006999907782301307,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "training",
+            "question": "Quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html"
+            ],
+            "distances": [
+              0.550079345703125
+            ],
+            "retrieval_ms": 0.0010999938240274787,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "ethics",
+            "question": "Como comunicar um conflito de interesse?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.6089960336685181
+            ],
+            "retrieval_ms": 0.0008999923011288047,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "onboarding-education",
+            "question": "Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5801390409469604,
+              0.5835623741149902,
+              0.6278808116912842,
+              0.647993803024292
+            ],
+            "retrieval_ms": 0.001100008375942707,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-meal",
+            "question": "Com quanto tempo peço férias e qual o teto de alimentação em viagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5447962880134583,
+              0.5821337699890137
+            ],
+            "retrieval_ms": 0.0010999938240274787,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.000700005330145359,
+            "correct_abstention": false
+          },
+          {
+            "id": "dental",
+            "question": "Qual é a coparticipação do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0009999930625781417,
+            "correct_abstention": true
+          },
+          {
+            "id": "revenue",
+            "question": "Qual foi o faturamento da NexaCorp em 2025?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.49905264377593994,
+              0.5523703694343567,
+              0.5910201072692871,
+              0.6169627904891968
+            ],
+            "retrieval_ms": 0.000700005330145359,
+            "correct_abstention": false
+          },
+          {
+            "id": "weather",
+            "question": "Vai chover amanhã em Curitiba?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.000600004568696022,
+            "correct_abstention": true
+          }
+        ],
+        "extra_sources": 8
+      },
+      "split": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 0.9545454545454546,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "vacation-days",
+            "question": "Quantos dias de férias tenho e após quanto tempo?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.44095689058303833,
+              0.6248669624328613,
+              0.6336987018585205
+            ],
+            "retrieval_ms": 0.1292000088142231,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-notice",
+            "question": "Com qual antecedência devo solicitar férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4565253257751465,
+              0.6142386794090271
+            ],
+            "retrieval_ms": 0.0037999998312443495,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-split",
+            "question": "Como posso dividir minhas férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4783481955528259
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "meal",
+            "question": "Qual o limite diário de alimentação em viagem e o prazo para pedir reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.3926085829734802
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "equipment",
+            "question": "Preciso de aprovação para reembolsar material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4915992021560669,
+              0.6156454682350159,
+              0.6192859411239624,
+              0.6423481702804565
+            ],
+            "retrieval_ms": 0.0016999983927235007,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "education",
+            "question": "Quanto posso usar por ano em cursos e certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5407687425613403,
+              0.599036455154419,
+              0.6486315727233887
+            ],
+            "retrieval_ms": 0.001500011421740055,
+            "source_recall": 1.0,
+            "reciprocal_rank": 0.5,
+            "all_sources_found": true
+          },
+          {
+            "id": "remote",
+            "question": "Quantos dias por semana posso trabalhar remotamente?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4943352937698364,
+              0.596398115158081,
+              0.6136888265609741
+            ],
+            "retrieval_ms": 0.001300009898841381,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "training",
+            "question": "Quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html"
+            ],
+            "distances": [
+              0.550079345703125
+            ],
+            "retrieval_ms": 0.0012999953469261527,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "ethics",
+            "question": "Como comunicar um conflito de interesse?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.6089960336685181
+            ],
+            "retrieval_ms": 0.001200009137392044,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "onboarding-education",
+            "question": "Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5801390409469604,
+              0.5835623741149902,
+              0.6278808116912842,
+              0.647993803024292
+            ],
+            "retrieval_ms": 314.3534999981057,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-meal",
+            "question": "Com quanto tempo peço férias e qual o teto de alimentação em viagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.43943238258361816,
+              0.5437799692153931,
+              0.6259543895721436
+            ],
+            "retrieval_ms": 381.76749998820014,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.011199997970834374,
+            "correct_abstention": false
+          },
+          {
+            "id": "dental",
+            "question": "Qual é a coparticipação do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0027999922167509794,
+            "correct_abstention": true
+          },
+          {
+            "id": "revenue",
+            "question": "Qual foi o faturamento da NexaCorp em 2025?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.49905264377593994,
+              0.5523703694343567,
+              0.5910201072692871,
+              0.6169627904891968
+            ],
+            "retrieval_ms": 0.0024000037228688598,
+            "correct_abstention": false
+          },
+          {
+            "id": "weather",
+            "question": "Vai chover amanhã em Curitiba?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0021999876480549574,
+            "correct_abstention": true
+          }
+        ],
+        "extra_sources": 13
+      },
+      "split_relative": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 0.9545454545454546,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "vacation-days",
+            "question": "Quantos dias de férias tenho e após quanto tempo?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.44095689058303833
+            ],
+            "retrieval_ms": 0.0041000021155923605,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-notice",
+            "question": "Com qual antecedência devo solicitar férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4565253257751465
+            ],
+            "retrieval_ms": 0.0023999891709536314,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-split",
+            "question": "Como posso dividir minhas férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.4783481955528259
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "meal",
+            "question": "Qual o limite diário de alimentação em viagem e o prazo para pedir reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.3926085829734802
+            ],
+            "retrieval_ms": 0.0025000044843181968,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "equipment",
+            "question": "Preciso de aprovação para reembolsar material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4915992021560669,
+              0.6156454682350159,
+              0.6192859411239624
+            ],
+            "retrieval_ms": 0.0025000044843181968,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "education",
+            "question": "Quanto posso usar por ano em cursos e certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5407687425613403,
+              0.599036455154419,
+              0.6486315727233887
+            ],
+            "retrieval_ms": 0.0024999899324029684,
+            "source_recall": 1.0,
+            "reciprocal_rank": 0.5,
+            "all_sources_found": true
+          },
+          {
+            "id": "remote",
+            "question": "Quantos dias por semana posso trabalhar remotamente?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4943352937698364,
+              0.596398115158081,
+              0.6136888265609741
+            ],
+            "retrieval_ms": 0.0020000006770715117,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "training",
+            "question": "Quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html"
+            ],
+            "distances": [
+              0.550079345703125
+            ],
+            "retrieval_ms": 0.0020000006770715117,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "ethics",
+            "question": "Como comunicar um conflito de interesse?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.6089960336685181
+            ],
+            "retrieval_ms": 0.0020000006770715117,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "onboarding-education",
+            "question": "Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5801390409469604,
+              0.5835623741149902,
+              0.6278808116912842,
+              0.647993803024292
+            ],
+            "retrieval_ms": 0.00960000033956021,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "vacation-meal",
+            "question": "Com quanto tempo peço férias e qual o teto de alimentação em viagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.43943238258361816,
+              0.5437799692153931
+            ],
+            "retrieval_ms": 0.006000002031214535,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.0017999991541728377,
+            "correct_abstention": false
+          },
+          {
+            "id": "dental",
+            "question": "Qual é a coparticipação do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0015999976312741637,
+            "correct_abstention": true
+          },
+          {
+            "id": "revenue",
+            "question": "Qual foi o faturamento da NexaCorp em 2025?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.49905264377593994,
+              0.5523703694343567,
+              0.5910201072692871,
+              0.6169627904891968
+            ],
+            "retrieval_ms": 0.0017999991541728377,
+            "correct_abstention": false
+          },
+          {
+            "id": "weather",
+            "question": "Vai chover amanhã em Curitiba?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0014999968698248267,
+            "correct_abstention": true
+          }
+        ],
+        "extra_sources": 8
+      }
+    },
+    "policy_holdout": {
+      "current": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "h-vacation-channel",
+            "question": "Por qual canal interno tiro dúvidas sobre férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5147429704666138,
+              0.5288918614387512
+            ],
+            "retrieval_ms": 77.06820000021253,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-minimum",
+            "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.41707491874694824
+            ],
+            "retrieval_ms": 232.20479999145027,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-manager",
+            "question": "Quem avalia o período de férias solicitado?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4608731269836426,
+              0.6044344902038574,
+              0.6308067440986633
+            ],
+            "retrieval_ms": 55.266700001084246,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-transport",
+            "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.42687922716140747,
+              0.6400829553604126,
+              0.6417864561080933
+            ],
+            "retrieval_ms": 43.26720000244677,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-hotel",
+            "question": "Qual o teto de hospedagem e a condição para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5431822538375854
+            ],
+            "retrieval_ms": 81.02779999899212,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-material-deadline",
+            "question": "Qual o prazo para solicitar reembolso de material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5121639966964722,
+              0.6183602809906006,
+              0.6473071575164795,
+              0.6489447355270386
+            ],
+            "retrieval_ms": 116.90890000318177,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-it-support",
+            "question": "Onde abro um chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6308087110519409
+            ],
+            "retrieval_ms": 83.32910000171978,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-first-day",
+            "question": "O que devo configurar na conta no meu primeiro dia?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5210831165313721,
+              0.6164414286613464,
+              0.6433044672012329
+            ],
+            "retrieval_ms": 187.57530000584666,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-systems",
+            "question": "Quem solicita acesso aos sistemas internos no onboarding?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.38098013401031494,
+              0.5238530039787292,
+              0.5776127576828003
+            ],
+            "retrieval_ms": 44.75230000389274,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-ethics-report",
+            "question": "Onde relato uma violação ética e existe opção anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.538570761680603
+            ],
+            "retrieval_ms": 153.91890000319108,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-combined",
+            "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.508919358253479,
+              0.5694035291671753,
+              0.6034316420555115
+            ],
+            "retrieval_ms": 183.70980001054704,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-childcare",
+            "question": "Qual o valor do auxílio creche?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6381580829620361
+            ],
+            "retrieval_ms": 47.06379999697674,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-bonus",
+            "question": "Qual a regra de pagamento do bônus anual?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6125040054321289,
+              0.624902069568634
+            ],
+            "retrieval_ms": 102.89409999677446,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-holiday",
+            "question": "Qual é o próximo feriado municipal?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.6096303462982178
+            ],
+            "retrieval_ms": 83.37229999597184,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-shares",
+            "question": "Qual é o preço da ação da NexaCorp hoje?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5301040410995483,
+              0.5668161511421204,
+              0.5895950794219971,
+              0.6005045175552368
+            ],
+            "retrieval_ms": 115.28169999655802,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 13
+      },
+      "relative": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "h-vacation-channel",
+            "question": "Por qual canal interno tiro dúvidas sobre férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5147429704666138,
+              0.5288918614387512
+            ],
+            "retrieval_ms": 0.0040000013541430235,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-minimum",
+            "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.41707491874694824
+            ],
+            "retrieval_ms": 0.0017999991541728377,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-manager",
+            "question": "Quem avalia o período de férias solicitado?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4608731269836426,
+              0.6044344902038574
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-transport",
+            "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.42687922716140747
+            ],
+            "retrieval_ms": 0.0016999983927235007,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-hotel",
+            "question": "Qual o teto de hospedagem e a condição para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5431822538375854
+            ],
+            "retrieval_ms": 0.0012999953469261527,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-material-deadline",
+            "question": "Qual o prazo para solicitar reembolso de material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5121639966964722,
+              0.6183602809906006,
+              0.6473071575164795,
+              0.6489447355270386
+            ],
+            "retrieval_ms": 0.0020000006770715117,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-it-support",
+            "question": "Onde abro um chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6308087110519409
+            ],
+            "retrieval_ms": 0.0010999938240274787,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-first-day",
+            "question": "O que devo configurar na conta no meu primeiro dia?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5210831165313721,
+              0.6164414286613464,
+              0.6433044672012329
+            ],
+            "retrieval_ms": 0.0014999968698248267,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-systems",
+            "question": "Quem solicita acesso aos sistemas internos no onboarding?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.38098013401031494,
+              0.5238530039787292
+            ],
+            "retrieval_ms": 0.00100000761449337,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-ethics-report",
+            "question": "Onde relato uma violação ética e existe opção anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.538570761680603
+            ],
+            "retrieval_ms": 0.0014999968698248267,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-combined",
+            "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.508919358253479,
+              0.5694035291671753,
+              0.6034316420555115
+            ],
+            "retrieval_ms": 0.000900006853044033,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-childcare",
+            "question": "Qual o valor do auxílio creche?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6381580829620361
+            ],
+            "retrieval_ms": 0.0015999976312741637,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-bonus",
+            "question": "Qual a regra de pagamento do bônus anual?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6125040054321289,
+              0.624902069568634
+            ],
+            "retrieval_ms": 0.00100000761449337,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-holiday",
+            "question": "Qual é o próximo feriado municipal?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.6096303462982178
+            ],
+            "retrieval_ms": 0.0006999907782301307,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-shares",
+            "question": "Qual é o preço da ação da NexaCorp hoje?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5301040410995483,
+              0.5668161511421204,
+              0.5895950794219971,
+              0.6005045175552368
+            ],
+            "retrieval_ms": 0.0006999907782301307,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 9
+      },
+      "split": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "h-vacation-channel",
+            "question": "Por qual canal interno tiro dúvidas sobre férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5147429704666138,
+              0.5288918614387512
+            ],
+            "retrieval_ms": 0.01309999788645655,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-minimum",
+            "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.41707491874694824
+            ],
+            "retrieval_ms": 0.0028999929782003164,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-manager",
+            "question": "Quem avalia o período de férias solicitado?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4608731269836426,
+              0.6044344902038574,
+              0.6308067440986633
+            ],
+            "retrieval_ms": 0.0017999991541728377,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-transport",
+            "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.42687922716140747,
+              0.6311640739440918,
+              0.6400829553604126
+            ],
+            "retrieval_ms": 317.4047999928007,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-hotel",
+            "question": "Qual o teto de hospedagem e a condição para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5431822538375854
+            ],
+            "retrieval_ms": 0.011600001016631722,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-material-deadline",
+            "question": "Qual o prazo para solicitar reembolso de material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5121639966964722,
+              0.6183602809906006,
+              0.6473071575164795,
+              0.6489447355270386
+            ],
+            "retrieval_ms": 0.002700006007216871,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-it-support",
+            "question": "Onde abro um chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6308087110519409
+            ],
+            "retrieval_ms": 0.0020000006770715117,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-first-day",
+            "question": "O que devo configurar na conta no meu primeiro dia?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5210831165313721,
+              0.6164414286613464,
+              0.6433044672012329
+            ],
+            "retrieval_ms": 0.0020999868866056204,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-systems",
+            "question": "Quem solicita acesso aos sistemas internos no onboarding?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.38098013401031494,
+              0.5238530039787292,
+              0.5776127576828003
+            ],
+            "retrieval_ms": 0.0016999983927235007,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-ethics-report",
+            "question": "Onde relato uma violação ética e existe opção anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.538570761680603
+            ],
+            "retrieval_ms": 0.0022000021999701858,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-combined",
+            "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.508919358253479,
+              0.5694035291671753,
+              0.5766593217849731,
+              0.6297270059585571
+            ],
+            "retrieval_ms": 191.94509999942966,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-childcare",
+            "question": "Qual o valor do auxílio creche?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6381580829620361
+            ],
+            "retrieval_ms": 0.013999990187585354,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-bonus",
+            "question": "Qual a regra de pagamento do bônus anual?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6125040054321289,
+              0.624902069568634
+            ],
+            "retrieval_ms": 0.00340001133736223,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-holiday",
+            "question": "Qual é o próximo feriado municipal?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.6096303462982178
+            ],
+            "retrieval_ms": 0.002800006768666208,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-shares",
+            "question": "Qual é o preço da ação da NexaCorp hoje?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5301040410995483,
+              0.5668161511421204,
+              0.5895950794219971,
+              0.6005045175552368
+            ],
+            "retrieval_ms": 0.0025999906938523054,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 14
+      },
+      "split_relative": {
+        "scope": "retrieval_only",
+        "cases": 15,
+        "answerable_cases": 11,
+        "unanswerable_cases": 4,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "h-vacation-channel",
+            "question": "Por qual canal interno tiro dúvidas sobre férias?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5147429704666138,
+              0.5288918614387512
+            ],
+            "retrieval_ms": 0.0037999998312443495,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-minimum",
+            "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.41707491874694824
+            ],
+            "retrieval_ms": 0.0034999975468963385,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-vacation-manager",
+            "question": "Quem avalia o período de férias solicitado?",
+            "expected_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4608731269836426,
+              0.6044344902038574
+            ],
+            "retrieval_ms": 0.003000008291564882,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-transport",
+            "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.42687922716140747
+            ],
+            "retrieval_ms": 0.014999997802078724,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-hotel",
+            "question": "Qual o teto de hospedagem e a condição para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5431822538375854
+            ],
+            "retrieval_ms": 0.003500012098811567,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-material-deadline",
+            "question": "Qual o prazo para solicitar reembolso de material de trabalho?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5121639966964722,
+              0.6183602809906006,
+              0.6473071575164795,
+              0.6489447355270386
+            ],
+            "retrieval_ms": 0.0030999945010989904,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-it-support",
+            "question": "Onde abro um chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6308087110519409
+            ],
+            "retrieval_ms": 0.0023000029614195228,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-first-day",
+            "question": "O que devo configurar na conta no meu primeiro dia?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5210831165313721,
+              0.6164414286613464,
+              0.6433044672012329
+            ],
+            "retrieval_ms": 0.003000008291564882,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-systems",
+            "question": "Quem solicita acesso aos sistemas internos no onboarding?",
+            "expected_sources": [
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.38098013401031494,
+              0.5238530039787292
+            ],
+            "retrieval_ms": 0.0027999922167509794,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-ethics-report",
+            "question": "Onde relato uma violação ética e existe opção anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.538570761680603
+            ],
+            "retrieval_ms": 0.0027999922167509794,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-combined",
+            "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.508919358253479,
+              0.5694035291671753,
+              0.5766593217849731,
+              0.6297270059585571
+            ],
+            "retrieval_ms": 0.007599999662488699,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "h-childcare",
+            "question": "Qual o valor do auxílio creche?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6381580829620361
+            ],
+            "retrieval_ms": 0.0021000014385208488,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-bonus",
+            "question": "Qual a regra de pagamento do bônus anual?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6125040054321289,
+              0.624902069568634
+            ],
+            "retrieval_ms": 0.0023000029614195228,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-holiday",
+            "question": "Qual é o próximo feriado municipal?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.6096303462982178
+            ],
+            "retrieval_ms": 0.0021000014385208488,
+            "correct_abstention": false
+          },
+          {
+            "id": "h-shares",
+            "question": "Qual é o preço da ação da NexaCorp hoje?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5301040410995483,
+              0.5668161511421204,
+              0.5895950794219971,
+              0.6005045175552368
+            ],
+            "retrieval_ms": 0.0022000021999701858,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 10
+      }
+    },
+    "multisource_stress": {
+      "current": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 5,
+        "unanswerable_cases": 3,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "s-three-rh-finance-it",
+            "question": "Qual a antecedência para pedir férias, o limite diário de alimentação em viagem e onde abrir chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4505178928375244,
+              0.5185089707374573,
+              0.558639407157898
+            ],
+            "retrieval_ms": 254.30519999645185,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-rh-finance-onboarding",
+            "question": "Qual é a antecedência das férias, o limite para hospedagem e quais treinamentos são obrigatórios no onboarding?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.46726417541503906,
+              0.47293829917907715,
+              0.47626107931137085,
+              0.4816129207611084
+            ],
+            "retrieval_ms": 65.0342000008095,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-legal-education-vacation",
+            "question": "Onde denunciar violação ética, qual o benefício para cursos e com que antecedência peço férias?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5333220362663269,
+              0.5789499282836914,
+              0.5810355544090271,
+              0.6360706090927124
+            ],
+            "retrieval_ms": 40.58620000432711,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-education-training",
+            "question": "Qual é a verba anual para cursos e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5862175822257996,
+              0.6038287878036499,
+              0.6229441165924072,
+              0.6397643685340881
+            ],
+            "retrieval_ms": 145.12430000468157,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-hotel-vacation",
+            "question": "Qual o limite da diária de hotel e em quantos períodos posso dividir minhas férias?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5018473863601685,
+              0.5234981775283813,
+              0.6406018733978271
+            ],
+            "retrieval_ms": 75.03200000792276,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-absent-car",
+            "question": "Qual carro a empresa fornece e qual o teto de combustível?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.579145073890686
+            ],
+            "retrieval_ms": 112.02410000259988,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-salary",
+            "question": "Qual é o salário mínimo de um analista na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4212952256202698,
+              0.5131650567054749,
+              0.5393955111503601,
+              0.5595642328262329
+            ],
+            "retrieval_ms": 212.73569999902975,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-parental",
+            "question": "Quantos dias de licença parental são oferecidos?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5354354381561279,
+              0.6216030120849609,
+              0.6319223642349243
+            ],
+            "retrieval_ms": 153.3326000062516,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 5
+      },
+      "relative": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 5,
+        "unanswerable_cases": 3,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "s-three-rh-finance-it",
+            "question": "Qual a antecedência para pedir férias, o limite diário de alimentação em viagem e onde abrir chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4505178928375244,
+              0.5185089707374573,
+              0.558639407157898
+            ],
+            "retrieval_ms": 0.0024999899324029684,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-rh-finance-onboarding",
+            "question": "Qual é a antecedência das férias, o limite para hospedagem e quais treinamentos são obrigatórios no onboarding?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.46726417541503906,
+              0.47293829917907715,
+              0.47626107931137085,
+              0.4816129207611084
+            ],
+            "retrieval_ms": 0.0011999945854768157,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-legal-education-vacation",
+            "question": "Onde denunciar violação ética, qual o benefício para cursos e com que antecedência peço férias?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5333220362663269,
+              0.5789499282836914,
+              0.5810355544090271,
+              0.6360706090927124
+            ],
+            "retrieval_ms": 0.0013999961083754897,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-education-training",
+            "question": "Qual é a verba anual para cursos e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5862175822257996,
+              0.6038287878036499,
+              0.6229441165924072,
+              0.6397643685340881
+            ],
+            "retrieval_ms": 0.0009999930625781417,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-hotel-vacation",
+            "question": "Qual o limite da diária de hotel e em quantos períodos posso dividir minhas férias?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5018473863601685,
+              0.5234981775283813,
+              0.6406018733978271
+            ],
+            "retrieval_ms": 0.0010999938240274787,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-absent-car",
+            "question": "Qual carro a empresa fornece e qual o teto de combustível?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.579145073890686
+            ],
+            "retrieval_ms": 0.0009999930625781417,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-salary",
+            "question": "Qual é o salário mínimo de um analista na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4212952256202698,
+              0.5131650567054749,
+              0.5393955111503601,
+              0.5595642328262329
+            ],
+            "retrieval_ms": 0.000800006091594696,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-parental",
+            "question": "Quantos dias de licença parental são oferecidos?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5354354381561279,
+              0.6216030120849609,
+              0.6319223642349243
+            ],
+            "retrieval_ms": 0.0007999915396794677,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 5
+      },
+      "split": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 5,
+        "unanswerable_cases": 3,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "s-three-rh-finance-it",
+            "question": "Qual a antecedência para pedir férias, o limite diário de alimentação em viagem e onde abrir chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4315614700317383,
+              0.5037065148353577,
+              0.558639407157898
+            ],
+            "retrieval_ms": 164.50590000022203,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-rh-finance-onboarding",
+            "question": "Qual é a antecedência das férias, o limite para hospedagem e quais treinamentos são obrigatórios no onboarding?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.40878379344940186,
+              0.46726417541503906,
+              0.47626107931137085,
+              0.4816129207611084
+            ],
+            "retrieval_ms": 148.31440000853036,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-legal-education-vacation",
+            "question": "Onde denunciar violação ética, qual o benefício para cursos e com que antecedência peço férias?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5333220362663269,
+              0.5789499282836914,
+              0.5810355544090271,
+              0.6360706090927124
+            ],
+            "retrieval_ms": 0.01610000617802143,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-education-training",
+            "question": "Qual é a verba anual para cursos e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5505540370941162,
+              0.5862175822257996,
+              0.6229441165924072,
+              0.6397643685340881
+            ],
+            "retrieval_ms": 328.45530001213774,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-hotel-vacation",
+            "question": "Qual o limite da diária de hotel e em quantos períodos posso dividir minhas férias?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5018473863601685,
+              0.5234981775283813,
+              0.6406018733978271
+            ],
+            "retrieval_ms": 0.01170000177808106,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-absent-car",
+            "question": "Qual carro a empresa fornece e qual o teto de combustível?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.579145073890686,
+              0.6086379289627075
+            ],
+            "retrieval_ms": 216.30739999818616,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-salary",
+            "question": "Qual é o salário mínimo de um analista na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4212952256202698,
+              0.5131650567054749,
+              0.5393955111503601,
+              0.5595642328262329
+            ],
+            "retrieval_ms": 0.012600008631125093,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-parental",
+            "question": "Quantos dias de licença parental são oferecidos?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5354354381561279,
+              0.6216030120849609,
+              0.6319223642349243
+            ],
+            "retrieval_ms": 0.0037999998312443495,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 5
+      },
+      "split_relative": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 5,
+        "unanswerable_cases": 3,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "s-three-rh-finance-it",
+            "question": "Qual a antecedência para pedir férias, o limite diário de alimentação em viagem e onde abrir chamado de TI?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4315614700317383,
+              0.5037065148353577,
+              0.558639407157898
+            ],
+            "retrieval_ms": 0.02239999594166875,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-rh-finance-onboarding",
+            "question": "Qual é a antecedência das férias, o limite para hospedagem e quais treinamentos são obrigatórios no onboarding?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.40878379344940186,
+              0.46726417541503906,
+              0.47626107931137085,
+              0.4816129207611084
+            ],
+            "retrieval_ms": 0.015600002370774746,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-three-legal-education-vacation",
+            "question": "Onde denunciar violação ética, qual o benefício para cursos e com que antecedência peço férias?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5333220362663269,
+              0.5789499282836914,
+              0.5810355544090271,
+              0.6360706090927124
+            ],
+            "retrieval_ms": 0.0036999990697950125,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-education-training",
+            "question": "Qual é a verba anual para cursos e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.5505540370941162,
+              0.5862175822257996,
+              0.6229441165924072,
+              0.6397643685340881
+            ],
+            "retrieval_ms": 0.009500014130026102,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-two-hotel-vacation",
+            "question": "Qual o limite da diária de hotel e em quantos períodos posso dividir minhas férias?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5018473863601685,
+              0.5234981775283813,
+              0.6406018733978271
+            ],
+            "retrieval_ms": 0.008699993486516178,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "s-absent-car",
+            "question": "Qual carro a empresa fornece e qual o teto de combustível?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.579145073890686,
+              0.6086379289627075
+            ],
+            "retrieval_ms": 0.008600007276982069,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-salary",
+            "question": "Qual é o salário mínimo de um analista na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4212952256202698,
+              0.5131650567054749,
+              0.5393955111503601,
+              0.5595642328262329
+            ],
+            "retrieval_ms": 0.0024000037228688598,
+            "correct_abstention": false
+          },
+          {
+            "id": "s-absent-parental",
+            "question": "Quantos dias de licença parental são oferecidos?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5354354381561279,
+              0.6216030120849609,
+              0.6319223642349243
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 5
+      }
+    },
+    "retrieval_extra_cases": {
+      "current": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "n-remote-education",
+            "question": "Quantos dias de trabalho remoto são permitidos e qual a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.43313539028167725,
+              0.5672622323036194,
+              0.5746935606002808,
+              0.6499223709106445
+            ],
+            "retrieval_ms": 226.69280000263825,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-hotel-vacation",
+            "question": "Qual a antecedência para pedir férias e o teto por diária de hospedagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5129234194755554,
+              0.5315230488777161
+            ],
+            "retrieval_ms": 73.8545000058366,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-onboarding-education",
+            "question": "Quais treinamentos devo concluir na primeira semana e qual é o orçamento anual para certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5622453093528748,
+              0.5744675397872925,
+              0.5810987949371338,
+              0.6281142234802246
+            ],
+            "retrieval_ms": 77.78340000368189,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-ethics-vacation",
+            "question": "Como fazer uma denúncia ética anônima e por qual canal esclarecer dúvidas sobre férias?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5236794948577881,
+              0.5526342391967773,
+              0.5817251801490784
+            ],
+            "retrieval_ms": 45.983300005900674,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-dental",
+            "question": "Qual é o valor mensal do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 114.6630000002915,
+            "correct_abstention": true
+          },
+          {
+            "id": "n-maternity",
+            "question": "Quantos dias dura a licença maternidade na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.35731106996536255,
+              0.4314531087875366,
+              0.5198339223861694,
+              0.576251208782196
+            ],
+            "retrieval_ms": 106.9125000067288,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 6
+      },
+      "relative": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "n-remote-education",
+            "question": "Quantos dias de trabalho remoto são permitidos e qual a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "distances": [
+              0.43313539028167725,
+              0.5672622323036194,
+              0.5746935606002808
+            ],
+            "retrieval_ms": 0.0026000052457675338,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-hotel-vacation",
+            "question": "Qual a antecedência para pedir férias e o teto por diária de hospedagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5129234194755554,
+              0.5315230488777161
+            ],
+            "retrieval_ms": 0.0013999961083754897,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-onboarding-education",
+            "question": "Quais treinamentos devo concluir na primeira semana e qual é o orçamento anual para certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5622453093528748,
+              0.5744675397872925,
+              0.5810987949371338,
+              0.6281142234802246
+            ],
+            "retrieval_ms": 0.0011999945854768157,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-ethics-vacation",
+            "question": "Como fazer uma denúncia ética anônima e por qual canal esclarecer dúvidas sobre férias?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5236794948577881,
+              0.5526342391967773,
+              0.5817251801490784
+            ],
+            "retrieval_ms": 0.0012999953469261527,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-dental",
+            "question": "Qual é o valor mensal do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0009999930625781417,
+            "correct_abstention": true
+          },
+          {
+            "id": "n-maternity",
+            "question": "Quantos dias dura a licença maternidade na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.35731106996536255,
+              0.4314531087875366
+            ],
+            "retrieval_ms": 0.000800006091594696,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 5
+      },
+      "split": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "n-remote-education",
+            "question": "Quantos dias de trabalho remoto são permitidos e qual a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.43313539028167725,
+              0.5580838918685913,
+              0.5672622323036194,
+              0.6499223709106445
+            ],
+            "retrieval_ms": 432.42969999846537,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-hotel-vacation",
+            "question": "Qual a antecedência para pedir férias e o teto por diária de hospedagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5129234194755554,
+              0.5315230488777161
+            ],
+            "retrieval_ms": 0.012400007108226418,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-onboarding-education",
+            "question": "Quais treinamentos devo concluir na primeira semana e qual é o orçamento anual para certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5622453093528748,
+              0.5744675397872925,
+              0.5810987949371338,
+              0.6281142234802246
+            ],
+            "retrieval_ms": 78.16299999831244,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-ethics-vacation",
+            "question": "Como fazer uma denúncia ética anônima e por qual canal esclarecer dúvidas sobre férias?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5223007202148438,
+              0.5236794948577881,
+              0.5817251801490784
+            ],
+            "retrieval_ms": 120.89730000298005,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-dental",
+            "question": "Qual é o valor mensal do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.07520000508520752,
+            "correct_abstention": true
+          },
+          {
+            "id": "n-maternity",
+            "question": "Quantos dias dura a licença maternidade na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.35731106996536255,
+              0.4314531087875366,
+              0.5198339223861694,
+              0.576251208782196
+            ],
+            "retrieval_ms": 0.007399998139590025,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 6
+      },
+      "split_relative": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "n-remote-education",
+            "question": "Quantos dias de trabalho remoto são permitidos e qual a verba anual para cursos?",
+            "expected_sources": [
+              "comunicacao/faq.md"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.43313539028167725,
+              0.5580838918685913,
+              0.5672622323036194
+            ],
+            "retrieval_ms": 0.02139998832717538,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-hotel-vacation",
+            "question": "Qual a antecedência para pedir férias e o teto por diária de hospedagem?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5129234194755554,
+              0.5315230488777161
+            ],
+            "retrieval_ms": 0.004699992132373154,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-onboarding-education",
+            "question": "Quais treinamentos devo concluir na primeira semana e qual é o orçamento anual para certificações?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5622453093528748,
+              0.5744675397872925,
+              0.5810987949371338,
+              0.6281142234802246
+            ],
+            "retrieval_ms": 0.012699994840659201,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-ethics-vacation",
+            "question": "Como fazer uma denúncia ética anônima e por qual canal esclarecer dúvidas sobre férias?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5223007202148438,
+              0.5236794948577881,
+              0.5817251801490784
+            ],
+            "retrieval_ms": 0.010500007192604244,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "n-dental",
+            "question": "Qual é o valor mensal do plano odontológico?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0028999929782003164,
+            "correct_abstention": true
+          },
+          {
+            "id": "n-maternity",
+            "question": "Quantos dias dura a licença maternidade na NexaCorp?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.35731106996536255,
+              0.4314531087875366
+            ],
+            "retrieval_ms": 0.002700006007216871,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 5
+      }
+    },
+    "retrieval_gap_check": {
+      "current": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 0.875,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 0.75,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "v-travel-training",
+            "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4907956123352051,
+              0.6486883163452148
+            ],
+            "retrieval_ms": 239.902199988137,
+            "source_recall": 0.5,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": false
+          },
+          {
+            "id": "v-vacation-remote-ethics",
+            "question": "Como dividir férias, quantos dias de trabalho remoto e onde relatar conflitos de interesse?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4812461733818054,
+              0.52559494972229,
+              0.6106338500976562,
+              0.611311674118042
+            ],
+            "retrieval_ms": 114.77290000766516,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-material-support",
+            "question": "Qual o prazo para pedir reembolso de material e onde solicitar suporte técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5862243175506592,
+              0.6132988929748535
+            ],
+            "retrieval_ms": 145.51610000489745,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-security-ethics",
+            "question": "Que proteção da conta devo configurar no primeiro dia e qual canal permite denúncia anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5664880275726318,
+              0.591974139213562
+            ],
+            "retrieval_ms": 182.28029999590944,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-salary",
+            "question": "Quando ocorre o reajuste salarial anual?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 78.75990000320598,
+            "correct_abstention": true
+          },
+          {
+            "id": "v-parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.0026000052457675338,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 2
+      },
+      "relative": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 0.875,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 0.75,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "v-travel-training",
+            "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4907956123352051
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "source_recall": 0.5,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": false
+          },
+          {
+            "id": "v-vacation-remote-ethics",
+            "question": "Como dividir férias, quantos dias de trabalho remoto e onde relatar conflitos de interesse?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4812461733818054,
+              0.52559494972229,
+              0.6106338500976562,
+              0.611311674118042
+            ],
+            "retrieval_ms": 0.001300009898841381,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-material-support",
+            "question": "Qual o prazo para pedir reembolso de material e onde solicitar suporte técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5862243175506592,
+              0.6132988929748535
+            ],
+            "retrieval_ms": 0.00100000761449337,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-security-ethics",
+            "question": "Que proteção da conta devo configurar no primeiro dia e qual canal permite denúncia anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5664880275726318,
+              0.591974139213562
+            ],
+            "retrieval_ms": 0.0008999923011288047,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-salary",
+            "question": "Quando ocorre o reajuste salarial anual?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.000700005330145359,
+            "correct_abstention": true
+          },
+          {
+            "id": "v-parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.000600004568696022,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 1
+      },
+      "split": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "v-travel-training",
+            "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4907956123352051,
+              0.6465595960617065,
+              0.6486883163452148
+            ],
+            "retrieval_ms": 396.46170000196435,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-vacation-remote-ethics",
+            "question": "Como dividir férias, quantos dias de trabalho remoto e onde relatar conflitos de interesse?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4638798236846924,
+              0.5201171636581421,
+              0.6081085205078125,
+              0.6106338500976562
+            ],
+            "retrieval_ms": 123.05609999748413,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-material-support",
+            "question": "Qual o prazo para pedir reembolso de material e onde solicitar suporte técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html"
+            ],
+            "distances": [
+              0.5482422113418579,
+              0.5924683213233948,
+              0.6381407380104065,
+              0.6482313275337219
+            ],
+            "retrieval_ms": 73.22489999933168,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-security-ethics",
+            "question": "Que proteção da conta devo configurar no primeiro dia e qual canal permite denúncia anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.544810950756073,
+              0.591974139213562
+            ],
+            "retrieval_ms": 253.87539999792352,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-salary",
+            "question": "Quando ocorre o reajuste salarial anual?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.013300013961270452,
+            "correct_abstention": true
+          },
+          {
+            "id": "v-parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.0042000028770416975,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 4
+      },
+      "split_relative": {
+        "scope": "retrieval_only",
+        "cases": 6,
+        "answerable_cases": 4,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 0.875,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 0.75,
+          "correct_abstention_rate": 0.5
+        },
+        "results": [
+          {
+            "id": "v-travel-training",
+            "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4907956123352051
+            ],
+            "retrieval_ms": 0.014300007023848593,
+            "source_recall": 0.5,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": false
+          },
+          {
+            "id": "v-vacation-remote-ethics",
+            "question": "Como dividir férias, quantos dias de trabalho remoto e onde relatar conflitos de interesse?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4638798236846924,
+              0.5201171636581421,
+              0.6081085205078125,
+              0.6106338500976562
+            ],
+            "retrieval_ms": 0.016000005416572094,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-material-support",
+            "question": "Qual o prazo para pedir reembolso de material e onde solicitar suporte técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md",
+              "operacional/onboarding.html"
+            ],
+            "distances": [
+              0.5482422113418579,
+              0.5924683213233948,
+              0.6381407380104065,
+              0.6482313275337219
+            ],
+            "retrieval_ms": 0.01060000795405358,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-security-ethics",
+            "question": "Que proteção da conta devo configurar no primeiro dia e qual canal permite denúncia anônima?",
+            "expected_sources": [
+              "legal/codigo_conduta.json",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.544810950756073,
+              0.591974139213562
+            ],
+            "retrieval_ms": 0.005500012775883079,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "v-salary",
+            "question": "Quando ocorre o reajuste salarial anual?",
+            "expected_sources": [],
+            "retrieved_sources": [],
+            "distances": [],
+            "retrieval_ms": 0.0016999983927235007,
+            "correct_abstention": true
+          },
+          {
+            "id": "v-parking",
+            "question": "Qual é o valor do auxílio estacionamento?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5976568460464478
+            ],
+            "retrieval_ms": 0.0018999999156221747,
+            "correct_abstention": false
+          }
+        ],
+        "extra_sources": 3
+      }
+    }
+  },
+  "diagnostic": {
+    "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+    "parts": [
+      "Quanto custa o teto diário de alimentação em viagem",
+      "quais cursos são obrigatórios na primeira semana?"
+    ],
+    "rankings": {
+      "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?": [
+        {
+          "path": "financeiro/politica_reembolso.csv",
+          "distance": 0.4907956123352051
+        },
+        {
+          "path": "comunicacao/faq.md",
+          "distance": 0.6486883163452148
+        },
+        {
+          "path": "operacional/onboarding.html",
+          "distance": 0.6609964370727539
+        },
+        {
+          "path": "rh/politica_ferias.md",
+          "distance": 0.6826912760734558
+        },
+        {
+          "path": "legal/codigo_conduta.json",
+          "distance": 0.7029972076416016
+        }
+      ],
+      "Quanto custa o teto diário de alimentação em viagem": [
+        {
+          "path": "financeiro/politica_reembolso.csv",
+          "distance": 0.49786198139190674
+        },
+        {
+          "path": "comunicacao/faq.md",
+          "distance": 0.7140536308288574
+        },
+        {
+          "path": "legal/codigo_conduta.json",
+          "distance": 0.7210268974304199
+        },
+        {
+          "path": "rh/politica_ferias.md",
+          "distance": 0.7290220856666565
+        },
+        {
+          "path": "operacional/onboarding.html",
+          "distance": 0.7863559722900391
+        }
+      ],
+      "quais cursos são obrigatórios na primeira semana?": [
+        {
+          "path": "operacional/onboarding.html",
+          "distance": 0.6465595960617065
+        },
+        {
+          "path": "comunicacao/faq.md",
+          "distance": 0.7293766736984253
+        },
+        {
+          "path": "rh/politica_ferias.md",
+          "distance": 0.7357560992240906
+        },
+        {
+          "path": "legal/codigo_conduta.json",
+          "distance": 0.7533394694328308
+        },
+        {
+          "path": "financeiro/politica_reembolso.csv",
+          "distance": 0.7727938890457153
+        }
+      ]
+    }
+  }
+}
