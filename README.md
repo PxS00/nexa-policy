@@ -1,12 +1,12 @@
-# NexaPolicy — Assistente de políticas internas
+# NexaPolicy
 
-Assistente RAG para consultar férias, reembolsos, benefícios e onboarding da **NexaCorp, empresa fictícia**, com trechos recuperados para conferência. Projeto de portfólio de AI Engineering, originado no Challenge AluraAgente — ONE IA for Tech.
+**Um assistente documental para políticas internas, feito para demonstrar engenharia de RAG.**
 
-O projeto ajuda a localizar regras dispersas e a conferir sua origem. Uma resposta pode reunir informações de documentos diferentes, preservando os trechos consultados. Foi desenvolvido para demonstrar ingestão documental, recuperação semântica, avaliação e tratamento explícito de falhas; não há medição de economia de tempo ou uso por empresas reais.
+Consulte férias, reembolsos, benefícios e onboarding da NexaCorp fictícia. As respostas podem reunir informações de vários documentos e mostram trechos para conferência. O projeto reúne ingestão de arquivos, embeddings, ChromaDB, geração com Gemini ou Groq e avaliação de recuperação.
 
-**Caso de uso:** um colaborador precisa descobrir quais políticas se aplicam a uma solicitação e onde conferir a informação. Exemplo: “Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?”. A recuperação pode fornecer evidências de onboarding e benefícios no mesmo contexto.
+> Demonstração de portfólio com dados fictícios. Não há uso por empresa real ou impacto de negócio medido. O sistema não aprova solicitações. Citações ajudam a conferir a origem, mas não garantem que cada afirmação esteja correta.
 
-Não há dados de clientes, métricas de impacto ou uso em produção comprovados. O sistema consulta documentos; não aprova solicitações nem executa ações corporativas. Instruções de prompt não garantem correção ou resistência a prompt injection.
+[Começar](#executar) · [Arquitetura](#arquitetura) · [Testes e avaliações](#testes-e-avaliação) · [Roteiro da demonstração](docs/demo.md)
 
 ## O que este projeto demonstra
 
@@ -106,7 +106,7 @@ Para Ollama executando no Windows com a aplicação no Docker Desktop, o Compose
 
 ## Testes e avaliação
 
-A [matriz de revisão funcional e de confiabilidade](docs/review-scenarios.md) registra os cenários testados, as correções e os riscos ainda abertos. A suíte local desta revisão passou com 92 testes e 87% de cobertura em `src`; cobertura de código não mede qualidade de respostas.
+A [matriz de revisão funcional e de confiabilidade](docs/review-scenarios.md) registra cenários, correções e riscos ainda abertos. Os experimentos de recuperação, divisão de perguntas e busca híbrida estão resumidos em [avaliação exploratória](evals/hybrid-analysis.md); não alteraram a busca da aplicação.
 
 ```bash
 python -m pytest -q
@@ -176,3 +176,4 @@ O [escopo proposto para acesso por usuário e documento](docs/access-design.md) 
 Desenvolvido por Lucas Rossoni para o Challenge AluraAgente — ONE IA for Tech, originalmente **Alura Corporate Agent**. NexaPolicy explicita o domínio e aproveita a empresa fictícia existente; nome proposto para o portfólio, sem pesquisa de marca. O endereço do repositório foi preservado.
 
 <img src="docs/images/badge-rag-agente-ia.png" alt="Badge ONE — Agente de IA com RAG" width="140" />
+

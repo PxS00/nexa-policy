@@ -44,7 +44,7 @@ def test_chat_renders_evidence_and_retains_it_in_history():
          patch("src.rag.RagAgent", Agent):
         app = AppTest.from_file(Path("app.py").resolve()).run(timeout=20)
         assert not app.exception
-        assert app.title[0].value == "NexaPolicy"
+        assert any("Encontre a política" in item.value for item in app.markdown)
         app.chat_input[0].set_value("Quantos dias?").run()
         assert not app.exception
         assert app.text[0].value == "Evidência de teste: 30 dias"
@@ -80,3 +80,4 @@ def test_chat_failure_is_visible_and_does_not_attach_sources(failure):
         assert not app.exception
         assert "Não foi possível processar" in app.error[0].value
         assert not app.session_state.messages[-1].get("sources")
+
