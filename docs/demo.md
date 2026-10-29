@@ -12,4 +12,4 @@ A demonstração usa os cinco documentos fictícios de `documents/`. Não mostre
 
 ## Captura
 
-Grave a tela local após confirmar que a aplicação iniciou e que o índice corresponde aos documentos atuais. Não há gravação versionada neste roteiro; adicione GIF ou vídeo somente depois de conferir a captura e remover dados pessoais da área de trabalho.
+A tela inicial agora oferece três perguntas de exemplo; elas correspondem aos passos 2 a 4. Clique em uma por vez para iniciar a consulta. Grave a tela local após confirmar que a aplicação iniciou e que o índice corresponde aos documentos atuais. Não há gravação versionada neste roteiro; adicione GIF ou vídeo somente depois de conferir a captura e remover dados pessoais da área de trabalho.
