@@ -41,6 +41,6 @@ python -m src.evaluate_answers --output evals/reports/answers-review.json
 
 O comando indexa o corpus com embeddings reais em memória e chama o modelo para cada caso, podendo consumir quota. O relatório salva resposta, trechos e campos `facts_supported`, `citations_supported` e `notes` para preenchimento manual. Ele registra resultados a cada caso e interrompe no primeiro erro, inclusive quota ou geração incompleta; `complete=false` indica rodada parcial. A saída é sobrescrita, portanto use nomes diferentes. Os campos de revisão começam em `null`: não representam avaliação automática. Revise cada afirmação e sua citação contra os trechos e os documentos originais, inclusive casos de abstenção indevida.
 
-Um segundo conjunto separado de 15 perguntas está em `policy_holdout.json`; contém fatos esperados para facilitar a revisão. Veja a [rubrica de revisão](review-rubric.md). Ele ainda não foi executado com o Gemini.
+Um segundo conjunto separado de 15 perguntas está em `policy_holdout.json`; contém fatos esperados para facilitar a revisão. Veja a [rubrica de revisão](review-rubric.md). Uma rodada parcial com Gemini está registrada em `baselines/holdout-2026-10-29-partial.json`; o conjunto ainda não foi avaliado integralmente.
 
 Os relatórios versionados em `baselines/` registram uma execução real com o corpus e dataset atuais. Valores controlados dos testes validam o cálculo, não o sistema de embeddings. As métricas das 15 perguntas são exploratórias e não substituem uma avaliação independente.

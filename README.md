@@ -124,9 +124,13 @@ Top-4 recuperou as fontes das duas perguntas compostas; o filtro não rejeitou n
 
 Em uma rodada exploratória de geração com a validação de citações ativa, 10 das 15 perguntas retornaram respostas; cinco falharam por limite de quota (429). As quatro negativas que retornaram resposta receberam a abstenção padrão; uma pergunta respondível também recebeu abstenção e outra resposta ficou incompleta. [Respostas e erros registrados](evals/baselines/answers-exploratory.json). A rodada não mede precisão geral, e a razão da abstenção indevida não foi identificada.
 
+Em 29/10/2026, uma execução parcial do conjunto separado registrou dois casos revisados, uma interrupção por `MAX_TOKENS` e três erros 503, antes de ser interrompida; a avaliação dos demais casos continua pendente. [Relatório parcial](evals/baselines/holdout-2026-10-29-partial.json) e [análise exploratória de limiar](evals/threshold-analysis.md).
+
 Respostas cuja geração termina de forma anormal são agora rejeitadas, evitando exibir texto parcial. Para preparar uma revisão manual de fatos e citações, execute `python -m src.evaluate_answers`; o relatório registra resultados parciais e para no primeiro erro. [Instruções de revisão](evals/README.md).
 
 ## Demonstração
+
+O [roteiro de demonstração curta](docs/demo.md) inclui uma consulta, conferência de fonte e discussão de uma limitação observada.
 
 1. “Com qual antecedência devo solicitar férias?” — confira o trecho em `rh/politica_ferias.md`.
 2. “Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?” — examine se as duas fontes necessárias são recuperadas; esse acerto precisa ser medido com embeddings reais.

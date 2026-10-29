@@ -1,0 +1,146 @@
+{
+  "timestamp_utc": "2026-10-29T14:51:44.735740+00:00",
+  "revision": "41c8d75003041dac63316f11f0118ac30974880d",
+  "dataset_sha256": "41288050432306976367895b812e0db379bda504421226481745e9ea08f9665d",
+  "index_fingerprint": "8eb93dcc04b48160283cf3b8f3c0ddddaf3ce46941857da44bb6a96da2d715ea",
+  "model": "gemini-3.5-flash",
+  "embedding_model": "gemini-embedding-001",
+  "top_k": 4,
+  "threshold": 0.65,
+  "max_output_tokens": 700,
+  "attempts_per_request": 1,
+  "planned": 15,
+  "results": [
+    {
+      "id": "h-vacation-minimum",
+      "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "expected_facts": [
+        "Um período deve ter pelo menos 14 dias corridos; os demais, pelo menos 5 dias corridos cada."
+      ],
+      "status": "answered",
+      "answer": "Quando as férias são divididas em até três períodos, a regra estabelece que um dos períodos deve ter pelo menos 14 dias corridos e os demais devem ter no mínimo 5 dias corridos cada [FONTE 1].",
+      "evidence": [
+        {
+          "source": "politica_ferias.md",
+          "category": "rh",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "rh/politica_ferias.md",
+          "excerpt": "# Política de Férias — NexaCorp\n\nA NexaCorp concede 30 dias corridos de férias após cada período aquisitivo de 12 meses, conforme a legislação aplicável.\n\nO pedido deve ser enviado ao RH com no mínimo 30 dias de antecedência. A liderança avalia o período solicitado considerando a continuidade das atividades da equipe.\n\nÉ possível dividir as férias em até três períodos, desde que um deles tenha pelo menos 14 dias corridos e os demais tenham pelo menos 5 dias corridos cada.\n\nDúvidas e solicitações devem ser encaminhadas ao time de Recursos Humanos pelo canal interno RH Ajuda.",
+          "distance": 0.30225634574890137
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.41228580474853516
+        },
+        {
+          "source": "politica_reembolso.csv",
+          "category": "financeiro",
+          "location": "seção: table",
+          "citation_id": 3,
+          "source_path": "financeiro/politica_reembolso.csv",
+          "excerpt": "tipo_despesa: Alimentação | limite: R$ 120 por dia | regra: Permitida em viagens corporativas previamente aprovadas | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Transporte | limite: R$ 250 por deslocamento | regra: Exige comprovante fiscal ou recibo válido | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Hospedagem | limite: R$ 450 por diária | regra: Deve estar vinculada a viagem corporativa aprovada | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Material de trabalho | limite: R$ 300 por compra | regra: Exige aprovação prévia da liderança | prazo_solicitacao: 15 dias após a despesa",
+          "distance": 0.42388486862182617
+        },
+        {
+          "source": "onboarding.html",
+          "category": "operacional",
+          "location": "seção: document",
+          "citation_id": 4,
+          "source_path": "operacional/onboarding.html",
+          "excerpt": "Onboarding NexaCorp\nGuia de Onboarding\nNo primeiro dia, o colaborador deve concluir a ativação da conta corporativa e configurar autenticação em dois fatores.\nNa primeira semana, são obrigatórios os treinamentos de segurança da informação, LGPD e código de conduta.\nO acesso a sistemas internos é solicitado pela liderança por meio do portal de serviços.\nProblemas de acesso devem ser direcionados ao Service Desk no portal interno.",
+          "distance": 0.4745018482208252
+        }
+      ],
+      "review": {
+        "facts_supported": true,
+        "citations_supported": true,
+        "notes": "A regra e a fonte 1 correspondem à política de férias."
+      }
+    },
+    {
+      "id": "h-childcare",
+      "question": "Qual o valor do auxílio creche?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "abstained",
+      "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+      "evidence": [],
+      "review": {
+        "correct_abstention": true,
+        "notes": "A base fictícia não contém regra sobre auxílio creche."
+      }
+    },
+    {
+      "id": "h-combined",
+      "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+      "expected_sources": [
+        "operacional/onboarding.html",
+        "comunicacao/faq.md"
+      ],
+      "expected_facts": [
+        "A liderança solicita acessos pelo portal de serviços.",
+        "Chamados técnicos devem ser abertos no portal interno do Service Desk."
+      ],
+      "status": "error",
+      "error_type": "IncompleteGeneration",
+      "error_code": null,
+      "finish_reason": "FinishReason.MAX_TOKENS"
+    },
+    {
+      "id": "h-vacation-channel",
+      "question": "Por qual canal interno tiro dúvidas sobre férias?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "expected_facts": [
+        "Encaminhar ao RH pelo canal interno RH Ajuda."
+      ],
+      "status": "error",
+      "error_type": "ServerError",
+      "error_code": 503,
+      "finish_reason": null
+    },
+    {
+      "id": "h-bonus",
+      "question": "Qual a regra de pagamento do bônus anual?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "error",
+      "error_type": "ServerError",
+      "error_code": 503,
+      "finish_reason": null
+    },
+    {
+      "id": "h-transport",
+      "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "expected_facts": [
+        "Até R$ 250 por deslocamento.",
+        "Comprovante fiscal ou recibo válido."
+      ],
+      "status": "error",
+      "error_type": "ServerError",
+      "error_code": 503,
+      "finish_reason": null
+    }
+  ],
+  "index": {
+    "documents": 5,
+    "chunks": 5
+  },
+  "completed": false,
+  "stop_reason": "Interrompido após três erros 503 consecutivos; uma solicitação seguinte estava em andamento e seu resultado não foi registrado.",
+  "review_date": "2026-10-29",
+  "review_method": "Revisão manual das respostas e citações contra os documentos fictícios."
+}

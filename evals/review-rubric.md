@@ -1,6 +1,6 @@
 # Rubrica para revisão de respostas
 
-Use `policy_questions.json` para desenvolvimento e `policy_holdout.json` para avaliação separada. Ambos foram escritos a partir dos mesmos cinco documentos fictícios; o holdout não é uma amostra independente de usuários reais. Evite ajustar o limiar com base no holdout e depois apresentar sua pontuação como teste independente. Nenhuma execução real do holdout foi realizada nesta revisão.
+Use `policy_questions.json` para desenvolvimento e `policy_holdout.json` para avaliação separada. Ambos foram escritos a partir dos mesmos cinco documentos fictícios; o holdout não é uma amostra independente de usuários reais. Evite ajustar o limiar com base no holdout e depois apresentar sua pontuação como teste independente. Uma rodada parcial real foi registrada em `baselines/holdout-2026-10-29-partial.json`; não há avaliação completa do holdout.
 
 Para cada caso respondido, confira `expected_facts` e os documentos originais. Marque:
 
