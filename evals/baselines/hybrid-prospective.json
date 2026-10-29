@@ -1,0 +1,719 @@
+{
+  "revision": "c9434c3246640c37301f73b21de5a6f82f4b6481",
+  "working_tree_dirty": true,
+  "dataset_sha256": "b192c11d7de8a3987e3155c80f0d4a49ecab1c9ecc23ddb04c5def420424bf07",
+  "index_fingerprint": "647a208d498772e8c2840f6a8c7abbdae621efe8bd9bef97c7aeab7bd5e89bb1",
+  "results": {
+    "current": {
+      "scope": "retrieval_only",
+      "cases": 12,
+      "answerable_cases": 8,
+      "unanswerable_cases": 4,
+      "metrics": {
+        "mean_source_recall_at_k": 1.0,
+        "source_mrr_at_k": 1.0,
+        "all_sources_found_rate": 1.0,
+        "correct_abstention_rate": 0.0
+      },
+      "results": [
+        {
+          "id": "hybrid-0",
+          "question": "Quais cuidados de segurança são exigidos na conta e qual a verba para cursos?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html"
+          ],
+          "retrieved_sources": [
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv",
+            "operacional/onboarding.html",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.5639006495475769,
+            0.5773743391036987,
+            0.5871620178222656,
+            0.6117091774940491
+          ],
+          "retrieval_ms": 173.4718000079738,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-1",
+          "question": "Quanto reembolsar de alimentação e como devem ser divididas as férias?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.48039424419403076,
+            0.49851709604263306,
+            0.5952991843223572,
+            0.6459248065948486
+          ],
+          "retrieval_ms": 76.77179999882355,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-2",
+          "question": "Qual prazo de reembolso do transporte e por qual canal reportar conflito de interesse?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json",
+            "rh/politica_ferias.md"
+          ],
+          "distances": [
+            0.5325055122375488,
+            0.6037241816520691,
+            0.645125150680542
+          ],
+          "retrieval_ms": 274.2609999986598,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-3",
+          "question": "Quem pede os acessos internos e qual antecedência do pedido de férias?",
+          "expected_sources": [
+            "operacional/onboarding.html",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv",
+            "operacional/onboarding.html"
+          ],
+          "distances": [
+            0.45048636198043823,
+            0.5167995095252991,
+            0.5677238702774048,
+            0.577940821647644
+          ],
+          "retrieval_ms": 40.009999996982515,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-4",
+          "question": "Qual limite anual para educação e qual o prazo de reembolso de material?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md"
+          ],
+          "distances": [
+            0.5095032453536987,
+            0.6119974255561829
+          ],
+          "retrieval_ms": 139.60019999649376,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-5",
+          "question": "Quantos dias posso trabalhar remotamente e quais treinamentos devo concluir no onboarding?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html"
+          ],
+          "retrieved_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html",
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.43115001916885376,
+            0.4753645062446594,
+            0.5535451173782349,
+            0.5779531002044678
+          ],
+          "retrieval_ms": 205.51549999800045,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-6",
+          "question": "Onde registrar denúncia anônima e qual teto de alimentação em viagem?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.5437424182891846,
+            0.6381325721740723
+          ],
+          "retrieval_ms": 130.5763999989722,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-7",
+          "question": "Como pedir ajuda sobre férias e quanto é permitido por compra de material?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md"
+          ],
+          "distances": [
+            0.5140618085861206,
+            0.5411415696144104,
+            0.5762113928794861
+          ],
+          "retrieval_ms": 105.12839999864809,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-8",
+          "question": "Qual a política de home office no exterior e o prazo máximo permitido?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "distances": [
+            0.5550830960273743,
+            0.5919589996337891,
+            0.6024531126022339
+          ],
+          "retrieval_ms": 35.020800001802854,
+          "correct_abstention": false
+        },
+        {
+          "id": "hybrid-9",
+          "question": "Quanto é o reembolso de internet residencial e qual comprovante preciso?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md"
+          ],
+          "distances": [
+            0.5530768632888794,
+            0.6375018358230591
+          ],
+          "retrieval_ms": 197.38160000997595,
+          "correct_abstention": false
+        },
+        {
+          "id": "hybrid-10",
+          "question": "Qual verba de educação dos filhos e qual prazo para solicitar auxílio escolar?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.6127322316169739
+          ],
+          "retrieval_ms": 105.08199999458157,
+          "correct_abstention": false
+        },
+        {
+          "id": "hybrid-11",
+          "question": "Quem aprova viagens internacionais e qual moeda usar no adiantamento?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.5220248699188232
+          ],
+          "retrieval_ms": 231.3228999992134,
+          "correct_abstention": false
+        }
+      ],
+      "elapsed_seconds": 1.7143140000116546,
+      "embedding_requests": 12,
+      "extra_sources": 10
+    },
+    "lexical": {
+      "scope": "retrieval_only",
+      "cases": 12,
+      "answerable_cases": 8,
+      "unanswerable_cases": 4,
+      "metrics": {
+        "mean_source_recall_at_k": 0.625,
+        "source_mrr_at_k": 1.0,
+        "all_sources_found_rate": 0.25,
+        "correct_abstention_rate": 1.0
+      },
+      "results": [
+        {
+          "id": "hybrid-0",
+          "question": "Quais cuidados de segurança são exigidos na conta e qual a verba para cursos?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html"
+          ],
+          "retrieved_sources": [
+            "operacional/onboarding.html"
+          ],
+          "distances": [
+            0.5871620178222656
+          ],
+          "retrieval_ms": 78.03849999618251,
+          "source_recall": 0.5,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": false
+        },
+        {
+          "id": "hybrid-1",
+          "question": "Quanto reembolsar de alimentação e como devem ser divididas as férias?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md"
+          ],
+          "distances": [
+            0.48039424419403076
+          ],
+          "retrieval_ms": 134.79349999397527,
+          "source_recall": 0.5,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": false
+        },
+        {
+          "id": "hybrid-2",
+          "question": "Qual prazo de reembolso do transporte e por qual canal reportar conflito de interesse?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.5325055122375488,
+            0.6037241816520691
+          ],
+          "retrieval_ms": 166.94140000618063,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-3",
+          "question": "Quem pede os acessos internos e qual antecedência do pedido de férias?",
+          "expected_sources": [
+            "operacional/onboarding.html",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md"
+          ],
+          "distances": [
+            0.45048636198043823
+          ],
+          "retrieval_ms": 139.72869999997783,
+          "source_recall": 0.5,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": false
+        },
+        {
+          "id": "hybrid-4",
+          "question": "Qual limite anual para educação e qual o prazo de reembolso de material?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.5095032453536987
+          ],
+          "retrieval_ms": 276.1277999961749,
+          "source_recall": 0.5,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": false
+        },
+        {
+          "id": "hybrid-5",
+          "question": "Quantos dias posso trabalhar remotamente e quais treinamentos devo concluir no onboarding?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html"
+          ],
+          "retrieved_sources": [
+            "operacional/onboarding.html"
+          ],
+          "distances": [
+            0.4753645062446594
+          ],
+          "retrieval_ms": 126.70200000866316,
+          "source_recall": 0.5,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": false
+        },
+        {
+          "id": "hybrid-6",
+          "question": "Onde registrar denúncia anônima e qual teto de alimentação em viagem?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.5437424182891846
+          ],
+          "retrieval_ms": 167.56790000363253,
+          "source_recall": 0.5,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": false
+        },
+        {
+          "id": "hybrid-7",
+          "question": "Como pedir ajuda sobre férias e quanto é permitido por compra de material?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.5140618085861206,
+            0.5411415696144104
+          ],
+          "retrieval_ms": 75.0906000030227,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-8",
+          "question": "Qual a política de home office no exterior e o prazo máximo permitido?",
+          "expected_sources": [],
+          "retrieved_sources": [],
+          "distances": [],
+          "retrieval_ms": 33.24470001098234,
+          "correct_abstention": true
+        },
+        {
+          "id": "hybrid-9",
+          "question": "Quanto é o reembolso de internet residencial e qual comprovante preciso?",
+          "expected_sources": [],
+          "retrieved_sources": [],
+          "distances": [],
+          "retrieval_ms": 168.69570000562817,
+          "correct_abstention": true
+        },
+        {
+          "id": "hybrid-10",
+          "question": "Qual verba de educação dos filhos e qual prazo para solicitar auxílio escolar?",
+          "expected_sources": [],
+          "retrieved_sources": [],
+          "distances": [],
+          "retrieval_ms": 235.12969999865163,
+          "correct_abstention": true
+        },
+        {
+          "id": "hybrid-11",
+          "question": "Quem aprova viagens internacionais e qual moeda usar no adiantamento?",
+          "expected_sources": [],
+          "retrieved_sources": [],
+          "distances": [],
+          "retrieval_ms": 85.87249999982305,
+          "correct_abstention": true
+        }
+      ],
+      "elapsed_seconds": 1.6880955000087852,
+      "embedding_requests": 12,
+      "extra_sources": 0
+    },
+    "hybrid": {
+      "scope": "retrieval_only",
+      "cases": 12,
+      "answerable_cases": 8,
+      "unanswerable_cases": 4,
+      "metrics": {
+        "mean_source_recall_at_k": 1.0,
+        "source_mrr_at_k": 1.0,
+        "all_sources_found_rate": 1.0,
+        "correct_abstention_rate": 0.0
+      },
+      "results": [
+        {
+          "id": "hybrid-0",
+          "question": "Quais cuidados de segurança são exigidos na conta e qual a verba para cursos?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html"
+          ],
+          "retrieved_sources": [
+            "operacional/onboarding.html",
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.5871620178222656,
+            0.5639006495475769,
+            0.5773743391036987,
+            0.6117091774940491
+          ],
+          "retrieval_ms": 198.07499999296851,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-1",
+          "question": "Quanto reembolsar de alimentação e como devem ser divididas as férias?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.48039424419403076,
+            0.49851709604263306,
+            0.5952991843223572,
+            0.6459248065948486
+          ],
+          "retrieval_ms": 237.5836999999592,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-2",
+          "question": "Qual prazo de reembolso do transporte e por qual canal reportar conflito de interesse?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json",
+            "rh/politica_ferias.md"
+          ],
+          "distances": [
+            0.5325055122375488,
+            0.6037241816520691,
+            0.645125150680542
+          ],
+          "retrieval_ms": 78.27119999274146,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-3",
+          "question": "Quem pede os acessos internos e qual antecedência do pedido de férias?",
+          "expected_sources": [
+            "operacional/onboarding.html",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv",
+            "operacional/onboarding.html"
+          ],
+          "distances": [
+            0.45048636198043823,
+            0.5167995095252991,
+            0.5677238702774048,
+            0.577940821647644
+          ],
+          "retrieval_ms": 107.04509999777656,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-4",
+          "question": "Qual limite anual para educação e qual o prazo de reembolso de material?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md"
+          ],
+          "distances": [
+            0.5095032453536987,
+            0.6119974255561829
+          ],
+          "retrieval_ms": 213.12120000948198,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-5",
+          "question": "Quantos dias posso trabalhar remotamente e quais treinamentos devo concluir no onboarding?",
+          "expected_sources": [
+            "comunicacao/faq.md",
+            "operacional/onboarding.html"
+          ],
+          "retrieved_sources": [
+            "operacional/onboarding.html",
+            "comunicacao/faq.md",
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.4753645062446594,
+            0.43115001916885376,
+            0.5535451173782349,
+            0.5779531002044678
+          ],
+          "retrieval_ms": 33.68499998759944,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-6",
+          "question": "Onde registrar denúncia anônima e qual teto de alimentação em viagem?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "legal/codigo_conduta.json"
+          ],
+          "distances": [
+            0.5437424182891846,
+            0.6381325721740723
+          ],
+          "retrieval_ms": 104.24519999651238,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-7",
+          "question": "Como pedir ajuda sobre férias e quanto é permitido por compra de material?",
+          "expected_sources": [
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "retrieved_sources": [
+            "rh/politica_ferias.md",
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md"
+          ],
+          "distances": [
+            0.5140618085861206,
+            0.5411415696144104,
+            0.5762113928794861
+          ],
+          "retrieval_ms": 207.34249999804888,
+          "source_recall": 1.0,
+          "reciprocal_rank": 1.0,
+          "all_sources_found": true
+        },
+        {
+          "id": "hybrid-8",
+          "question": "Qual a política de home office no exterior e o prazo máximo permitido?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "comunicacao/faq.md",
+            "financeiro/politica_reembolso.csv",
+            "rh/politica_ferias.md"
+          ],
+          "distances": [
+            0.5550830960273743,
+            0.5919589996337891,
+            0.6024531126022339
+          ],
+          "retrieval_ms": 22.34419999876991,
+          "correct_abstention": false
+        },
+        {
+          "id": "hybrid-9",
+          "question": "Quanto é o reembolso de internet residencial e qual comprovante preciso?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv",
+            "comunicacao/faq.md"
+          ],
+          "distances": [
+            0.5530768632888794,
+            0.6375018358230591
+          ],
+          "retrieval_ms": 115.70870000286959,
+          "correct_abstention": false
+        },
+        {
+          "id": "hybrid-10",
+          "question": "Qual verba de educação dos filhos e qual prazo para solicitar auxílio escolar?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.6127322316169739
+          ],
+          "retrieval_ms": 235.62720000336412,
+          "correct_abstention": false
+        },
+        {
+          "id": "hybrid-11",
+          "question": "Quem aprova viagens internacionais e qual moeda usar no adiantamento?",
+          "expected_sources": [],
+          "retrieved_sources": [
+            "financeiro/politica_reembolso.csv"
+          ],
+          "distances": [
+            0.5220248699188232
+          ],
+          "retrieval_ms": 46.518000002834015,
+          "correct_abstention": false
+        }
+      ],
+      "elapsed_seconds": 1.5997252000088338,
+      "embedding_requests": 12,
+      "extra_sources": 10
+    }
+  }
+}

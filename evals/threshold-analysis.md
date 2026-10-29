@@ -27,3 +27,53 @@ Filtrando os resultados já registrados em [ollama-holdout.json](baselines/ollam
 | 0,65 (atual) | 11/11 | 0/4 |
 
 Limiar menor remove evidências esperadas neste conjunto, inclusive em perguntas compostas. Os valores não são diretamente comparáveis aos do Gemini. A geração Groq pode se abster mesmo quando a recuperação encontra trechos: isso foi observado separadamente na avaliação de respostas. Manter o padrão até existir uma validação independente maior.
+
+---
+
+# Comparação de limiares de recuperação
+
+Comparação exploratória em 29/10/2026 com EmbeddingGemma no Ollama, top-4 e os cinco documentos fictícios. A partir dos resultados registrados com limiar 0,65, foram aplicados limiares menores às distâncias já recuperadas. Nos relatórios usados, cada resultado tem um caminho por distância; isso não se aplica automaticamente a bases com vários trechos do mesmo documento.
+
+| Conjunto | Limiar | Respondíveis com todas as fontes | Fontes extras somadas | Negativas sem trechos |
+| --- | ---: | ---: | ---: | ---: |
+| Desenvolvimento | 0,50 | 6/11 | 0 | 3/4 |
+| Desenvolvimento | 0,55 | 6/11 | 1 | 3/4 |
+| Desenvolvimento | 0,60 | 10/11 | 2 | 2/4 |
+| Desenvolvimento | 0,65 | 11/11 | 12 | 2/4 |
+| Separado reutilizado | 0,50 | 4/11 | 0 | 4/4 |
+| Separado reutilizado | 0,55 | 9/11 | 2 | 3/4 |
+| Separado reutilizado | 0,60 | 10/11 | 3 | 3/4 |
+| Separado reutilizado | 0,65 | 11/11 | 13 | 0/4 |
+| Estresse | 0,50 | 1/5 | 1 | 2/3 |
+| Estresse | 0,55 | 2/5 | 1 | 1/3 |
+| Estresse | 0,60 | 4/5 | 1 | 0/3 |
+| Estresse | 0,65 | 5/5 | 5 | 0/3 |
+| Novos exemplos | 0,50 | 1/4 | 0 | 1/2 |
+| Novos exemplos | 0,55 | 2/4 | 0 | 1/2 |
+| Novos exemplos | 0,60 | 4/4 | 4 | 1/2 |
+| Novos exemplos | 0,65 | 4/4 | 6 | 1/2 |
+
+Os [novos casos](retrieval_extra_cases.json) incluem perguntas de uma e duas fontes e duas perguntas sem resposta. O [relatório](baselines/retrieval-extra-top4.json) foi gerado com Ollama local, sem chamadas de geração; registra árvore alterada porque os casos ainda não estavam commitados. Os demais dados são [desenvolvimento](baselines/ollama-development.json), [separado](baselines/ollama-holdout.json) e [estresse](baselines/stress-top4.json).
+
+Uma fonte extra é um caminho não listado como esperado; pode conter informação útil. Preservar todas as fontes esperadas não comprova que a resposta gerada será correta. Os conjuntos são pequenos, sintéticos e usam o mesmo corpus; o conjunto separado foi reutilizado e não é independente. O limite 0,60 eliminou fontes extras, mas perdeu pelo menos uma fonte esperada em cada um dos três conjuntos anteriores. Portanto, não há evidência suficiente para alterar o padrão 0,65. A comparação top-2 versus top-4 e seus limites estão em [top-k-analysis.md](top-k-analysis.md). Uma alternativa futura exige mais casos e avaliação independente antes de modificar a busca.
+
+## Comparação com distância relativa ao primeiro resultado
+
+Além de top-2 e limiar 0,60, foi simulada uma regra que mantém resultados até 0,15 acima da distância do primeiro, mantendo o teto absoluto 0,65. A simulação usa os caminhos e distâncias registrados, sem alterar o código da aplicação. Os relatórios têm um caminho para cada distância; bases com múltiplos trechos por documento exigem avaliação por trecho.
+
+| Conjunto | Estratégia | Todas as fontes | Fontes extras | Negativas sem trechos |
+| --- | --- | ---: | ---: | ---: |
+| Desenvolvimento | Atual | 11/11 | 12 | 2/4 |
+| Desenvolvimento | Diferença 0,15 | 11/11 | 8 | 2/4 |
+| Separado reutilizado | Atual | 11/11 | 13 | 0/4 |
+| Separado reutilizado | Diferença 0,15 | 11/11 | 9 | 0/4 |
+| Estresse | Atual | 5/5 | 5 | 0/3 |
+| Estresse | Diferença 0,15 | 5/5 | 5 | 0/3 |
+| Novos exemplos | Atual | 4/4 | 6 | 1/2 |
+| Novos exemplos | Diferença 0,15 | 4/4 | 5 | 1/2 |
+| Verificação adicional | Atual | 3/4 | 2 | 1/2 |
+| Verificação adicional | Diferença 0,15 | 3/4 | 1 | 1/2 |
+
+Os [seis casos adicionais](retrieval_gap_check.json) foram escritos depois da seleção exploratória do valor e executados com Ollama local; o [relatório](baselines/retrieval-gap-check.json) registra a execução com a árvore modificada. O resultado preservou as mesmas fontes que o padrão nessa amostra. Porém, ambas as estratégias falharam em recuperar o onboarding na pergunta sobre alimentação e treinamentos. A consulta de três fontes recuperou também um trecho financeiro extra quase na mesma distância da fonte legal, que a regra relativa não removeu. Uma das duas perguntas negativas também recuperou um trecho.
+
+A regra relativa é a candidata mais promissora entre as regras simples examinadas para reduzir extras sem perda adicional nesses casos, mas não demonstrou melhora confiável fora deste corpus pequeno. O conjunto adicional foi elaborado na mesma tarefa e não é uma avaliação independente; fontes extras não são necessariamente irrelevantes. A recomendação é manter o padrão até testar uma base maior, documentos com vários trechos e casos preparados independentemente. A regra não resolve a busca que já perde fonte nem a abstenção em perguntas negativas.

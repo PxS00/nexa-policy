@@ -1,0 +1,8 @@
+[
+ {"id":"v-travel-training","question":"Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?","expected_sources":["financeiro/politica_reembolso.csv","operacional/onboarding.html"]},
+ {"id":"v-vacation-remote-ethics","question":"Como dividir férias, quantos dias de trabalho remoto e onde relatar conflitos de interesse?","expected_sources":["rh/politica_ferias.md","comunicacao/faq.md","legal/codigo_conduta.json"]},
+ {"id":"v-material-support","question":"Qual o prazo para pedir reembolso de material e onde solicitar suporte técnico?","expected_sources":["financeiro/politica_reembolso.csv","comunicacao/faq.md"]},
+ {"id":"v-security-ethics","question":"Que proteção da conta devo configurar no primeiro dia e qual canal permite denúncia anônima?","expected_sources":["operacional/onboarding.html","legal/codigo_conduta.json"]},
+ {"id":"v-salary","question":"Quando ocorre o reajuste salarial anual?","expected_sources":[]},
+ {"id":"v-parking","question":"Qual é o valor do auxílio estacionamento?","expected_sources":[]}
+]

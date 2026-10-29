@@ -1,0 +1,142 @@
+{
+  "scope": "retrieval_only",
+  "cases": 6,
+  "answerable_cases": 4,
+  "unanswerable_cases": 2,
+  "metrics": {
+    "mean_source_recall_at_k": 0.875,
+    "source_mrr_at_k": 1.0,
+    "all_sources_found_rate": 0.75,
+    "correct_abstention_rate": 0.5
+  },
+  "results": [
+    {
+      "id": "v-travel-training",
+      "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv",
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.4907956123352051,
+        0.6486883163452148
+      ],
+      "retrieval_ms": 88.99230000679381,
+      "source_recall": 0.5,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": false
+    },
+    {
+      "id": "v-vacation-remote-ethics",
+      "question": "Como dividir férias, quantos dias de trabalho remoto e onde relatar conflitos de interesse?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "legal/codigo_conduta.json",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "comunicacao/faq.md",
+        "legal/codigo_conduta.json",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.4812461733818054,
+        0.52559494972229,
+        0.6106338500976562,
+        0.611311674118042
+      ],
+      "retrieval_ms": 201.76150000770576,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "v-material-support",
+      "question": "Qual o prazo para pedir reembolso de material e onde solicitar suporte técnico?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.5862243175506592,
+        0.6132988929748535
+      ],
+      "retrieval_ms": 66.9188000028953,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "v-security-ethics",
+      "question": "Que proteção da conta devo configurar no primeiro dia e qual canal permite denúncia anônima?",
+      "expected_sources": [
+        "legal/codigo_conduta.json",
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "operacional/onboarding.html",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.5664880275726318,
+        0.591974139213562
+      ],
+      "retrieval_ms": 122.27349999011494,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "v-salary",
+      "question": "Quando ocorre o reajuste salarial anual?",
+      "expected_sources": [],
+      "retrieved_sources": [],
+      "distances": [],
+      "retrieval_ms": 233.91340000671335,
+      "correct_abstention": true
+    },
+    {
+      "id": "v-parking",
+      "question": "Qual é o valor do auxílio estacionamento?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.5976568460464478
+      ],
+      "retrieval_ms": 35.730000003241,
+      "correct_abstention": false
+    }
+  ],
+  "run": {
+    "timestamp_utc": "2026-10-29T17:16:03.402258+00:00",
+    "revision": "c40ac5bfe5b1035bd98ef530a99096f50bfd7afe",
+    "working_tree_dirty": true,
+    "dataset_sha256": "8df2a486703c8b9d9a1b31de40a7cc14be74ff20dbb7acaecd159ac51bc7c645",
+    "corpus_sha256": "58739b233aa27b6b75d4fd9cab1b25d0c51761abcb82a0240ad2ac4d5906c883",
+    "index": {
+      "documents": 5,
+      "chunks": 5
+    },
+    "settings": {
+      "embedding_provider": "ollama",
+      "embedding_model": "gemini-embedding-001",
+      "ollama_model": "embeddinggemma",
+      "embedding_dimensions": 768,
+      "chunk_size": 1000,
+      "chunk_overlap": 150,
+      "top_k": 4,
+      "max_cosine_distance": 0.65
+    }
+  }
+}

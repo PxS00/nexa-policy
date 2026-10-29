@@ -1,0 +1,86 @@
+[
+  {
+    "id": "hybrid-0",
+    "question": "Quais cuidados de segurança são exigidos na conta e qual a verba para cursos?",
+    "expected_sources": [
+      "operacional/onboarding.html",
+      "comunicacao/faq.md"
+    ]
+  },
+  {
+    "id": "hybrid-1",
+    "question": "Quanto reembolsar de alimentação e como devem ser divididas as férias?",
+    "expected_sources": [
+      "financeiro/politica_reembolso.csv",
+      "rh/politica_ferias.md"
+    ]
+  },
+  {
+    "id": "hybrid-2",
+    "question": "Qual prazo de reembolso do transporte e por qual canal reportar conflito de interesse?",
+    "expected_sources": [
+      "financeiro/politica_reembolso.csv",
+      "legal/codigo_conduta.json"
+    ]
+  },
+  {
+    "id": "hybrid-3",
+    "question": "Quem pede os acessos internos e qual antecedência do pedido de férias?",
+    "expected_sources": [
+      "operacional/onboarding.html",
+      "rh/politica_ferias.md"
+    ]
+  },
+  {
+    "id": "hybrid-4",
+    "question": "Qual limite anual para educação e qual o prazo de reembolso de material?",
+    "expected_sources": [
+      "comunicacao/faq.md",
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "hybrid-5",
+    "question": "Quantos dias posso trabalhar remotamente e quais treinamentos devo concluir no onboarding?",
+    "expected_sources": [
+      "comunicacao/faq.md",
+      "operacional/onboarding.html"
+    ]
+  },
+  {
+    "id": "hybrid-6",
+    "question": "Onde registrar denúncia anônima e qual teto de alimentação em viagem?",
+    "expected_sources": [
+      "legal/codigo_conduta.json",
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "hybrid-7",
+    "question": "Como pedir ajuda sobre férias e quanto é permitido por compra de material?",
+    "expected_sources": [
+      "rh/politica_ferias.md",
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "hybrid-8",
+    "question": "Qual a política de home office no exterior e o prazo máximo permitido?",
+    "expected_sources": []
+  },
+  {
+    "id": "hybrid-9",
+    "question": "Quanto é o reembolso de internet residencial e qual comprovante preciso?",
+    "expected_sources": []
+  },
+  {
+    "id": "hybrid-10",
+    "question": "Qual verba de educação dos filhos e qual prazo para solicitar auxílio escolar?",
+    "expected_sources": []
+  },
+  {
+    "id": "hybrid-11",
+    "question": "Quem aprova viagens internacionais e qual moeda usar no adiantamento?",
+    "expected_sources": []
+  }
+]
