@@ -4,7 +4,7 @@ import pytest
 
 from src.config import Settings
 from src.models import SearchResult
-from src.rag import FALLBACK_ANSWER, RagAgent
+from src.rag import FALLBACK_ANSWER, RagAgent, InvalidCitations
 
 
 class FakeAiClient:
@@ -118,6 +118,7 @@ def test_agent_preserves_multiple_sources_for_compound_questions():
     assert [source.source for source in response.sources] == ["politica_ferias.md", "faq.md"]
     assert "faq.md" in ai_client.generated_prompt
     assert [s.citation_id for s in response.sources] == [1, 2]
+    assert [s.cited for s in response.sources] == [True, False]
     assert response.sources[1].excerpt == store.results[1].text
 
 
@@ -149,6 +150,22 @@ def test_model_abstention_does_not_attach_sources():
     assert not response.sources
 
 
+def test_citation_whitespace_does_not_hide_valid_source():
+    ai = FakeAiClient()
+    ai.generate = lambda _: "Resposta [FONTE 1] e [ FONTE 2 ]."
+    results = [SearchResult("Um", {"source": "um.md"}, 0.1),
+               SearchResult("Dois", {"source": "dois.md"}, 0.2)]
+    response = RagAgent(make_settings(), ai, FakeVectorStore(results)).ask("Pergunta?")
+    assert [source.cited for source in response.sources] == [True, True]
+
+
+def test_out_of_range_citation_with_whitespace_is_rejected():
+    ai = FakeAiClient()
+    ai.generate = lambda _: "Resposta [FONTE 1] e [ FONTE 9 ]."
+    with pytest.raises(InvalidCitations):
+        RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")
+
+
 def test_same_filename_in_different_folders_keeps_distinct_evidence():
     results = [SearchResult("Trecho " + folder, {"source": "policy.md", "source_path": folder + "/policy.md"}, 0.2)
                for folder in ("rh", "legal")]
@@ -164,10 +181,9 @@ def test_empty_index_abstains_without_generation():
     assert ai.generated_prompt is None
 
 
-@pytest.mark.parametrize("answer", ["Resposta sem referência.", "Resposta [FONTE 0].", "Resposta [FONTE 2].", "Resposta [FONTE 1] e [FONTE 99]."])
-def test_invalid_or_missing_citations_trigger_abstention(answer):
+@pytest.mark.parametrize("answer", ["Resposta sem referência.", "Resposta [FONTE 0].", "Resposta [FONTE 2].", "Resposta [FONTE 1] e [FONTE 99].", "Resposta [FONTE 1] e [FONTE abc].", "Resposta [FONTE 1] e [FONTE 2", "Resposta [FONTE 1, 2]."])
+def test_invalid_or_missing_citations_report_validation_error(answer):
     ai = FakeAiClient()
     ai.generate = lambda _: answer
-    response = RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")
-    assert response.answer == FALLBACK_ANSWER
-    assert response.sources == ()
+    with pytest.raises(InvalidCitations):
+        RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")

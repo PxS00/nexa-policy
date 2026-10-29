@@ -14,6 +14,10 @@ FALLBACK_ANSWER = (
 )
 
 
+class InvalidCitations(RuntimeError):
+    """Generation failed validation; this does not mean the corpus lacks an answer."""
+
+
 class RagAgent:
     """Retrieval-augmented agent constrained to the indexed corporate knowledge base."""
 
@@ -31,10 +35,14 @@ class RagAgent:
         answer = self._ai_client.generate(prompt)
         if answer.strip() == FALLBACK_ANSWER:
             return AgentResponse(answer=FALLBACK_ANSWER)
-        citations = re.findall(r"\[FONTE\s+(\d+)\]", answer, flags=re.IGNORECASE)
-        if not citations or any(not 1 <= int(citation) <= len(relevant) for citation in citations):
-            return AgentResponse(answer=FALLBACK_ANSWER)
-        sources = self._build_sources(relevant)
+        markers = re.findall(r"\[\s*FONTE\b", answer, flags=re.IGNORECASE)
+        citations = re.findall(r"\[\s*FONTE\s+([^\]]*)\]", answer, flags=re.IGNORECASE)
+        if (not citations or len(citations) != len(markers)
+                or any(not re.fullmatch(r"[0-9]{1,6}", c.strip()) for c in citations)):
+            raise InvalidCitations("A resposta gerada não apresentou referências válidas. Tente novamente.")
+        if any(not 1 <= int(citation) <= len(relevant) for citation in citations):
+            raise InvalidCitations("A resposta gerada citou uma fonte inexistente. Tente novamente.")
+        sources = self._build_sources(relevant, {int(citation) for citation in citations})
         return AgentResponse(answer=answer, sources=sources)
 
     def retrieve(self, question: str) -> list[SearchResult]:
@@ -98,7 +106,7 @@ RESPOSTA:
 """
 
     @staticmethod
-    def _build_sources(results: list[SearchResult]) -> tuple[SourceReference, ...]:
+    def _build_sources(results: list[SearchResult], cited_ids: set[int]) -> tuple[SourceReference, ...]:
         references: list[SourceReference] = []
         for index, result in enumerate(results, start=1):
             source = str(result.metadata.get("source", "desconhecido"))
@@ -112,6 +120,7 @@ RESPOSTA:
                     source_path=str(result.metadata.get("source_path", source)),
                     excerpt=result.text,
                     distance=result.distance,
+                    cited=index in cited_ids,
                 )
             )
 

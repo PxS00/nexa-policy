@@ -11,9 +11,9 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 ## O que este projeto demonstra
 
 - Ingestão recursiva de PDF, DOCX, XLSX, PPTX, Markdown, CSV, JSON e HTML, com metadados e IDs SHA-256 determinísticos.
-- Embeddings Gemini e índice ChromaDB persistente, com busca por distância de cosseno.
+- Embeddings Gemini ou Ollama e índice ChromaDB persistente, com busca por distância de cosseno.
 - Até `TOP_K` trechos abaixo do limiar, permitindo contexto com múltiplas fontes.
-- Evidências com caminho relativo, localização, texto e distância. Respostas sem citação ou com número de fonte inválido são substituídas pela abstenção. A checagem não verifica se a fonte sustenta a afirmação.
+- Evidências com caminho relativo, localização, texto e distância. Respostas sem citação válida geram erro de validação, distinto da abstenção por ausência de informação. A checagem não verifica se a fonte sustenta a afirmação.
 - Abstenção sem geração quando nenhum trecho passa pelo limiar. A mensagem padrão de abstenção retornada pelo modelo também não recebe fontes.
 - Avaliação de recuperação com 15 perguntas curadas, incluindo duas compostas e quatro sem resposta.
 - Testes sem credenciais, incluindo Chroma real com vetores controlados e interface Streamlit com serviços simulados; workflow de CI.
@@ -26,14 +26,14 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 flowchart TD
     A[Documentos fictícios] --> B[Extração e metadados]
     B --> C[Limpeza e chunks com overlap]
-    C --> D[Gemini embeddings de documentos]
+    C --> D[Embeddings de documentos]
     D --> E[(ChromaDB persistente)]
-    Q[Pergunta validada] --> F[Gemini embedding de consulta]
+    Q[Pergunta validada] --> F[Embedding de consulta]
     F --> E
     E --> G[Top-K e filtro por distância]
     G --> H{Há evidências?}
     H -- Não --> I[Abstenção sem geração]
-    H -- Sim --> J[Gemini: pergunta e trechos]
+    H -- Sim --> J[Gerador: pergunta e trechos]
     J --> K[Resposta e evidências no Streamlit]
     G --> L[Avaliação por fontes esperadas]
 ```
@@ -106,6 +106,8 @@ Para Ollama executando no Windows com a aplicação no Docker Desktop, o Compose
 
 ## Testes e avaliação
 
+A [matriz de revisão funcional e de confiabilidade](docs/review-scenarios.md) registra os cenários testados, as correções e os riscos ainda abertos. A suíte local desta revisão passou com 92 testes e 87% de cobertura em `src`; cobertura de código não mede qualidade de respostas.
+
 ```bash
 python -m pytest -q
 python -m pytest --cov=src --cov-report=term-missing
@@ -119,7 +121,7 @@ Para medir a recuperação real, configure a chave e execute na raiz do projeto:
 python -m src.evaluation --output evals/reports/retrieval.json
 ```
 
-O comando envia corpus e perguntas ao Gemini para gerar embeddings e pode consumir quota/cobrança. O relatório registra recall de fontes, MRR, recuperação de todas as fontes, abstenção correta, tempo de recuperação, configuração, revisão e hashes do corpus/dataset. [Metodologia](evals/README.md).
+O comando usa o provedor de embeddings configurado: Gemini pode consumir quota/cobrança; Ollama gera os vetores localmente. O relatório registra recall de fontes, MRR, recuperação de todas as fontes, abstenção correta, tempo de recuperação, configuração, revisão e hashes do corpus/dataset. [Metodologia](evals/README.md).
 
 ### Baseline real de recuperação
 
@@ -133,6 +135,8 @@ Em 28/10/2026, com Gemini `gemini-embedding-001`, cinco documentos fictícios, l
 Top-4 recuperou as fontes das duas perguntas compostas; o filtro não rejeitou nenhuma negativa. Isso é um experimento pequeno de recuperação por documento, não uma medida de qualidade de respostas nem resultado em produção. Os relatórios incluem distâncias, tempos, configuração, hash e revisão: [top-1](evals/baselines/retrieval-top1.json) e [top-4](evals/baselines/retrieval-top4.json). A revisão registrada antecede a validação de citações, que não altera a recuperação. [Registro de validação](docs/validation.md).
 
 Com `embeddinggemma` local, top-4 e limiar 0,65, todos os documentos esperados foram recuperados em 11/11 perguntas respondíveis nos dois conjuntos de 15 casos. A recuperação rejeitou 2/4 negativas no conjunto de desenvolvimento e 0/4 no conjunto separado. [Dados de desenvolvimento](evals/baselines/ollama-development.json) e [dados do conjunto separado](evals/baselines/ollama-holdout.json). São amostras pequenas dos mesmos cinco documentos, sem avaliação automática de correção das respostas. Os arquivos foram produzidos com alterações locais ainda não commitadas; a revisão Git registrada não identifica o código completo da execução.
+
+Uma comparação posterior de top-2 e top-4 com Ollama mostrou menos fontes extras com top-2 nos conjuntos anteriores, mas um novo conjunto de estresse revelou perda de fontes nas três perguntas que exigem três documentos. Por isso, o padrão permanece top-4. A recuperação das perguntas negativas não melhorou. A classificação de fontes citadas verifica a referência textual, não se cada afirmação é sustentada. [Método, resultados e limites](evals/top-k-analysis.md).
 
 Com Ollama e Groq, uma avaliação real do conjunto separado teve 11 respostas revisadas com fatos e fontes esperadas e quatro abstenções corretas. Um dos casos negativos falhou na primeira execução e foi repetido. [Execução inicial](evals/baselines/groq-ollama-holdout-attempt.json), [repetição dos casos](evals/baselines/groq-ollama-holdout-followup.json) e [revisão manual](evals/baselines/groq-ollama-holdout-review.json). A revisão foi realizada nesta tarefa, sem avaliador independente, em uma amostra pequena; não mede confiabilidade em produção.
 

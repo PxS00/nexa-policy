@@ -63,3 +63,27 @@ def test_documents_changed_during_embedding_do_not_replace_active_index(tmp_path
 
     with pytest.raises(RuntimeError, match="mudaram durante"):
         rebuild_index(settings, ChangingClient(), UntouchedStore())
+
+
+def test_rebuild_removes_deleted_document_from_active_index(tmp_path):
+    from src.vector_store import VectorStore
+    from uuid import uuid4
+    docs = tmp_path / "docs"
+    docs.mkdir()
+    a = docs / "a.md"
+    a.write_text("Versão antiga", encoding="utf-8")
+    (docs / "b.md").write_text("Documento removível", encoding="utf-8")
+    settings = replace(Settings.from_env(), documents_path=docs)
+
+    class Client:
+        def embed_documents(self, texts):
+            return [[1, 0] for _ in texts]
+
+    store = VectorStore(tmp_path / "index", "test-" + uuid4().hex, persistent=False)
+    rebuild_index(settings, Client(), store)
+    assert store.count() == 2
+    (docs / "b.md").unlink()
+    a.write_text("Versão nova", encoding="utf-8")
+    rebuild_index(settings, Client(), store)
+    assert store.count() == 1
+    assert store.search([1, 0], 4)[0].text == "Versão nova"
