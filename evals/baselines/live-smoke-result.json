@@ -1,0 +1,122 @@
+{
+  "timestamp_utc": "2026-10-29T17:06:17.611588+00:00",
+  "revision": "bfb7766863c2b1e549b2144579908a525934b6b7",
+  "working_tree_dirty": false,
+  "dataset_sha256": "eaa3b401e14f5dcba5db5e18b205dd67cdcef5c8952208f2480c459f710fbb23",
+  "settings": {
+    "llm_provider": "groq",
+    "groq_model": "openai/gpt-oss-20b",
+    "llm_model": "gemini-3.5-flash",
+    "llm_fallback_model": "gemini-3.5-flash-lite",
+    "embedding_provider": "ollama",
+    "embedding_model": "gemini-embedding-001",
+    "ollama_model": "embeddinggemma",
+    "embedding_dimensions": 768,
+    "chunk_size": 1000,
+    "chunk_overlap": 150,
+    "top_k": 4,
+    "max_cosine_distance": 0.65
+  },
+  "index": {
+    "documents": 5,
+    "chunks": 5
+  },
+  "total_cases": 3,
+  "results": [
+    {
+      "id": "h-vacation-minimum",
+      "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "expected_facts": [
+        "Um período deve ter pelo menos 14 dias corridos; os demais, pelo menos 5 dias corridos cada."
+      ],
+      "status": "answered",
+      "answer": "A duração mínima dos períodos quando as férias são divididas é:\n\n- **Um dos períodos** deve ter pelo menos **14 dias corridos**.  \n- **Cada um dos demais períodos** (até dois) deve ter pelo menos **5 dias corridos**.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_ferias.md",
+          "category": "rh",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "rh/politica_ferias.md",
+          "excerpt": "# Política de Férias — NexaCorp\n\nA NexaCorp concede 30 dias corridos de férias após cada período aquisitivo de 12 meses, conforme a legislação aplicável.\n\nO pedido deve ser enviado ao RH com no mínimo 30 dias de antecedência. A liderança avalia o período solicitado considerando a continuidade das atividades da equipe.\n\nÉ possível dividir as férias em até três períodos, desde que um deles tenha pelo menos 14 dias corridos e os demais tenham pelo menos 5 dias corridos cada.\n\nDúvidas e solicitações devem ser encaminhadas ao time de Recursos Humanos pelo canal interno RH Ajuda.",
+          "distance": 0.41707491874694824,
+          "cited": true
+        }
+      ],
+      "review": {
+        "facts_supported": true,
+        "citations_supported": true,
+        "notes": "Conferido com política de férias: períodos e limite de três estão sustentados pela fonte 1."
+      }
+    },
+    {
+      "id": "h-combined",
+      "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+      "expected_sources": [
+        "operacional/onboarding.html",
+        "comunicacao/faq.md"
+      ],
+      "expected_facts": [
+        "A liderança solicita acessos pelo portal de serviços.",
+        "Chamados técnicos devem ser abertos no portal interno do Service Desk."
+      ],
+      "status": "answered",
+      "answer": "Quem solicita seus acessos internos  \n- A liderança (supervisor ou gestor da sua área) solicita os acessos a sistemas internos por meio do **portal de serviços**.  \n  [FONTE 2]\n\nOnde abrir chamados de TI  \n- Os chamados técnicos devem ser abertos no **portal interno do Service Desk**.  \n  [FONTE 1]",
+      "evidence": [
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.508919358253479,
+          "cited": true
+        },
+        {
+          "source": "onboarding.html",
+          "category": "operacional",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "operacional/onboarding.html",
+          "excerpt": "Onboarding NexaCorp\nGuia de Onboarding\nNo primeiro dia, o colaborador deve concluir a ativação da conta corporativa e configurar autenticação em dois fatores.\nNa primeira semana, são obrigatórios os treinamentos de segurança da informação, LGPD e código de conduta.\nO acesso a sistemas internos é solicitado pela liderança por meio do portal de serviços.\nProblemas de acesso devem ser direcionados ao Service Desk no portal interno.",
+          "distance": 0.5694035291671753,
+          "cited": true
+        },
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.6034316420555115,
+          "cited": false
+        }
+      ],
+      "review": {
+        "facts_supported": true,
+        "citations_supported": true,
+        "notes": "Conferido com onboarding e FAQ: liderança solicita acesso e chamados vão ao Service Desk. As fontes 1 e 2 sustentam as afirmações; a fonte 3 é contexto extra não citado."
+      }
+    },
+    {
+      "id": "h-childcare",
+      "question": "Qual o valor do auxílio creche?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "abstained",
+      "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+      "evidence": [],
+      "review": {
+        "facts_supported": true,
+        "citations_supported": null,
+        "notes": "Abstenção esperada: auxílio creche não consta dos cinco documentos fictícios."
+      }
+    }
+  ],
+  "complete": true
+}

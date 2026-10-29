@@ -11,7 +11,7 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 ## O que este projeto demonstra
 
 - Ingestão recursiva de PDF, DOCX, XLSX, PPTX, Markdown, CSV, JSON e HTML, com metadados e IDs SHA-256 determinísticos.
-- Embeddings Gemini e índice ChromaDB persistente, com busca por distância de cosseno.
+- Embeddings Gemini ou Ollama e índice ChromaDB persistente, com busca por distância de cosseno.
 - Até `TOP_K` trechos abaixo do limiar, permitindo contexto com múltiplas fontes.
 - Evidências com caminho relativo, localização, texto e distância. Respostas sem citação válida geram erro de validação, distinto da abstenção por ausência de informação. A checagem não verifica se a fonte sustenta a afirmação.
 - Abstenção sem geração quando nenhum trecho passa pelo limiar. A mensagem padrão de abstenção retornada pelo modelo também não recebe fontes.
@@ -26,14 +26,14 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 flowchart TD
     A[Documentos fictícios] --> B[Extração e metadados]
     B --> C[Limpeza e chunks com overlap]
-    C --> D[Gemini embeddings de documentos]
+    C --> D[Embeddings de documentos]
     D --> E[(ChromaDB persistente)]
-    Q[Pergunta validada] --> F[Gemini embedding de consulta]
+    Q[Pergunta validada] --> F[Embedding de consulta]
     F --> E
     E --> G[Top-K e filtro por distância]
     G --> H{Há evidências?}
     H -- Não --> I[Abstenção sem geração]
-    H -- Sim --> J[Gemini: pergunta e trechos]
+    H -- Sim --> J[Gerador: pergunta e trechos]
     J --> K[Resposta e evidências no Streamlit]
     G --> L[Avaliação por fontes esperadas]
 ```

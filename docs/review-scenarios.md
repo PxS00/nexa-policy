@@ -39,3 +39,9 @@ Revisão de leitura do pipeline, adaptadores, persistência, ingestão e interfa
 - A avaliação de geração ainda não possui limite de casos configurável ou retomada automática por checkpoint; relatórios parciais precisam ser preservados antes de repetir.
 
 Esses pontos são limites documentados e trabalho futuro; não são marcados como resolvidos por testes simulados. O PR permanece em revisão.
+
+## Rodada real complementar
+
+Em 29/10/2026, três consultas executadas pelo avaliador com Ollama e Groq concluíram: férias e consulta de duas fontes tiveram fatos e citações conferidos manualmente contra os documentos; auxílio creche gerou a abstenção esperada. A consulta composta também recuperou um trecho de conduta não citado. [Casos](../evals/baselines/live-smoke-cases.json) e [respostas e revisão](../evals/baselines/live-smoke-result.json). São casos reutilizados e avaliados pelo autor desta tarefa, sem avaliação independente.
+
+Uma consulta adicional à interface Streamlit, executada com AppTest e serviços reais, exibiu os grupos de fontes citadas e outros trechos consultados sem erro. Isso não é um teste visual em navegador. A geração é variável e a recuperação de conteúdo irrelevante segue como limitação.

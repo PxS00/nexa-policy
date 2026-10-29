@@ -1,0 +1,30 @@
+[
+  {
+    "id": "h-vacation-minimum",
+    "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+    "expected_sources": [
+      "rh/politica_ferias.md"
+    ],
+    "expected_facts": [
+      "Um período deve ter pelo menos 14 dias corridos; os demais, pelo menos 5 dias corridos cada."
+    ]
+  },
+  {
+    "id": "h-combined",
+    "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+    "expected_sources": [
+      "operacional/onboarding.html",
+      "comunicacao/faq.md"
+    ],
+    "expected_facts": [
+      "A liderança solicita acessos pelo portal de serviços.",
+      "Chamados técnicos devem ser abertos no portal interno do Service Desk."
+    ]
+  },
+  {
+    "id": "h-childcare",
+    "question": "Qual o valor do auxílio creche?",
+    "expected_sources": [],
+    "expected_facts": []
+  }
+]
