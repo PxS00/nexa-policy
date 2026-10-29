@@ -85,7 +85,7 @@ Abra [localhost:8501](http://localhost:8501). A primeira execução indexa `docu
 | `CHROMA_PATH` | `.chroma` | Persistência |
 | `CHROMA_COLLECTION` | `corporate_documents` | Coleção |
 | `CHUNK_SIZE` / `CHUNK_OVERLAP` | `1000` / `150` | Caracteres / sobreposição |
-| `TOP_K` | `2` | Máximo de trechos; ajuste para perguntas que exijam mais fontes |
+| `TOP_K` | `4` | Máximo de trechos |
 | `MAX_COSINE_DISTANCE` | `0.65` | Distância máxima aceita |
 
 Distância menor significa proximidade vetorial; não é probabilidade de correção. O limiar é heurístico, sem calibração empírica publicada. Ao mudar modelo ou dimensão dos embeddings, use uma nova coleção ou reindexe antes de consultar.
@@ -134,7 +134,7 @@ Top-4 recuperou as fontes das duas perguntas compostas; o filtro não rejeitou n
 
 Com `embeddinggemma` local, top-4 e limiar 0,65, todos os documentos esperados foram recuperados em 11/11 perguntas respondíveis nos dois conjuntos de 15 casos. A recuperação rejeitou 2/4 negativas no conjunto de desenvolvimento e 0/4 no conjunto separado. [Dados de desenvolvimento](evals/baselines/ollama-development.json) e [dados do conjunto separado](evals/baselines/ollama-holdout.json). São amostras pequenas dos mesmos cinco documentos, sem avaliação automática de correção das respostas. Os arquivos foram produzidos com alterações locais ainda não commitadas; a revisão Git registrada não identifica o código completo da execução.
 
-Uma comparação posterior de top-2 e top-4 com Ollama manteve todas as fontes esperadas nas 11 perguntas respondíveis de cada conjunto e reduziu fontes extras. A recuperação de negativas não melhorou. Com top-2, perguntas que exigem mais de dois trechos podem perder evidências; use `TOP_K` para ajustar. A classificação de fontes citadas verifica a referência textual, não se cada afirmação é sustentada. [Método, resultados e limites](evals/top-k-analysis.md).
+Uma comparação posterior de top-2 e top-4 com Ollama mostrou menos fontes extras com top-2 nos conjuntos anteriores, mas um novo conjunto de estresse revelou perda de fontes nas três perguntas que exigem três documentos. Por isso, o padrão permanece top-4. A recuperação das perguntas negativas não melhorou. A classificação de fontes citadas verifica a referência textual, não se cada afirmação é sustentada. [Método, resultados e limites](evals/top-k-analysis.md).
 
 Com Ollama e Groq, uma avaliação real do conjunto separado teve 11 respostas revisadas com fatos e fontes esperadas e quatro abstenções corretas. Um dos casos negativos falhou na primeira execução e foi repetido. [Execução inicial](evals/baselines/groq-ollama-holdout-attempt.json), [repetição dos casos](evals/baselines/groq-ollama-holdout-followup.json) e [revisão manual](evals/baselines/groq-ollama-holdout-review.json). A revisão foi realizada nesta tarefa, sem avaliador independente, em uma amostra pequena; não mede confiabilidade em produção.
 

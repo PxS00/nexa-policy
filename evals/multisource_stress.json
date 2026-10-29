@@ -1,0 +1,10 @@
+[
+  {"id":"s-three-rh-finance-it","question":"Qual a antecedência para pedir férias, o limite diário de alimentação em viagem e onde abrir chamado de TI?","expected_sources":["rh/politica_ferias.md","financeiro/politica_reembolso.csv","comunicacao/faq.md"]},
+  {"id":"s-three-rh-finance-onboarding","question":"Qual é a antecedência das férias, o limite para hospedagem e quais treinamentos são obrigatórios no onboarding?","expected_sources":["rh/politica_ferias.md","financeiro/politica_reembolso.csv","operacional/onboarding.html"]},
+  {"id":"s-three-legal-education-vacation","question":"Onde denunciar violação ética, qual o benefício para cursos e com que antecedência peço férias?","expected_sources":["legal/codigo_conduta.json","comunicacao/faq.md","rh/politica_ferias.md"]},
+  {"id":"s-two-education-training","question":"Qual é a verba anual para cursos e quais treinamentos são obrigatórios na primeira semana?","expected_sources":["comunicacao/faq.md","operacional/onboarding.html"]},
+  {"id":"s-two-hotel-vacation","question":"Qual o limite da diária de hotel e em quantos períodos posso dividir minhas férias?","expected_sources":["financeiro/politica_reembolso.csv","rh/politica_ferias.md"]},
+  {"id":"s-absent-car","question":"Qual carro a empresa fornece e qual o teto de combustível?","expected_sources":[]},
+  {"id":"s-absent-salary","question":"Qual é o salário mínimo de um analista na NexaCorp?","expected_sources":[]},
+  {"id":"s-absent-parental","question":"Quantos dias de licença parental são oferecidos?","expected_sources":[]}
+]

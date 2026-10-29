@@ -150,6 +150,22 @@ def test_model_abstention_does_not_attach_sources():
     assert not response.sources
 
 
+def test_citation_whitespace_does_not_hide_valid_source():
+    ai = FakeAiClient()
+    ai.generate = lambda _: "Resposta [FONTE 1] e [ FONTE 2 ]."
+    results = [SearchResult("Um", {"source": "um.md"}, 0.1),
+               SearchResult("Dois", {"source": "dois.md"}, 0.2)]
+    response = RagAgent(make_settings(), ai, FakeVectorStore(results)).ask("Pergunta?")
+    assert [source.cited for source in response.sources] == [True, True]
+
+
+def test_out_of_range_citation_with_whitespace_is_rejected():
+    ai = FakeAiClient()
+    ai.generate = lambda _: "Resposta [FONTE 1] e [ FONTE 9 ]."
+    response = RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")
+    assert response.answer == FALLBACK_ANSWER
+
+
 def test_same_filename_in_different_folders_keeps_distinct_evidence():
     results = [SearchResult("Trecho " + folder, {"source": "policy.md", "source_path": folder + "/policy.md"}, 0.2)
                for folder in ("rh", "legal")]

@@ -31,7 +31,7 @@ class RagAgent:
         answer = self._ai_client.generate(prompt)
         if answer.strip() == FALLBACK_ANSWER:
             return AgentResponse(answer=FALLBACK_ANSWER)
-        citations = re.findall(r"\[FONTE\s+(\d+)\]", answer, flags=re.IGNORECASE)
+        citations = re.findall(r"\[\s*FONTE\s+(\d+)\s*\]", answer, flags=re.IGNORECASE)
         if not citations or any(not 1 <= int(citation) <= len(relevant) for citation in citations):
             return AgentResponse(answer=FALLBACK_ANSWER)
         sources = self._build_sources(relevant, {int(citation) for citation in citations})

@@ -1,0 +1,181 @@
+{
+  "scope": "retrieval_only",
+  "cases": 8,
+  "answerable_cases": 5,
+  "unanswerable_cases": 3,
+  "metrics": {
+    "mean_source_recall_at_k": 0.8,
+    "source_mrr_at_k": 1.0,
+    "all_sources_found_rate": 0.4,
+    "correct_abstention_rate": 0.0
+  },
+  "results": [
+    {
+      "id": "s-three-rh-finance-it",
+      "question": "Qual a antecedência para pedir férias, o limite diário de alimentação em viagem e onde abrir chamado de TI?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.4505178928375244,
+        0.5185089707374573
+      ],
+      "retrieval_ms": 39.59749999921769,
+      "source_recall": 0.6666666666666666,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": false
+    },
+    {
+      "id": "s-three-rh-finance-onboarding",
+      "question": "Qual é a antecedência das férias, o limite para hospedagem e quais treinamentos são obrigatórios no onboarding?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv",
+        "operacional/onboarding.html",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "operacional/onboarding.html"
+      ],
+      "distances": [
+        0.46726417541503906,
+        0.47293829917907715
+      ],
+      "retrieval_ms": 38.574400008656085,
+      "source_recall": 0.6666666666666666,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": false
+    },
+    {
+      "id": "s-three-legal-education-vacation",
+      "question": "Onde denunciar violação ética, qual o benefício para cursos e com que antecedência peço férias?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "legal/codigo_conduta.json",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.5333220362663269,
+        0.5789499282836914
+      ],
+      "retrieval_ms": 47.65239999687765,
+      "source_recall": 0.6666666666666666,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": false
+    },
+    {
+      "id": "s-two-education-training",
+      "question": "Qual é a verba anual para cursos e quais treinamentos são obrigatórios na primeira semana?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html"
+      ],
+      "distances": [
+        0.5862175822257996,
+        0.6038287878036499
+      ],
+      "retrieval_ms": 84.9140000063926,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "s-two-hotel-vacation",
+      "question": "Qual o limite da diária de hotel e em quantos períodos posso dividir minhas férias?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.5018473863601685,
+        0.5234981775283813
+      ],
+      "retrieval_ms": 41.5324000059627,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "s-absent-car",
+      "question": "Qual carro a empresa fornece e qual o teto de combustível?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.579145073890686
+      ],
+      "retrieval_ms": 55.13990001054481,
+      "correct_abstention": false
+    },
+    {
+      "id": "s-absent-salary",
+      "question": "Qual é o salário mínimo de um analista na NexaCorp?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.4212952256202698,
+        0.5131650567054749
+      ],
+      "retrieval_ms": 82.55809999536723,
+      "correct_abstention": false
+    },
+    {
+      "id": "s-absent-parental",
+      "question": "Quantos dias de licença parental são oferecidos?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.5354354381561279,
+        0.6216030120849609
+      ],
+      "retrieval_ms": 43.50900001008995,
+      "correct_abstention": false
+    }
+  ],
+  "run": {
+    "timestamp_utc": "2026-10-29T16:15:29.666340+00:00",
+    "revision": "72ad784b55b34070cc2a29b965f214ac3b62bc04",
+    "working_tree_dirty": true,
+    "dataset_sha256": "a371df500b28f563259615e37f9122f1d387bc8f718b54b96f8ebf9bdde64567",
+    "corpus_sha256": "58739b233aa27b6b75d4fd9cab1b25d0c51761abcb82a0240ad2ac4d5906c883",
+    "index": {
+      "documents": 5,
+      "chunks": 5
+    },
+    "settings": {
+      "embedding_provider": "ollama",
+      "embedding_model": "gemini-embedding-001",
+      "ollama_model": "embeddinggemma",
+      "embedding_dimensions": 768,
+      "chunk_size": 1000,
+      "chunk_overlap": 150,
+      "top_k": 2,
+      "max_cosine_distance": 0.65
+    }
+  }
+}
