@@ -44,7 +44,7 @@ class Settings:
             documents_path=Path(os.getenv("DOCUMENTS_PATH", "documents")),
             chunk_size=int(os.getenv("CHUNK_SIZE", "1000")),
             chunk_overlap=int(os.getenv("CHUNK_OVERLAP", "150")),
-            top_k=int(os.getenv("TOP_K", "4")),
+            top_k=int(os.getenv("TOP_K", "2")),
             max_cosine_distance=float(os.getenv("MAX_COSINE_DISTANCE", "0.65")),
             llm_fallback_model=os.getenv(
                 "LLM_FALLBACK_MODEL", "gemini-3.5-flash-lite"

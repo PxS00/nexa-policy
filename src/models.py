@@ -41,6 +41,7 @@ class SourceReference:
     source_path: str = ""
     excerpt: str = ""
     distance: float = 0.0
+    cited: bool = False
 
 
 @dataclass(frozen=True, slots=True)

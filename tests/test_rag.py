@@ -118,6 +118,7 @@ def test_agent_preserves_multiple_sources_for_compound_questions():
     assert [source.source for source in response.sources] == ["politica_ferias.md", "faq.md"]
     assert "faq.md" in ai_client.generated_prompt
     assert [s.citation_id for s in response.sources] == [1, 2]
+    assert [s.cited for s in response.sources] == [True, False]
     assert response.sources[1].excerpt == store.results[1].text
 
 

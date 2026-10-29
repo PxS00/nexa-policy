@@ -47,17 +47,22 @@ def render_sources(sources: list[dict]) -> None:
     if not sources:
         return
 
-    with st.expander("Fontes consultadas"):
-        for source in sources:
-            source_name = source.get("source") or "Documento sem nome"
-            category = source.get("category") or "geral"
-            location = source.get("location") or "documento"
+    cited = [source for source in sources if source.get("cited", False)]
+    other = [source for source in sources if not source.get("cited", False)]
+    for label, group in (("Fontes citadas", cited), ("Outros trechos consultados", other)):
+        if not group:
+            continue
+        with st.expander(label):
+            for source in group:
+                source_name = source.get("source") or "Documento sem nome"
+                category = source.get("category") or "geral"
+                location = source.get("location") or "documento"
 
-            st.write(f"[FONTE {source.get('citation_id', 1)}] {source.get('source_path') or source_name}")
-            st.caption(f"Categoria: {category} · Localização: {location}")
-            st.text(source.get("excerpt", ""))
-            if "distance" in source:
-                st.caption(f"Distância de cosseno: {source['distance']:.3f} (menor = mais próximo; não é probabilidade)")
+                st.write(f"[FONTE {source.get('citation_id', 1)}] {source.get('source_path') or source_name}")
+                st.caption(f"Categoria: {category} · Localização: {location}")
+                st.text(source.get("excerpt", ""))
+                if "distance" in source:
+                    st.caption(f"Distância de cosseno: {source['distance']:.3f} (menor = mais próximo; não é probabilidade)")
 
 
 st.title("NexaPolicy")

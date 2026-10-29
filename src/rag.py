@@ -34,7 +34,7 @@ class RagAgent:
         citations = re.findall(r"\[FONTE\s+(\d+)\]", answer, flags=re.IGNORECASE)
         if not citations or any(not 1 <= int(citation) <= len(relevant) for citation in citations):
             return AgentResponse(answer=FALLBACK_ANSWER)
-        sources = self._build_sources(relevant)
+        sources = self._build_sources(relevant, {int(citation) for citation in citations})
         return AgentResponse(answer=answer, sources=sources)
 
     def retrieve(self, question: str) -> list[SearchResult]:
@@ -98,7 +98,7 @@ RESPOSTA:
 """
 
     @staticmethod
-    def _build_sources(results: list[SearchResult]) -> tuple[SourceReference, ...]:
+    def _build_sources(results: list[SearchResult], cited_ids: set[int]) -> tuple[SourceReference, ...]:
         references: list[SourceReference] = []
         for index, result in enumerate(results, start=1):
             source = str(result.metadata.get("source", "desconhecido"))
@@ -112,6 +112,7 @@ RESPOSTA:
                     source_path=str(result.metadata.get("source_path", source)),
                     excerpt=result.text,
                     distance=result.distance,
+                    cited=index in cited_ids,
                 )
             )
 
