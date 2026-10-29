@@ -1,0 +1,59 @@
+[
+  {
+    "id": "p-0",
+    "question": "Quanto posso gastar com material e qual o prazo para reembolso?",
+    "expected_sources": [
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "p-1",
+    "question": "Como ativar minha conta e onde abrir chamado técnico?",
+    "expected_sources": [
+      "operacional/onboarding.html",
+      "comunicacao/faq.md"
+    ]
+  },
+  {
+    "id": "p-2",
+    "question": "Qual a verba para certificações e quantos dias de férias são concedidos?",
+    "expected_sources": [
+      "comunicacao/faq.md",
+      "rh/politica_ferias.md"
+    ]
+  },
+  {
+    "id": "p-3",
+    "question": "Onde denunciar anonimamente e qual a exigência para transporte?",
+    "expected_sources": [
+      "legal/codigo_conduta.json",
+      "financeiro/politica_reembolso.csv"
+    ]
+  },
+  {
+    "id": "p-4",
+    "question": "Qual o prazo para solicitar férias e quais treinamentos são obrigatórios na primeira semana?",
+    "expected_sources": [
+      "rh/politica_ferias.md",
+      "operacional/onboarding.html"
+    ]
+  },
+  {
+    "id": "p-5",
+    "question": "Qual o teto de hospedagem e como comunicar conflitos de interesse?",
+    "expected_sources": [
+      "financeiro/politica_reembolso.csv",
+      "legal/codigo_conduta.json"
+    ]
+  },
+  {
+    "id": "p-6",
+    "question": "Qual o valor do auxílio combustível e onde solicito plano de saúde?",
+    "expected_sources": []
+  },
+  {
+    "id": "p-7",
+    "question": "Quando recebo participação nos lucros e qual o valor do seguro de vida?",
+    "expected_sources": []
+  }
+]

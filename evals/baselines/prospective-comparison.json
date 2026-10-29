@@ -1,0 +1,796 @@
+{
+  "revision": "1a451f712fb1926e2132df139125fce11b2f3c15",
+  "working_tree_dirty": true,
+  "dataset_hashes": {
+    "multisource_stress.json": "a371df500b28f563259615e37f9122f1d387bc8f718b54b96f8ebf9bdde64567",
+    "policy_holdout.json": "41288050432306976367895b812e0db379bda504421226481745e9ea08f9665d",
+    "policy_questions.json": "535d6e489dfcb45db63c6904e7b2ad2625d16181d426aee1e8bc2629e064e178",
+    "retrieval_extra_cases.json": "5e5e55d6a2852c606eaf0a03d6174ebc34a8f401114b71b5ad82c0537b8f5176",
+    "retrieval_gap_check.json": "8df2a486703c8b9d9a1b31de40a7cc14be74ff20dbb7acaecd159ac51bc7c645",
+    "retrieval_prospective.json": "8184fed6b276027ac7e7543c0af2fde972c2ae92df854cfc5e330b18f9d5650a"
+  },
+  "settings": {
+    "top_k": 4,
+    "threshold": 0.65,
+    "model": "embeddinggemma"
+  },
+  "datasets": {
+    "retrieval_prospective": {
+      "current": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 6,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "p-0",
+            "question": "Quanto posso gastar com material e qual o prazo para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4315834045410156,
+              0.6394033432006836,
+              0.6446447372436523,
+              0.645649790763855
+            ],
+            "retrieval_ms": 93.70209999906365,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-1",
+            "question": "Como ativar minha conta e onde abrir chamado técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5564634799957275,
+              0.6301587820053101
+            ],
+            "retrieval_ms": 158.07270001096185,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-2",
+            "question": "Qual a verba para certificações e quantos dias de férias são concedidos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.4429376721382141,
+              0.47416335344314575,
+              0.52669358253479,
+              0.6258325576782227
+            ],
+            "retrieval_ms": 48.90670000168029,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-3",
+            "question": "Onde denunciar anonimamente e qual a exigência para transporte?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6205186247825623,
+              0.6265146732330322
+            ],
+            "retrieval_ms": 214.00229999562725,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-4",
+            "question": "Qual o prazo para solicitar férias e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.44401854276657104,
+              0.5386469960212708,
+              0.5487759113311768,
+              0.5714839100837708
+            ],
+            "retrieval_ms": 181.26549999578856,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-5",
+            "question": "Qual o teto de hospedagem e como comunicar conflitos de interesse?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5832390785217285,
+              0.6221581697463989
+            ],
+            "retrieval_ms": 45.990300000994466,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-6",
+            "question": "Qual o valor do auxílio combustível e onde solicito plano de saúde?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5610830783843994,
+              0.6363968253135681
+            ],
+            "retrieval_ms": 36.26410001015756,
+            "correct_abstention": false
+          },
+          {
+            "id": "p-7",
+            "question": "Quando recebo participação nos lucros e qual o valor do seguro de vida?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6489593982696533
+            ],
+            "retrieval_ms": 179.5010999921942,
+            "correct_abstention": false
+          }
+        ],
+        "elapsed_seconds": 0.9578460000047926,
+        "embedding_requests": 8,
+        "extra_sources": 7
+      },
+      "relative": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 6,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "p-0",
+            "question": "Quanto posso gastar com material e qual o prazo para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4315834045410156
+            ],
+            "retrieval_ms": 42.01710000052117,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-1",
+            "question": "Como ativar minha conta e onde abrir chamado técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5564634799957275,
+              0.6301587820053101
+            ],
+            "retrieval_ms": 151.14770000218414,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-2",
+            "question": "Qual a verba para certificações e quantos dias de férias são concedidos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4429376721382141,
+              0.47416335344314575,
+              0.52669358253479
+            ],
+            "retrieval_ms": 112.85180000413675,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-3",
+            "question": "Onde denunciar anonimamente e qual a exigência para transporte?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.6205186247825623,
+              0.6265146732330322
+            ],
+            "retrieval_ms": 109.86969999794383,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-4",
+            "question": "Qual o prazo para solicitar férias e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.44401854276657104,
+              0.5386469960212708,
+              0.5487759113311768,
+              0.5714839100837708
+            ],
+            "retrieval_ms": 147.5434000021778,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-5",
+            "question": "Qual o teto de hospedagem e como comunicar conflitos de interesse?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5832390785217285,
+              0.6221581697463989
+            ],
+            "retrieval_ms": 77.94130001275335,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-6",
+            "question": "Qual o valor do auxílio combustível e onde solicito plano de saúde?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5610830783843994,
+              0.6363968253135681
+            ],
+            "retrieval_ms": 69.33379999827594,
+            "correct_abstention": false
+          },
+          {
+            "id": "p-7",
+            "question": "Quando recebo participação nos lucros e qual o valor do seguro de vida?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6489593982696533
+            ],
+            "retrieval_ms": 117.77009999786969,
+            "correct_abstention": false
+          }
+        ],
+        "elapsed_seconds": 0.8285982999950647,
+        "embedding_requests": 8,
+        "extra_sources": 3
+      },
+      "split": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 6,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "p-0",
+            "question": "Quanto posso gastar com material e qual o prazo para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "legal/codigo_conduta.json",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.4315834045410156,
+              0.6394033432006836,
+              0.6446447372436523,
+              0.645649790763855
+            ],
+            "retrieval_ms": 300.08849999285303,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-1",
+            "question": "Como ativar minha conta e onde abrir chamado técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5564634799957275,
+              0.5954619646072388,
+              0.6383839249610901
+            ],
+            "retrieval_ms": 3317.8687000036007,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-2",
+            "question": "Qual a verba para certificações e quantos dias de férias são concedidos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.413990318775177,
+              0.47416335344314575,
+              0.52669358253479,
+              0.624048113822937
+            ],
+            "retrieval_ms": 566.1849000025541,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-3",
+            "question": "Onde denunciar anonimamente e qual a exigência para transporte?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5752981901168823,
+              0.6026508808135986
+            ],
+            "retrieval_ms": 385.3577999980189,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-4",
+            "question": "Qual o prazo para solicitar férias e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4252030849456787,
+              0.5386469960212708,
+              0.5487759113311768,
+              0.5714839100837708
+            ],
+            "retrieval_ms": 351.85169999022037,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-5",
+            "question": "Qual o teto de hospedagem e como comunicar conflitos de interesse?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5832390785217285,
+              0.6221581697463989
+            ],
+            "retrieval_ms": 240.8144000073662,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-6",
+            "question": "Qual o valor do auxílio combustível e onde solicito plano de saúde?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5527656674385071,
+              0.6363968253135681
+            ],
+            "retrieval_ms": 242.7194000047166,
+            "correct_abstention": false
+          },
+          {
+            "id": "p-7",
+            "question": "Quando recebo participação nos lucros e qual o valor do seguro de vida?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6288509964942932,
+              0.6362618803977966,
+              0.6489593982696533
+            ],
+            "retrieval_ms": 514.89710000169,
+            "correct_abstention": false
+          }
+        ],
+        "elapsed_seconds": 5.919902499997988,
+        "embedding_requests": 24,
+        "extra_sources": 8
+      },
+      "split_relative": {
+        "scope": "retrieval_only",
+        "cases": 8,
+        "answerable_cases": 6,
+        "unanswerable_cases": 2,
+        "metrics": {
+          "mean_source_recall_at_k": 1.0,
+          "source_mrr_at_k": 1.0,
+          "all_sources_found_rate": 1.0,
+          "correct_abstention_rate": 0.0
+        },
+        "results": [
+          {
+            "id": "p-0",
+            "question": "Quanto posso gastar com material e qual o prazo para reembolso?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4315834045410156
+            ],
+            "retrieval_ms": 213.14520000305492,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-1",
+            "question": "Como ativar minha conta e onde abrir chamado técnico?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "operacional/onboarding.html"
+            ],
+            "retrieved_sources": [
+              "operacional/onboarding.html",
+              "comunicacao/faq.md",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5564634799957275,
+              0.5954619646072388,
+              0.6383839249610901
+            ],
+            "retrieval_ms": 314.1280999989249,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-2",
+            "question": "Qual a verba para certificações e quantos dias de férias são concedidos?",
+            "expected_sources": [
+              "comunicacao/faq.md",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.413990318775177,
+              0.47416335344314575,
+              0.52669358253479
+            ],
+            "retrieval_ms": 516.9205999991391,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-3",
+            "question": "Onde denunciar anonimamente e qual a exigência para transporte?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "distances": [
+              0.5752981901168823,
+              0.6026508808135986
+            ],
+            "retrieval_ms": 312.88330000825226,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-4",
+            "question": "Qual o prazo para solicitar férias e quais treinamentos são obrigatórios na primeira semana?",
+            "expected_sources": [
+              "operacional/onboarding.html",
+              "rh/politica_ferias.md"
+            ],
+            "retrieved_sources": [
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md",
+              "operacional/onboarding.html",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.4252030849456787,
+              0.5386469960212708,
+              0.5487759113311768,
+              0.5714839100837708
+            ],
+            "retrieval_ms": 289.8016000108328,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-5",
+            "question": "Qual o teto de hospedagem e como comunicar conflitos de interesse?",
+            "expected_sources": [
+              "financeiro/politica_reembolso.csv",
+              "legal/codigo_conduta.json"
+            ],
+            "retrieved_sources": [
+              "legal/codigo_conduta.json",
+              "financeiro/politica_reembolso.csv"
+            ],
+            "distances": [
+              0.5832390785217285,
+              0.6221581697463989
+            ],
+            "retrieval_ms": 267.9290000087349,
+            "source_recall": 1.0,
+            "reciprocal_rank": 1.0,
+            "all_sources_found": true
+          },
+          {
+            "id": "p-6",
+            "question": "Qual o valor do auxílio combustível e onde solicito plano de saúde?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.5527656674385071,
+              0.6363968253135681
+            ],
+            "retrieval_ms": 239.9338999966858,
+            "correct_abstention": false
+          },
+          {
+            "id": "p-7",
+            "question": "Quando recebo participação nos lucros e qual o valor do seguro de vida?",
+            "expected_sources": [],
+            "retrieved_sources": [
+              "financeiro/politica_reembolso.csv",
+              "rh/politica_ferias.md",
+              "comunicacao/faq.md"
+            ],
+            "distances": [
+              0.6288509964942932,
+              0.6362618803977966,
+              0.6489593982696533
+            ],
+            "retrieval_ms": 309.7303999966243,
+            "correct_abstention": false
+          }
+        ],
+        "elapsed_seconds": 2.464597700003651,
+        "embedding_requests": 24,
+        "extra_sources": 4
+      }
+    }
+  },
+  "diagnostic": {
+    "question": "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?",
+    "parts": [
+      "Quanto custa o teto diário de alimentação em viagem",
+      "quais cursos são obrigatórios na primeira semana?"
+    ],
+    "rankings": {
+      "Quanto custa o teto diário de alimentação em viagem e quais cursos são obrigatórios na primeira semana?": [
+        {
+          "path": "financeiro/politica_reembolso.csv",
+          "distance": 0.4907956123352051
+        },
+        {
+          "path": "comunicacao/faq.md",
+          "distance": 0.6486883163452148
+        },
+        {
+          "path": "operacional/onboarding.html",
+          "distance": 0.6609964370727539
+        },
+        {
+          "path": "rh/politica_ferias.md",
+          "distance": 0.6826912760734558
+        },
+        {
+          "path": "legal/codigo_conduta.json",
+          "distance": 0.7029972076416016
+        }
+      ],
+      "Quanto custa o teto diário de alimentação em viagem": [
+        {
+          "path": "financeiro/politica_reembolso.csv",
+          "distance": 0.49786198139190674
+        },
+        {
+          "path": "comunicacao/faq.md",
+          "distance": 0.7140536308288574
+        },
+        {
+          "path": "legal/codigo_conduta.json",
+          "distance": 0.7210268974304199
+        },
+        {
+          "path": "rh/politica_ferias.md",
+          "distance": 0.7290220856666565
+        },
+        {
+          "path": "operacional/onboarding.html",
+          "distance": 0.7863559722900391
+        }
+      ],
+      "quais cursos são obrigatórios na primeira semana?": [
+        {
+          "path": "operacional/onboarding.html",
+          "distance": 0.6465595960617065
+        },
+        {
+          "path": "comunicacao/faq.md",
+          "distance": 0.7293766736984253
+        },
+        {
+          "path": "rh/politica_ferias.md",
+          "distance": 0.7357560992240906
+        },
+        {
+          "path": "legal/codigo_conduta.json",
+          "distance": 0.7533394694328308
+        },
+        {
+          "path": "financeiro/politica_reembolso.csv",
+          "distance": 0.7727938890457153
+        }
+      ]
+    }
+  }
+}
