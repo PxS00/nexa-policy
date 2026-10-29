@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-29",
+  "method": "Revisão manual das afirmações e das fontes citadas contra os documentos fictícios e fatos esperados. Casos negativos conferidos contra o corpus.",
+  "cases": [
+    {
+      "id": "h-vacation-channel",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-vacation-minimum",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-vacation-manager",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-transport",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-hotel",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-material-deadline",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-it-support",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-first-day",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-systems",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-ethics-report",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-combined",
+      "facts_supported": true,
+      "citations_supported": true,
+      "notes": "Fatos esperados presentes e fontes citadas conferidas."
+    },
+    {
+      "id": "h-childcare",
+      "correct_abstention": true
+    },
+    {
+      "id": "h-bonus",
+      "correct_abstention": true,
+      "attempt": "followup"
+    },
+    {
+      "id": "h-holiday",
+      "correct_abstention": true,
+      "attempt": "followup"
+    },
+    {
+      "id": "h-shares",
+      "correct_abstention": true,
+      "attempt": "followup"
+    }
+  ],
+  "limitations": "Revisão pequena, feita pelo mesmo responsável; o primeiro erro foi registrado e o caso repetido, sem contar erro como resposta correta."
+}

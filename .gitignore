@@ -6,6 +6,8 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+coverage.xml
+evals/reports/
 
 # Virtual environments
 .venv/

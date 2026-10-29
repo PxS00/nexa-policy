@@ -1,0 +1,311 @@
+{
+  "scope": "retrieval_only",
+  "cases": 15,
+  "answerable_cases": 11,
+  "unanswerable_cases": 4,
+  "metrics": {
+    "mean_source_recall_at_k": 1.0,
+    "source_mrr_at_k": 1.0,
+    "all_sources_found_rate": 1.0,
+    "correct_abstention_rate": 0.0
+  },
+  "results": [
+    {
+      "id": "h-vacation-channel",
+      "question": "Por qual canal interno tiro dúvidas sobre férias?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.5147429704666138,
+        0.5288918614387512
+      ],
+      "retrieval_ms": 59.00499998824671,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-vacation-minimum",
+      "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.41707491874694824
+      ],
+      "retrieval_ms": 32.146999990800396,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-vacation-manager",
+      "question": "Quem avalia o período de férias solicitado?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.4608731269836426,
+        0.6044344902038574,
+        0.6308067440986633
+      ],
+      "retrieval_ms": 26.944400000502355,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-transport",
+      "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "comunicacao/faq.md",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.42687922716140747,
+        0.6400829553604126,
+        0.6417864561080933
+      ],
+      "retrieval_ms": 39.990899997064844,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-hotel",
+      "question": "Qual o teto de hospedagem e a condição para reembolso?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.5431822538375854
+      ],
+      "retrieval_ms": 47.80439999012742,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-material-deadline",
+      "question": "Qual o prazo para solicitar reembolso de material de trabalho?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md",
+        "comunicacao/faq.md",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.5121639966964722,
+        0.6183602809906006,
+        0.6473071575164795,
+        0.6489447355270386
+      ],
+      "retrieval_ms": 49.84220000915229,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-it-support",
+      "question": "Onde abro um chamado de TI?",
+      "expected_sources": [
+        "comunicacao/faq.md"
+      ],
+      "retrieved_sources": [
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.6308087110519409
+      ],
+      "retrieval_ms": 23.870399993029423,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-first-day",
+      "question": "O que devo configurar na conta no meu primeiro dia?",
+      "expected_sources": [
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "operacional/onboarding.html",
+        "legal/codigo_conduta.json",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.5210831165313721,
+        0.6164414286613464,
+        0.6433044672012329
+      ],
+      "retrieval_ms": 47.84769999969285,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-systems",
+      "question": "Quem solicita acesso aos sistemas internos no onboarding?",
+      "expected_sources": [
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "operacional/onboarding.html",
+        "comunicacao/faq.md",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.38098013401031494,
+        0.5238530039787292,
+        0.5776127576828003
+      ],
+      "retrieval_ms": 48.69709999184124,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-ethics-report",
+      "question": "Onde relato uma violação ética e existe opção anônima?",
+      "expected_sources": [
+        "legal/codigo_conduta.json"
+      ],
+      "retrieved_sources": [
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.538570761680603
+      ],
+      "retrieval_ms": 21.75149999675341,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-combined",
+      "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.508919358253479,
+        0.5694035291671753,
+        0.6034316420555115
+      ],
+      "retrieval_ms": 39.77329999906942,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "h-childcare",
+      "question": "Qual o valor do auxílio creche?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.6381580829620361
+      ],
+      "retrieval_ms": 22.04929999425076,
+      "correct_abstention": false
+    },
+    {
+      "id": "h-bonus",
+      "question": "Qual a regra de pagamento do bônus anual?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.6125040054321289,
+        0.624902069568634
+      ],
+      "retrieval_ms": 31.254000001354143,
+      "correct_abstention": false
+    },
+    {
+      "id": "h-holiday",
+      "question": "Qual é o próximo feriado municipal?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.6096303462982178
+      ],
+      "retrieval_ms": 36.58549999818206,
+      "correct_abstention": false
+    },
+    {
+      "id": "h-shares",
+      "question": "Qual é o preço da ação da NexaCorp hoje?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "rh/politica_ferias.md",
+        "operacional/onboarding.html",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.5301040410995483,
+        0.5668161511421204,
+        0.5895950794219971,
+        0.6005045175552368
+      ],
+      "retrieval_ms": 27.641699998639524,
+      "correct_abstention": false
+    }
+  ],
+  "run": {
+    "timestamp_utc": "2026-10-29T15:24:44.331344+00:00",
+    "revision": "966fe347925efded00934737999f7dd13d31e684",
+    "working_tree_dirty": true,
+    "dataset_sha256": "41288050432306976367895b812e0db379bda504421226481745e9ea08f9665d",
+    "corpus_sha256": "58739b233aa27b6b75d4fd9cab1b25d0c51761abcb82a0240ad2ac4d5906c883",
+    "index": {
+      "documents": 5,
+      "chunks": 5
+    },
+    "settings": {
+      "embedding_provider": "ollama",
+      "embedding_model": "gemini-embedding-001",
+      "ollama_model": "embeddinggemma",
+      "embedding_dimensions": 768,
+      "chunk_size": 1000,
+      "chunk_overlap": 150,
+      "top_k": 4,
+      "max_cosine_distance": 0.65
+    }
+  }
+}

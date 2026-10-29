@@ -2,9 +2,16 @@ from __future__ import annotations
 
 from google import genai
 from google.genai import errors, types
+import httpx
 
 
 RETRYABLE_STATUS_CODES = [408, 429, 500, 502, 503, 504]
+
+
+class IncompleteGeneration(RuntimeError):
+    def __init__(self, reason) -> None:
+        self.reason = str(reason) if reason is not None else "UNKNOWN"
+        super().__init__(f"A geração não terminou normalmente (motivo: {self.reason}). Tente novamente.")
 
 
 class GeminiClient:
@@ -85,7 +92,82 @@ class GeminiClient:
             contents=prompt,
             config=types.GenerateContentConfig(temperature=0.2, max_output_tokens=700),
         )
+        candidates = response.candidates or []
+        reason = candidates[0].finish_reason if candidates else None
+        if reason != types.FinishReason.STOP:
+            raise IncompleteGeneration(reason)
         text = (response.text or "").strip()
         if not text:
             raise RuntimeError("A API Gemini retornou uma resposta vazia.")
         return text
+
+
+class GroqGenerationClient(GeminiClient):
+    """Use Gemini for embeddings and Groq for answer generation."""
+
+    def __init__(self, *args, groq_api_key: str, groq_model: str, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        if not groq_api_key or not groq_model:
+            raise ValueError("Chave e modelo Groq são obrigatórios.")
+        self._groq_api_key = groq_api_key
+        self._groq_model = groq_model
+
+    def generate(self, prompt: str) -> str:
+        response = httpx.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={"Authorization": f"Bearer {self._groq_api_key}"},
+            json={"model": self._groq_model, "messages": [{"role": "user", "content": prompt}],
+                  "temperature": 0.2, "max_completion_tokens": 2048},
+            timeout=60.0,
+        )
+        if response.is_error:
+            raise RuntimeError(f"A API Groq retornou erro HTTP {response.status_code}.")
+        choices = response.json().get("choices") or []
+        if not choices:
+            raise RuntimeError("A API Groq não retornou resposta.")
+        choice = choices[0]
+        if choice.get("finish_reason") != "stop":
+            raise IncompleteGeneration(choice.get("finish_reason"))
+        text = (choice.get("message", {}).get("content") or "").strip()
+        if not text:
+            raise RuntimeError("A API Groq retornou uma resposta vazia.")
+        return text
+
+
+class OllamaEmbeddingClient:
+    """Local EmbeddingGemma document and query vectors through Ollama."""
+
+    def __init__(self, base_url: str, model: str, dimensions: int) -> None:
+        self._ollama_url = base_url.rstrip("/")
+        self._ollama_model = model
+        self._dimensions = dimensions
+
+    def _embed(self, texts: list[str]) -> list[list[float]]:
+        if not texts:
+            return []
+        try:
+            response = httpx.post(f"{self._ollama_url}/api/embed", json={
+                "model": self._ollama_model, "input": texts, "truncate": False,
+            }, timeout=120.0)
+            response.raise_for_status()
+            vectors = response.json().get("embeddings") or []
+        except httpx.HTTPError as exc:
+            raise RuntimeError("Falha ao acessar Ollama. Verifique se está iniciado e se o modelo foi baixado.") from exc
+        if len(vectors) != len(texts) or any(len(v) != self._dimensions for v in vectors):
+            raise RuntimeError("Ollama retornou quantidade ou dimensão de embeddings incompatível.")
+        return vectors
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        return self._embed([f"title: none | text: {text}" for text in texts])
+
+    def embed_query(self, text: str) -> list[float]:
+        return self._embed([f"task: question answering | query: {text}"])[0]
+
+
+class OllamaGroqClient(OllamaEmbeddingClient, GroqGenerationClient):
+    def __init__(self, base_url: str, embedding_model: str, dimensions: int, groq_api_key: str, groq_model: str) -> None:
+        OllamaEmbeddingClient.__init__(self, base_url, embedding_model, dimensions)
+        if not groq_api_key or not groq_model:
+            raise ValueError("Chave e modelo Groq são obrigatórios.")
+        self._groq_api_key = groq_api_key
+        self._groq_model = groq_model

@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 from pathlib import Path
+from contextlib import nullcontext
+import hashlib
+from uuid import uuid4
 
 import chromadb
+from filelock import FileLock
 
 from src.models import SearchResult, TextChunk
 
@@ -10,10 +14,17 @@ from src.models import SearchResult, TextChunk
 class VectorStore:
     """Persistent Chroma collection configured for cosine similarity."""
 
-    def __init__(self, path: Path, collection_name: str) -> None:
-        self._client = chromadb.PersistentClient(path=str(path))
+    def __init__(self, path: Path, collection_name: str, *, persistent: bool = True) -> None:
+        self._client = (chromadb.PersistentClient(path=str(path))
+                        if persistent else chromadb.EphemeralClient())
         self._collection_name = collection_name
         self._collection = self._get_or_create_collection()
+        lock_id = hashlib.sha256(collection_name.encode()).hexdigest()[:24]
+        self._lock_path = path / f".rebuild-{lock_id}.lock" if persistent else None
+
+    def rebuild_lock(self):
+        """Serialize rebuilds of the same persistent collection across local processes."""
+        return FileLock(str(self._lock_path), timeout=0) if self._lock_path else nullcontext()
 
     def _get_or_create_collection(self):
         return self._client.get_or_create_collection(
@@ -22,39 +33,65 @@ class VectorStore:
         )
 
     def count(self) -> int:
-        return self._collection.count()
+        return self._active_collection().count()
 
-    def replace_all(self, chunks: list[TextChunk], embeddings: list[list[float]]) -> None:
+    def _active_collection(self):
+        anchor = self._client.get_collection(self._collection_name)
+        active = (anchor.metadata or {}).get("active_collection")
+        return self._client.get_collection(active) if active else anchor
+
+    def fingerprint(self) -> str | None:
+        anchor = self._client.get_collection(self._collection_name)
+        return (anchor.metadata or {}).get("index_fingerprint")
+
+    def replace_all(self, chunks: list[TextChunk], embeddings: list[list[float]], *, fingerprint: str | None = None) -> None:
         if len(chunks) != len(embeddings):
             raise ValueError("A quantidade de chunks e embeddings deve ser igual.")
 
+        # Stage a complete collection before changing the active pointer.
+        stage_name = "stage-" + uuid4().hex
+        stage = self._client.create_collection(name=stage_name, metadata={"hnsw:space": "cosine"})
+
         try:
-            self._client.delete_collection(self._collection_name)
+            batch_size = 100
+            for start in range(0, len(chunks), batch_size):
+                batch = chunks[start:start + batch_size]
+                batch_embeddings = embeddings[start:start + batch_size]
+                stage.upsert(
+                    ids=[chunk.id for chunk in batch],
+                    documents=[chunk.text for chunk in batch],
+                    metadatas=[chunk.metadata for chunk in batch],
+                    embeddings=batch_embeddings,
+                )
+            if stage.count() != len(chunks):
+                raise RuntimeError("A coleção temporária está incompleta; o índice anterior foi preservado.")
         except Exception:
-            pass
-
-        self._collection = self._get_or_create_collection()
-        if not chunks:
-            return
-
-        batch_size = 100
-        for start in range(0, len(chunks), batch_size):
-            batch = chunks[start:start + batch_size]
-            batch_embeddings = embeddings[start:start + batch_size]
-            self._collection.upsert(
-                ids=[chunk.id for chunk in batch],
-                documents=[chunk.text for chunk in batch],
-                metadatas=[chunk.metadata for chunk in batch],
-                embeddings=batch_embeddings,
-            )
+            # Only delete before promotion; a failed pointer update can be ambiguous.
+            try:
+                self._client.delete_collection(stage_name)
+            except Exception:
+                pass
+            raise
+        anchor = self._client.get_collection(self._collection_name)
+        metadata = {**(anchor.metadata or {}), "active_collection": stage_name}
+        metadata.pop("hnsw:space", None)  # Chroma rejects this key in modify metadata.
+        if fingerprint is not None:
+            metadata["index_fingerprint"] = fingerprint
+        else:
+            metadata.pop("index_fingerprint", None)
+        anchor.modify(metadata=metadata)
 
     def search(self, query_embedding: list[float], top_k: int) -> list[SearchResult]:
         if self.count() == 0:
             return []
 
-        result = self._collection.query(
+        collection = self._active_collection()
+        count = collection.count()
+        if not count:
+            return []
+        result = collection.query(
             query_embeddings=[query_embedding],
-            n_results=min(top_k, self.count()),
+            n_results=min(top_k, count),
             include=["documents", "metadatas", "distances"],
         )
 

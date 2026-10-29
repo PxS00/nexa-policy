@@ -1,418 +1,174 @@
-# Alura Corporate Agent
+# NexaPolicy — Assistente de políticas internas
 
-<div align="center">
-  <img src="docs/images/badge-rag-agente-ia.png" alt="Badge ONE - Agente de IA com RAG" width="180" />
-</div>
+Assistente RAG para consultar férias, reembolsos, benefícios e onboarding da **NexaCorp, empresa fictícia**, com trechos recuperados para conferência. Projeto de portfólio de AI Engineering, originado no Challenge AluraAgente — ONE IA for Tech.
 
-Agente corporativo de Inteligência Artificial com **RAG (Retrieval-Augmented Generation)**, desenvolvido para o **Challenge AluraAgente - ONE IA for Tech**.
+O projeto ajuda a localizar regras dispersas e a conferir sua origem. Uma resposta pode reunir informações de documentos diferentes, preservando os trechos consultados. Foi desenvolvido para demonstrar ingestão documental, recuperação semântica, avaliação e tratamento explícito de falhas; não há medição de economia de tempo ou uso por empresas reais.
 
-O projeto simula uma base de conhecimento interna da empresa fictícia **NexaCorp**. O agente processa documentos corporativos, cria embeddings, realiza busca semântica e responde perguntas utilizando apenas informações encontradas na base indexada, exibindo as fontes utilizadas.
+**Caso de uso:** um colaborador precisa descobrir quais políticas se aplicam a uma solicitação e onde conferir a informação. Exemplo: “Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?”. A recuperação pode fornecer evidências de onboarding e benefícios no mesmo contexto.
 
-## Status
+Não há dados de clientes, métricas de impacto ou uso em produção comprovados. O sistema consulta documentos; não aprova solicitações nem executa ações corporativas. Instruções de prompt não garantem correção ou resistência a prompt injection.
 
-- Aplicação: concluída
-- Pipeline RAG: concluído
-- Interface Streamlit: concluída
-- Container Docker: concluído
-- Testes automatizados: implementados
-- Validação local: concluída
-- Deploy OCI: concluído
-- Registro visual da execução em nuvem: concluído
+## O que este projeto demonstra
 
-## Requisitos do challenge
-
-| Requisito | Status |
-| --- | --- |
-| Repositório público no GitHub | Concluído |
-| Agente baseado em documentos corporativos | Concluído |
-| Processamento de múltiplos formatos | Concluído |
-| Busca semântica e RAG | Concluído |
-| Interface funcional | Concluído |
-| Containerização | Concluído |
-| Uso de ao menos um serviço OCI | Concluído |
-| Imagem ou vídeo da execução em nuvem no README | Concluído |
-
-## Funcionalidades
-
-- leitura recursiva de documentos corporativos;
-- suporte a PDF, Word, Excel, PowerPoint, Markdown, CSV, JSON e HTML;
-- categorização automática com base na pasta de origem;
-- metadados de arquivo, categoria, responsável, data e localização;
-- deduplicação de conteúdo durante a ingestão;
-- limpeza e normalização de texto;
-- chunking com overlap;
-- geração de embeddings com Gemini;
-- armazenamento vetorial persistente com ChromaDB;
-- busca por similaridade de cosseno;
-- limiar mínimo de relevância antes da geração;
-- respostas restritas ao contexto recuperado;
-- fallback explícito quando a base não contém a informação;
-- referências aos documentos utilizados;
-- interface conversacional com Streamlit;
-- reindexação manual da base pela interface;
-- histórico de conversa durante a sessão;
-- execução local ou via Docker.
+- Ingestão recursiva de PDF, DOCX, XLSX, PPTX, Markdown, CSV, JSON e HTML, com metadados e IDs SHA-256 determinísticos.
+- Embeddings Gemini e índice ChromaDB persistente, com busca por distância de cosseno.
+- Até `TOP_K` trechos abaixo do limiar, permitindo contexto com múltiplas fontes.
+- Evidências com caminho relativo, localização, texto e distância. Respostas sem citação ou com número de fonte inválido são substituídas pela abstenção. A checagem não verifica se a fonte sustenta a afirmação.
+- Abstenção sem geração quando nenhum trecho passa pelo limiar. A mensagem padrão de abstenção retornada pelo modelo também não recebe fontes.
+- Avaliação de recuperação com 15 perguntas curadas, incluindo duas compostas e quatro sem resposta.
+- Testes sem credenciais, incluindo Chroma real com vetores controlados e interface Streamlit com serviços simulados; workflow de CI.
+- Reindexação em coleção separada, com troca após escrita completa e fingerprint da base e dos parâmetros de indexação.
+- Docker com usuário não privilegiado, healthcheck HTTP e volume para o índice.
 
 ## Arquitetura
 
 ```mermaid
 flowchart TD
-    A[Documentos corporativos] --> B[Document Loader]
-    B --> C[Limpeza e Chunking]
-    C --> D[Gemini Embeddings]
-    D --> E[(ChromaDB)]
-
-    F[Pergunta do colaborador] --> G[Embedding da pergunta]
-    G --> E
-    E --> H[Busca semântica Top-K]
-    H --> I{Distância aceitável?}
-    I -- Não --> J[Fallback sem alucinação]
-    I -- Sim --> K[Contexto recuperado]
-    K --> L[Gemini LLM]
-    L --> M[Resposta + fontes]
-
-    M --> N[Streamlit]
-    J --> N
+    A[Documentos fictícios] --> B[Extração e metadados]
+    B --> C[Limpeza e chunks com overlap]
+    C --> D[Gemini embeddings de documentos]
+    D --> E[(ChromaDB persistente)]
+    Q[Pergunta validada] --> F[Gemini embedding de consulta]
+    F --> E
+    E --> G[Top-K e filtro por distância]
+    G --> H{Há evidências?}
+    H -- Não --> I[Abstenção sem geração]
+    H -- Sim --> J[Gemini: pergunta e trechos]
+    J --> K[Resposta e evidências no Streamlit]
+    G --> L[Avaliação por fontes esperadas]
 ```
 
-## Fluxo do RAG
+`RagAgent.retrieve` atende aplicação e avaliação. O avaliador reconstrói um índice Chroma em memória, sem alterar a coleção persistida, e não chama a geração. [Decisões e limites da arquitetura](docs/architecture.md).
 
-1. Os documentos da pasta `documents/` são encontrados recursivamente.
-2. Cada formato é convertido para texto e recebe metadados de origem.
-3. O texto é normalizado e dividido em chunks com overlap.
-4. Cada chunk recebe um identificador determinístico baseado em SHA-256.
-5. O Gemini gera embeddings otimizados para recuperação de documentos.
-6. Os vetores e metadados são persistidos no ChromaDB.
-7. A pergunta do usuário é convertida em embedding de consulta.
-8. O ChromaDB retorna os chunks semanticamente mais próximos.
-9. Resultados acima do limite de distância configurado são descartados.
-10. O LLM recebe somente a pergunta e os trechos aprovados.
-11. A interface apresenta a resposta e as fontes consultadas.
+## Executar
 
-## Formatos suportados
-
-| Formato | Extensão | Estratégia |
-| --- | --- | --- |
-| PDF | `.pdf` | Extração página a página com PyPDF |
-| Word | `.docx` | Extração de parágrafos com python-docx |
-| Excel | `.xlsx` | Conversão de linhas e colunas em texto estruturado |
-| PowerPoint | `.pptx` | Extração de texto por slide |
-| Markdown | `.md` | Leitura textual direta |
-| CSV | `.csv` | Conversão de registros em pares chave/valor |
-| JSON | `.json` | Serialização estruturada e legível |
-| HTML | `.html`, `.htm` | Extração de conteúdo com BeautifulSoup |
-
-PDFs escaneados que não possuam camada textual exigiriam OCR. Esse processamento não faz parte do MVP atual.
-
-## Base documental fictícia
-
-A NexaCorp possui documentos de exemplo divididos por contexto de negócio:
-
-```text
-documents/
-├── comunicacao/
-│   └── faq.md
-├── financeiro/
-│   └── politica_reembolso.csv
-├── legal/
-│   └── codigo_conduta.json
-├── operacional/
-│   └── onboarding.html
-└── rh/
-    └── politica_ferias.md
-```
-
-Cada documento recebe automaticamente metadados como:
-
-```json
-{
-  "source": "politica_ferias.md",
-  "source_path": "rh/politica_ferias.md",
-  "category": "rh",
-  "owner": "Recursos Humanos",
-  "file_type": "md",
-  "updated_at": "...",
-  "location": "seção: document",
-  "chunk_index": 0
-}
-```
-
-## Stack
-
-- Python 3.12
-- Streamlit
-- Google GenAI SDK
-- Gemini
-- ChromaDB
-- PyPDF
-- python-docx
-- openpyxl
-- python-pptx
-- BeautifulSoup
-- pytest
-- Docker
-- Oracle Cloud Infrastructure para o deploy
-
-## Estrutura do projeto
-
-```text
-.
-├── app.py
-├── documents/
-├── src/
-│   ├── ai_client.py
-│   ├── config.py
-│   ├── document_loader.py
-│   ├── indexing.py
-│   ├── models.py
-│   ├── rag.py
-│   ├── text_processing.py
-│   └── vector_store.py
-├── tests/
-│   ├── test_document_loader.py
-│   ├── test_rag.py
-│   └── test_text_processing.py
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── compose.yaml
-├── Dockerfile
-├── requirements-dev.txt
-├── requirements.txt
-└── README.md
-```
-
-## Configuração
-
-### 1. Clone o repositório
+Requer Python 3.12 e uma chave para o provedor de geração escolhido. A combinação padrão usa Gemini; Groq com Ollama requer chave Groq e serviço Ollama local. Testes automatizados não precisam de chave.
 
 ```bash
-git clone https://github.com/PxS00/alura-corporate-agent.git
-cd alura-corporate-agent
+git clone https://github.com/PxS00/nexa-policy.git
+cd nexa-policy
+python -m venv .venv
 ```
 
-### 2. Crie o ambiente virtual
+Ative com `source .venv/bin/activate` no Linux/macOS ou `.venv\Scripts\Activate.ps1` no PowerShell.
 
 ```bash
-python3.12 -m venv .venv
-source .venv/bin/activate
+python -m pip install -r requirements-dev.lock
 ```
 
-### 3. Instale as dependências
+Copie `.env.example` para `.env` (`cp .env.example .env` ou `Copy-Item .env.example .env` no PowerShell). Para a configuração padrão, defina `GEMINI_API_KEY` e confirme os modelos disponíveis na sua conta. Nunca versione chaves.
 
-```bash
-pip install --upgrade pip
-pip install -r requirements-dev.txt
-```
+Para usar Groq na geração, configure `LLM_PROVIDER=groq`, `GROQ_API_KEY` e `GROQ_MODEL` no `.env`. O padrão é `openai/gpt-oss-20b`; confirme sua disponibilidade e limites na conta Groq. A geração usa a API Groq e sua quota; uma pergunta de teste sobre férias produziu resposta correta com citação, o que não constitui avaliação completa de qualidade.
 
-### 4. Configure as variáveis de ambiente
+Para gerar embeddings localmente sem chave Gemini, instale [Ollama](https://ollama.com/download), execute `ollama pull embeddinggemma` e mantenha o serviço em execução. Configure `EMBEDDING_PROVIDER=ollama`, `OLLAMA_MODEL=embeddinggemma`, `EMBEDDING_DIMENSIONS=768`, `LLM_PROVIDER=groq` e a chave Groq. O Ollama usa prefixos específicos para documentos e perguntas; outros modelos exigem verificar seus próprios requisitos. Embeddings são gerados localmente, mas os trechos recuperados e a pergunta são enviados à Groq para gerar a resposta.
 
-```bash
-cp .env.example .env
-```
-
-Edite `.env` e informe sua chave:
-
-```env
-GEMINI_API_KEY=your_api_key_here
-```
-
-Nunca versionar o arquivo `.env` ou chaves reais de API.
-
-## Variáveis disponíveis
-
-| Variável | Padrão | Finalidade |
-| --- | --- | --- |
-| `GEMINI_API_KEY` | sem valor | Credencial da API Gemini |
-| `LLM_MODEL` | `gemini-3.5-flash` | Modelo de geração |
-| `EMBEDDING_MODEL` | `gemini-embedding-001` | Modelo de embeddings |
-| `EMBEDDING_DIMENSIONS` | `768` | Dimensão dos vetores |
-| `CHROMA_PATH` | `.chroma` | Persistência local do índice |
-| `CHROMA_COLLECTION` | `corporate_documents` | Nome da collection |
-| `DOCUMENTS_PATH` | `documents` | Diretório da base documental |
-| `CHUNK_SIZE` | `1000` | Tamanho máximo aproximado do chunk |
-| `CHUNK_OVERLAP` | `150` | Sobreposição entre chunks |
-| `TOP_K` | `4` | Quantidade máxima de resultados recuperados |
-| `MAX_COSINE_DISTANCE` | `0.65` | Distância máxima aceita na recuperação |
-
-## Executando localmente
+Use uma coleção separada como `CHROMA_COLLECTION=corporate_documents_ollama` e reindexe ao mudar de provedor ou modelo. Distâncias e limiares dependem do modelo: os resultados e o limiar medidos com Gemini não validam a qualidade do EmbeddingGemma. A aplicação bloqueia consultas se o fingerprint do índice não corresponder à configuração.
 
 ```bash
 streamlit run app.py
 ```
 
-Acesse:
+Abra [localhost:8501](http://localhost:8501). A primeira execução indexa `documents/` e faz chamadas de embeddings. A reindexação manual gera novas chamadas e prepara uma coleção completa antes de trocar a coleção ativa. Índices antigos sem fingerprint exigem reindexação manual; mudanças de documentos ou de configuração também bloqueiam novas consultas até reindexar.
 
-```text
-http://localhost:8501
-```
+### Configuração
 
-Na primeira execução, a aplicação cria os embeddings da base automaticamente e persiste o índice em `.chroma/`.
+| Variável | Padrão | Uso |
+| --- | --- | --- |
+| `GEMINI_API_KEY` | sem valor | Credencial |
+| `LLM_PROVIDER` / `GROQ_API_KEY` / `GROQ_MODEL` | `gemini` / sem valor / `openai/gpt-oss-20b` | Seleção e configuração da geração Groq |
+| `EMBEDDING_PROVIDER` / `OLLAMA_MODEL` | `gemini` / `embeddinggemma` | Provedor e modelo local de embeddings |
+| `LLM_MODEL` | `gemini-3.5-flash` | Geração |
+| `LLM_FALLBACK_MODEL` | `gemini-3.5-flash-lite` | Alternativa após erro 503 |
+| `EMBEDDING_MODEL` | `gemini-embedding-001` | Embeddings |
+| `EMBEDDING_DIMENSIONS` | `768` | Dimensão dos vetores |
+| `DOCUMENTS_PATH` | `documents` | Base documental |
+| `CHROMA_PATH` | `.chroma` | Persistência |
+| `CHROMA_COLLECTION` | `corporate_documents` | Coleção |
+| `CHUNK_SIZE` / `CHUNK_OVERLAP` | `1000` / `150` | Caracteres / sobreposição |
+| `TOP_K` | `4` | Máximo de trechos |
+| `MAX_COSINE_DISTANCE` | `0.65` | Distância máxima aceita |
 
-## Executando com Docker Compose
+Distância menor significa proximidade vetorial; não é probabilidade de correção. O limiar é heurístico, sem calibração empírica publicada. Ao mudar modelo ou dimensão dos embeddings, use uma nova coleção ou reindexe antes de consultar.
+
+### Docker
+
+Com `.env` configurado e Docker ativo:
 
 ```bash
 docker compose up --build -d
-```
-
-Verifique o container:
-
-```bash
-docker compose ps
-```
-
-Acompanhe os logs:
-
-```bash
 docker compose logs -f agent
-```
-
-Finalize:
-
-```bash
 docker compose down
 ```
 
-O índice vetorial é mantido no volume nomeado `chroma-data`.
+O volume `chroma-data` mantém o índice. O healthcheck verifica o servidor HTTP, sem garantir disponibilidade do Gemini ou qualidade das respostas.
 
-## Testes
+Para Ollama executando no Windows com a aplicação no Docker Desktop, o Compose aponta para `host.docker.internal:11434`; ajuste `OLLAMA_DOCKER_BASE_URL` se necessário e verifique se o serviço está acessível ao container. Essa conexão não foi validada nesta revisão. Para execução diretamente no Windows, `OLLAMA_BASE_URL` usa `http://127.0.0.1:11434` por padrão.
 
-```bash
-pytest -q
-```
-
-Com cobertura:
+## Testes e avaliação
 
 ```bash
-pytest --cov=src --cov-report=term-missing
+python -m pytest -q
+python -m pytest --cov=src --cov-report=term-missing
 ```
 
-Os testes atuais cobrem:
+Testes verificam extração, chunking, contrato RAG, evidências, abstenção, cálculo das métricas, busca Chroma e fluxo da interface. Respostas e embeddings simulados não medem a qualidade do Gemini.
 
-- normalização de texto;
-- chunking;
-- estabilidade de identificadores;
-- metadados de origem;
-- ingestão de formatos textuais estruturados;
-- deduplicação;
-- resposta RAG com contexto relevante;
-- fallback quando não existe evidência suficiente.
+Para medir a recuperação real, configure a chave e execute na raiz do projeto:
 
-## Exemplos de perguntas
-
-```text
-Quantos dias de férias eu tenho?
+```bash
+python -m src.evaluation --output evals/reports/retrieval.json
 ```
 
-```text
-Com quanto tempo de antecedência devo pedir férias?
-```
+O comando envia corpus e perguntas ao Gemini para gerar embeddings e pode consumir quota/cobrança. O relatório registra recall de fontes, MRR, recuperação de todas as fontes, abstenção correta, tempo de recuperação, configuração, revisão e hashes do corpus/dataset. [Metodologia](evals/README.md).
 
-```text
-Qual é o limite de reembolso para alimentação?
-```
+### Baseline real de recuperação
 
-```text
-Quais treinamentos são obrigatórios no onboarding?
-```
+Em 28/10/2026, com Gemini `gemini-embedding-001`, cinco documentos fictícios, limiar 0,65 e 15 perguntas curadas (11 respondíveis e quatro negativas):
 
-```text
-Como funciona o benefício para cursos e certificações?
-```
+| Configuração | Todas as fontes esperadas | Abstenção na recuperação para negativas |
+| --- | --- | --- |
+| top-1 | 9/11 | 0/4 |
+| top-4 | 11/11 | 0/4 |
 
-Uma pergunta sem resposta na base, como:
+Top-4 recuperou as fontes das duas perguntas compostas; o filtro não rejeitou nenhuma negativa. Isso é um experimento pequeno de recuperação por documento, não uma medida de qualidade de respostas nem resultado em produção. Os relatórios incluem distâncias, tempos, configuração, hash e revisão: [top-1](evals/baselines/retrieval-top1.json) e [top-4](evals/baselines/retrieval-top4.json). A revisão registrada antecede a validação de citações, que não altera a recuperação. [Registro de validação](docs/validation.md).
 
-```text
-Qual é o valor do auxílio estacionamento?
-```
+Com `embeddinggemma` local, top-4 e limiar 0,65, todos os documentos esperados foram recuperados em 11/11 perguntas respondíveis nos dois conjuntos de 15 casos. A recuperação rejeitou 2/4 negativas no conjunto de desenvolvimento e 0/4 no conjunto separado. [Dados de desenvolvimento](evals/baselines/ollama-development.json) e [dados do conjunto separado](evals/baselines/ollama-holdout.json). São amostras pequenas dos mesmos cinco documentos, sem avaliação automática de correção das respostas. Os arquivos foram produzidos com alterações locais ainda não commitadas; a revisão Git registrada não identifica o código completo da execução.
 
-deve resultar no fallback explícito, sem fabricação de informação.
+Com Ollama e Groq, uma avaliação real do conjunto separado teve 11 respostas revisadas com fatos e fontes esperadas e quatro abstenções corretas. Um dos casos negativos falhou na primeira execução e foi repetido. [Execução inicial](evals/baselines/groq-ollama-holdout-attempt.json), [repetição dos casos](evals/baselines/groq-ollama-holdout-followup.json) e [revisão manual](evals/baselines/groq-ollama-holdout-review.json). A revisão foi realizada nesta tarefa, sem avaliador independente, em uma amostra pequena; não mede confiabilidade em produção.
 
-## Segurança e confiabilidade
+Em uma rodada exploratória de geração com a validação de citações ativa, 10 das 15 perguntas retornaram respostas; cinco falharam por limite de quota (429). As quatro negativas que retornaram resposta receberam a abstenção padrão; uma pergunta respondível também recebeu abstenção e outra resposta ficou incompleta. [Respostas e erros registrados](evals/baselines/answers-exploratory.json). A rodada não mede precisão geral, e a razão da abstenção indevida não foi identificada.
 
-O MVP aplica controles simples para reduzir alucinações e exposição indevida:
+Em 29/10/2026, uma execução parcial do conjunto separado registrou dois casos revisados, uma interrupção por `MAX_TOKENS` e três erros 503, antes de ser interrompida; a avaliação dos demais casos continua pendente. [Relatório parcial](evals/baselines/holdout-2026-10-29-partial.json) e [análise exploratória de limiar](evals/threshold-analysis.md).
 
-- chave de API somente por variável de ambiente;
-- `.env` ignorado pelo Git;
-- limite de tamanho para perguntas;
-- recuperação restrita à base indexada;
-- limiar de relevância antes de chamar o LLM;
-- prompt instruindo o modelo a utilizar somente o contexto;
-- instrução explícita contra tentativas de sobrescrever as regras por prompt injection;
-- fallback quando não existe evidência suficiente;
-- rastreabilidade por documento e localização.
+Respostas cuja geração termina de forma anormal são agora rejeitadas, evitando exibir texto parcial. Para preparar uma revisão manual de fatos e citações, execute `python -m src.evaluate_answers`; o relatório registra resultados parciais e para no primeiro erro. [Instruções de revisão](evals/README.md).
 
-Para um ambiente corporativo real ainda seriam necessários autenticação, autorização, governança de dados, gestão centralizada de segredos, auditoria e controles adicionais de segurança.
+## Demonstração
 
-## ☁️ Deploy na Oracle Cloud Infrastructure (OCI)
+O [roteiro de demonstração curta](docs/demo.md) inclui uma consulta, conferência de fonte e discussão de uma limitação observada.
 
-A aplicação foi implantada na Oracle Cloud Infrastructure utilizando uma instância do serviço OCI Compute, executando Ubuntu 24.04 e Docker Compose.
+1. “Com qual antecedência devo solicitar férias?” — confira o trecho em `rh/politica_ferias.md`.
+2. “Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?” — examine se as duas fontes necessárias são recuperadas; esse acerto precisa ser medido com embeddings reais.
+3. “Qual é o valor do auxílio estacionamento?” — examine a abstenção e registre falhas; semelhança com benefícios não prova que a resposta exista.
 
-O agente é disponibilizado por meio do Streamlit na porta `8501`, com acesso público pela instância da OCI.
+## Deploy: evidências históricas
 
-A arquitetura utilizada no deploy é composta por:
+O README original registra OCI Compute com Ubuntu 24.04 e Docker Compose. As capturas versionadas mostram a interface anterior em endereço público na porta 8501, uma resposta e uma abstenção. Não comprovam disponibilidade atual, infraestrutura reproduzível, SLA ou implantação desta nova versão.
 
-- OCI Compute
-- Ubuntu 24.04
-- Docker Engine
-- Docker Compose
-- Streamlit
-- ChromaDB
-- Gemini API
+![Registro histórico: resposta com fonte](docs/images/oci-demo-1.png)
+![Registro histórico: abstenção](docs/images/oci-demo-2.png)
 
-### Arquitetura do deploy
+Na segunda captura a versão anterior ainda anexava `faq.md` à abstenção. Esta evolução remove fontes da mensagem padrão. Não foi realizado novo deploy nesta revisão.
 
-```text
-Usuário
-  │
-  ▼
-Navegador
-  │
-  ▼
-OCI Compute
-Ubuntu 24.04
-VM.Standard.E2.1.Micro
-  │
-  ▼
-Docker Compose
-  │
-  ▼
-Alura Corporate Agent
-Streamlit + Pipeline RAG
-  │
-  ├── ChromaDB
-  │
-  └── Gemini API
-```
+## Próximos passos e limites
 
-### Evidências de execução na nuvem
+Próximo marco: baseline real, comparação top-1/top-k e calibração com dados separados; depois integridade do índice e avaliação das respostas. [Diagnóstico e plano com critérios de conclusão](docs/portfolio-plan.md).
 
-As capturas abaixo apresentam o endereço público da instância OCI na porta `8501`, comprovando a execução da aplicação em ambiente de nuvem.
+Limitações: cinco documentos fictícios; sem autenticação, autorização por documento, OCR, sincronização externa, reranking ou observabilidade centralizada. Reindexação é integral; coleções anteriores e tentativas com resultado ambíguo podem ocupar espaço. O bloqueio coordena processos locais que compartilham o mesmo diretório, não instalações distribuídas. Histórico é exibido na sessão, mas não enviado como memória ao modelo. Os arquivos `.lock` fixam versões, mas não incluem hashes de pacotes. O protótipo não está pronto para documentos confidenciais.
 
-#### 1. Consulta com resposta fundamentada e citação de fonte
+O [escopo proposto para acesso por usuário e documento](docs/access-design.md) define critérios de teste; ainda não está implementado.
 
-A captura abaixo demonstra o agente executando na OCI, respondendo uma pergunta com base na documentação corporativa e apresentando a fonte utilizada na recuperação da informação.
+## Origem e autoria
 
-![Execução na OCI - Consulta com citação de fontes](docs/images/oci-demo-1.png)
+Desenvolvido por Lucas Rossoni para o Challenge AluraAgente — ONE IA for Tech, originalmente **Alura Corporate Agent**. NexaPolicy explicita o domínio e aproveita a empresa fictícia existente; nome proposto para o portfólio, sem pesquisa de marca. O endereço do repositório foi preservado.
 
-#### 2. Fallback seguro quando a informação não existe na base
-
-A segunda evidência demonstra o comportamento do agente quando a informação solicitada não está disponível na base de conhecimento. Nesse caso, o sistema evita gerar uma resposta não fundamentada e informa que não encontrou a informação nos documentos disponíveis.
-
-![Execução na OCI - Fallback sem alucinação](docs/images/oci-demo-2.png)
-
-## Limitações do MVP
-
-- não executa OCR local para PDFs escaneados;
-- não sincroniza automaticamente Google Drive, SharePoint ou OneDrive;
-- não possui autenticação de colaboradores;
-- reindexa a base integralmente em vez de fazer atualização incremental;
-- não possui reranker dedicado;
-- não possui observabilidade centralizada;
-- utiliza uma base documental fictícia e pequena.
-
-Essas limitações são intencionais para manter o challenge simples, funcional e entregável.
-
-## Autor
-
-Desenvolvido por Lucas Rossoni para o Challenge AluraAgente - ONE IA for Tech.
+<img src="docs/images/badge-rag-agente-ia.png" alt="Badge ONE — Agente de IA com RAG" width="140" />

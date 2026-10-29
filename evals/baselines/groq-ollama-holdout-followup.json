@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-29",
+  "revision": "ab97be52a9162f5e99540c460c03435d20fac4f0",
+  "method": "Repetição dos três casos negativos restantes com índice persistente Ollama e geração Groq; limites e configuração conforme execução inicial.",
+  "results": [
+    {
+      "id": "h-bonus",
+      "question": "Qual a regra de pagamento do bônus anual?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "abstained",
+      "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+      "evidence": []
+    },
+    {
+      "id": "h-holiday",
+      "question": "Qual é o próximo feriado municipal?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "abstained",
+      "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+      "evidence": []
+    },
+    {
+      "id": "h-shares",
+      "question": "Qual é o preço da ação da NexaCorp hoje?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "abstained",
+      "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+      "evidence": []
+    }
+  ]
+}

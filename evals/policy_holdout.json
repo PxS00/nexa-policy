@@ -1,0 +1,17 @@
+[
+  {"id":"h-vacation-channel","question":"Por qual canal interno tiro dúvidas sobre férias?","expected_sources":["rh/politica_ferias.md"],"expected_facts":["Encaminhar ao RH pelo canal interno RH Ajuda."]},
+  {"id":"h-vacation-minimum","question":"Qual a duração mínima dos períodos quando as férias são divididas?","expected_sources":["rh/politica_ferias.md"],"expected_facts":["Um período deve ter pelo menos 14 dias corridos; os demais, pelo menos 5 dias corridos cada."]},
+  {"id":"h-vacation-manager","question":"Quem avalia o período de férias solicitado?","expected_sources":["rh/politica_ferias.md"],"expected_facts":["A liderança avalia considerando a continuidade das atividades da equipe."]},
+  {"id":"h-transport","question":"Quanto posso reembolsar por transporte e qual comprovante é exigido?","expected_sources":["financeiro/politica_reembolso.csv"],"expected_facts":["Até R$ 250 por deslocamento.","Comprovante fiscal ou recibo válido."]},
+  {"id":"h-hotel","question":"Qual o teto de hospedagem e a condição para reembolso?","expected_sources":["financeiro/politica_reembolso.csv"],"expected_facts":["Até R$ 450 por diária.","Deve estar vinculada a viagem corporativa aprovada."]},
+  {"id":"h-material-deadline","question":"Qual o prazo para solicitar reembolso de material de trabalho?","expected_sources":["financeiro/politica_reembolso.csv"],"expected_facts":["15 dias após a despesa."]},
+  {"id":"h-it-support","question":"Onde abro um chamado de TI?","expected_sources":["comunicacao/faq.md"],"expected_facts":["No portal interno do Service Desk."]},
+  {"id":"h-first-day","question":"O que devo configurar na conta no meu primeiro dia?","expected_sources":["operacional/onboarding.html"],"expected_facts":["Ativar a conta corporativa e configurar autenticação em dois fatores."]},
+  {"id":"h-systems","question":"Quem solicita acesso aos sistemas internos no onboarding?","expected_sources":["operacional/onboarding.html"],"expected_facts":["A liderança solicita pelo portal de serviços."]},
+  {"id":"h-ethics-report","question":"Onde relato uma violação ética e existe opção anônima?","expected_sources":["legal/codigo_conduta.json"],"expected_facts":["No Canal de Ética NexaCorp, disponível na intranet, com opção de relato anônimo."]},
+  {"id":"h-combined","question":"Quem solicita meus acessos internos e onde abro chamados de TI?","expected_sources":["operacional/onboarding.html","comunicacao/faq.md"],"expected_facts":["A liderança solicita acessos pelo portal de serviços.","Chamados técnicos devem ser abertos no portal interno do Service Desk."]},
+  {"id":"h-childcare","question":"Qual o valor do auxílio creche?","expected_sources":[],"expected_facts":[]},
+  {"id":"h-bonus","question":"Qual a regra de pagamento do bônus anual?","expected_sources":[],"expected_facts":[]},
+  {"id":"h-holiday","question":"Qual é o próximo feriado municipal?","expected_sources":[],"expected_facts":[]},
+  {"id":"h-shares","question":"Qual é o preço da ação da NexaCorp hoje?","expected_sources":[],"expected_facts":[]}
+]

@@ -1,0 +1,489 @@
+{
+  "timestamp_utc": "2026-10-29T15:54:05.614390+00:00",
+  "revision": "ab97be52a9162f5e99540c460c03435d20fac4f0",
+  "working_tree_dirty": false,
+  "dataset_sha256": "41288050432306976367895b812e0db379bda504421226481745e9ea08f9665d",
+  "settings": {
+    "llm_provider": "groq",
+    "groq_model": "openai/gpt-oss-20b",
+    "llm_model": "gemini-3.5-flash",
+    "llm_fallback_model": "gemini-3.5-flash-lite",
+    "embedding_provider": "ollama",
+    "embedding_model": "gemini-embedding-001",
+    "ollama_model": "embeddinggemma",
+    "embedding_dimensions": 768,
+    "chunk_size": 1000,
+    "chunk_overlap": 150,
+    "top_k": 4,
+    "max_cosine_distance": 0.65
+  },
+  "index": {
+    "documents": 5,
+    "chunks": 5
+  },
+  "total_cases": 15,
+  "results": [
+    {
+      "id": "h-vacation-channel",
+      "question": "Por qual canal interno tiro dúvidas sobre férias?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "expected_facts": [
+        "Encaminhar ao RH pelo canal interno RH Ajuda."
+      ],
+      "status": "answered",
+      "answer": "Para tirar dúvidas sobre férias, encaminhe suas perguntas ao time de Recursos Humanos pelo canal interno **RH Ajuda**. [FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_ferias.md",
+          "category": "rh",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "rh/politica_ferias.md",
+          "excerpt": "# Política de Férias — NexaCorp\n\nA NexaCorp concede 30 dias corridos de férias após cada período aquisitivo de 12 meses, conforme a legislação aplicável.\n\nO pedido deve ser enviado ao RH com no mínimo 30 dias de antecedência. A liderança avalia o período solicitado considerando a continuidade das atividades da equipe.\n\nÉ possível dividir as férias em até três períodos, desde que um deles tenha pelo menos 14 dias corridos e os demais tenham pelo menos 5 dias corridos cada.\n\nDúvidas e solicitações devem ser encaminhadas ao time de Recursos Humanos pelo canal interno RH Ajuda.",
+          "distance": 0.5147429704666138
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.5288918614387512
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-vacation-minimum",
+      "question": "Qual a duração mínima dos períodos quando as férias são divididas?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "expected_facts": [
+        "Um período deve ter pelo menos 14 dias corridos; os demais, pelo menos 5 dias corridos cada."
+      ],
+      "status": "answered",
+      "answer": "A duração mínima dos períodos quando as férias são divididas é:\n\n- **Um dos períodos** deve ter **pelo menos 14 dias corridos**.  \n- **Os demais períodos** (até dois) devem ter **pelo menos 5 dias corridos cada**.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_ferias.md",
+          "category": "rh",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "rh/politica_ferias.md",
+          "excerpt": "# Política de Férias — NexaCorp\n\nA NexaCorp concede 30 dias corridos de férias após cada período aquisitivo de 12 meses, conforme a legislação aplicável.\n\nO pedido deve ser enviado ao RH com no mínimo 30 dias de antecedência. A liderança avalia o período solicitado considerando a continuidade das atividades da equipe.\n\nÉ possível dividir as férias em até três períodos, desde que um deles tenha pelo menos 14 dias corridos e os demais tenham pelo menos 5 dias corridos cada.\n\nDúvidas e solicitações devem ser encaminhadas ao time de Recursos Humanos pelo canal interno RH Ajuda.",
+          "distance": 0.41707491874694824
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-vacation-manager",
+      "question": "Quem avalia o período de férias solicitado?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "expected_facts": [
+        "A liderança avalia considerando a continuidade das atividades da equipe."
+      ],
+      "status": "answered",
+      "answer": "Quem avalia o período de férias solicitado é a **liderança** da equipe, que considera a continuidade das atividades da equipe ao analisar o pedido.  \n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_ferias.md",
+          "category": "rh",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "rh/politica_ferias.md",
+          "excerpt": "# Política de Férias — NexaCorp\n\nA NexaCorp concede 30 dias corridos de férias após cada período aquisitivo de 12 meses, conforme a legislação aplicável.\n\nO pedido deve ser enviado ao RH com no mínimo 30 dias de antecedência. A liderança avalia o período solicitado considerando a continuidade das atividades da equipe.\n\nÉ possível dividir as férias em até três períodos, desde que um deles tenha pelo menos 14 dias corridos e os demais tenham pelo menos 5 dias corridos cada.\n\nDúvidas e solicitações devem ser encaminhadas ao time de Recursos Humanos pelo canal interno RH Ajuda.",
+          "distance": 0.4608731269836426
+        },
+        {
+          "source": "politica_reembolso.csv",
+          "category": "financeiro",
+          "location": "seção: table",
+          "citation_id": 2,
+          "source_path": "financeiro/politica_reembolso.csv",
+          "excerpt": "tipo_despesa: Alimentação | limite: R$ 120 por dia | regra: Permitida em viagens corporativas previamente aprovadas | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Transporte | limite: R$ 250 por deslocamento | regra: Exige comprovante fiscal ou recibo válido | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Hospedagem | limite: R$ 450 por diária | regra: Deve estar vinculada a viagem corporativa aprovada | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Material de trabalho | limite: R$ 300 por compra | regra: Exige aprovação prévia da liderança | prazo_solicitacao: 15 dias após a despesa",
+          "distance": 0.6044344902038574
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.6308067440986633
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-transport",
+      "question": "Quanto posso reembolsar por transporte e qual comprovante é exigido?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "expected_facts": [
+        "Até R$ 250 por deslocamento.",
+        "Comprovante fiscal ou recibo válido."
+      ],
+      "status": "answered",
+      "answer": "Você pode reembolsar até **R$ 250,00 por deslocamento**.  \nPara que o reembolso seja aprovado, é **necessário apresentar um comprovante fiscal ou recibo válido** que comprove a despesa.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_reembolso.csv",
+          "category": "financeiro",
+          "location": "seção: table",
+          "citation_id": 1,
+          "source_path": "financeiro/politica_reembolso.csv",
+          "excerpt": "tipo_despesa: Alimentação | limite: R$ 120 por dia | regra: Permitida em viagens corporativas previamente aprovadas | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Transporte | limite: R$ 250 por deslocamento | regra: Exige comprovante fiscal ou recibo válido | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Hospedagem | limite: R$ 450 por diária | regra: Deve estar vinculada a viagem corporativa aprovada | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Material de trabalho | limite: R$ 300 por compra | regra: Exige aprovação prévia da liderança | prazo_solicitacao: 15 dias após a despesa",
+          "distance": 0.42687922716140747
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.6400829553604126
+        },
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.6417864561080933
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-hotel",
+      "question": "Qual o teto de hospedagem e a condição para reembolso?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "expected_facts": [
+        "Até R$ 450 por diária.",
+        "Deve estar vinculada a viagem corporativa aprovada."
+      ],
+      "status": "answered",
+      "answer": "O teto de hospedagem é de **R$ 450,00 por diária**.  \nPara que o reembolso seja aprovado, a hospedagem **deve estar vinculada a uma viagem corporativa previamente aprovada**.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_reembolso.csv",
+          "category": "financeiro",
+          "location": "seção: table",
+          "citation_id": 1,
+          "source_path": "financeiro/politica_reembolso.csv",
+          "excerpt": "tipo_despesa: Alimentação | limite: R$ 120 por dia | regra: Permitida em viagens corporativas previamente aprovadas | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Transporte | limite: R$ 250 por deslocamento | regra: Exige comprovante fiscal ou recibo válido | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Hospedagem | limite: R$ 450 por diária | regra: Deve estar vinculada a viagem corporativa aprovada | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Material de trabalho | limite: R$ 300 por compra | regra: Exige aprovação prévia da liderança | prazo_solicitacao: 15 dias após a despesa",
+          "distance": 0.5431822538375854
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-material-deadline",
+      "question": "Qual o prazo para solicitar reembolso de material de trabalho?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "expected_facts": [
+        "15 dias após a despesa."
+      ],
+      "status": "answered",
+      "answer": "O prazo para solicitar reembolso de material de trabalho é de **15 dias após a despesa**. [FONTE 1]",
+      "evidence": [
+        {
+          "source": "politica_reembolso.csv",
+          "category": "financeiro",
+          "location": "seção: table",
+          "citation_id": 1,
+          "source_path": "financeiro/politica_reembolso.csv",
+          "excerpt": "tipo_despesa: Alimentação | limite: R$ 120 por dia | regra: Permitida em viagens corporativas previamente aprovadas | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Transporte | limite: R$ 250 por deslocamento | regra: Exige comprovante fiscal ou recibo válido | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Hospedagem | limite: R$ 450 por diária | regra: Deve estar vinculada a viagem corporativa aprovada | prazo_solicitacao: 30 dias após a despesa\ntipo_despesa: Material de trabalho | limite: R$ 300 por compra | regra: Exige aprovação prévia da liderança | prazo_solicitacao: 15 dias após a despesa",
+          "distance": 0.5121639966964722
+        },
+        {
+          "source": "politica_ferias.md",
+          "category": "rh",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "rh/politica_ferias.md",
+          "excerpt": "# Política de Férias — NexaCorp\n\nA NexaCorp concede 30 dias corridos de férias após cada período aquisitivo de 12 meses, conforme a legislação aplicável.\n\nO pedido deve ser enviado ao RH com no mínimo 30 dias de antecedência. A liderança avalia o período solicitado considerando a continuidade das atividades da equipe.\n\nÉ possível dividir as férias em até três períodos, desde que um deles tenha pelo menos 14 dias corridos e os demais tenham pelo menos 5 dias corridos cada.\n\nDúvidas e solicitações devem ser encaminhadas ao time de Recursos Humanos pelo canal interno RH Ajuda.",
+          "distance": 0.6183602809906006
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.6473071575164795
+        },
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 4,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.6489447355270386
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-it-support",
+      "question": "Onde abro um chamado de TI?",
+      "expected_sources": [
+        "comunicacao/faq.md"
+      ],
+      "expected_facts": [
+        "No portal interno do Service Desk."
+      ],
+      "status": "answered",
+      "answer": "Para abrir um chamado de TI, acesse o **portal interno do Service Desk**.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.6308087110519409
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-first-day",
+      "question": "O que devo configurar na conta no meu primeiro dia?",
+      "expected_sources": [
+        "operacional/onboarding.html"
+      ],
+      "expected_facts": [
+        "Ativar a conta corporativa e configurar autenticação em dois fatores."
+      ],
+      "status": "answered",
+      "answer": "No seu primeiro dia, você deve:\n\n1. **Concluir a ativação da conta corporativa** – garantir que a conta esteja ativa e pronta para uso.  \n2. **Configurar a autenticação em dois fatores (2FA)** – habilitar a camada adicional de segurança exigida pela empresa.  \n\nEssas são as ações obrigatórias listadas no guia de onboarding.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "onboarding.html",
+          "category": "operacional",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "operacional/onboarding.html",
+          "excerpt": "Onboarding NexaCorp\nGuia de Onboarding\nNo primeiro dia, o colaborador deve concluir a ativação da conta corporativa e configurar autenticação em dois fatores.\nNa primeira semana, são obrigatórios os treinamentos de segurança da informação, LGPD e código de conduta.\nO acesso a sistemas internos é solicitado pela liderança por meio do portal de serviços.\nProblemas de acesso devem ser direcionados ao Service Desk no portal interno.",
+          "distance": 0.5210831165313721
+        },
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.6164414286613464
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.6433044672012329
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-systems",
+      "question": "Quem solicita acesso aos sistemas internos no onboarding?",
+      "expected_sources": [
+        "operacional/onboarding.html"
+      ],
+      "expected_facts": [
+        "A liderança solicita pelo portal de serviços."
+      ],
+      "status": "answered",
+      "answer": "O acesso aos sistemas internos no onboarding é solicitado pela **liderança** por meio do portal de serviços. [FONTE 1]",
+      "evidence": [
+        {
+          "source": "onboarding.html",
+          "category": "operacional",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "operacional/onboarding.html",
+          "excerpt": "Onboarding NexaCorp\nGuia de Onboarding\nNo primeiro dia, o colaborador deve concluir a ativação da conta corporativa e configurar autenticação em dois fatores.\nNa primeira semana, são obrigatórios os treinamentos de segurança da informação, LGPD e código de conduta.\nO acesso a sistemas internos é solicitado pela liderança por meio do portal de serviços.\nProblemas de acesso devem ser direcionados ao Service Desk no portal interno.",
+          "distance": 0.38098013401031494
+        },
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.5238530039787292
+        },
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.5776127576828003
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-ethics-report",
+      "question": "Onde relato uma violação ética e existe opção anônima?",
+      "expected_sources": [
+        "legal/codigo_conduta.json"
+      ],
+      "expected_facts": [
+        "No Canal de Ética NexaCorp, disponível na intranet, com opção de relato anônimo."
+      ],
+      "status": "answered",
+      "answer": "Você pode relatar uma violação ética no **Canal de Ética NexaCorp**, que está disponível na intranet da empresa e oferece a opção de relato anônimo.  \n\n[FONTE 1]",
+      "evidence": [
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.538570761680603
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-combined",
+      "question": "Quem solicita meus acessos internos e onde abro chamados de TI?",
+      "expected_sources": [
+        "operacional/onboarding.html",
+        "comunicacao/faq.md"
+      ],
+      "expected_facts": [
+        "A liderança solicita acessos pelo portal de serviços.",
+        "Chamados técnicos devem ser abertos no portal interno do Service Desk."
+      ],
+      "status": "answered",
+      "answer": "Quem solicita seus acessos internos  \n- A liderança da sua área deve solicitar os acessos através do **portal de serviços**.  \n  [FONTE 2]\n\nOnde abrir chamados de TI  \n- Para qualquer incidente técnico, abra o chamado no **portal interno do Service Desk**.  \n  [FONTE 1]",
+      "evidence": [
+        {
+          "source": "faq.md",
+          "category": "comunicacao",
+          "location": "seção: document",
+          "citation_id": 1,
+          "source_path": "comunicacao/faq.md",
+          "excerpt": "# FAQ Interno — NexaCorp\n\n## Trabalho remoto\nA política padrão permite até três dias de trabalho remoto por semana, conforme acordo com a liderança e as necessidades da área.\n\n## Benefício de educação\nCada colaborador possui até R$ 1.500 por ano para cursos e certificações relacionados à sua função, mediante aprovação da liderança.\n\n## Suporte de TI\nChamados técnicos devem ser abertos no portal interno do Service Desk. Incidentes críticos podem ser escalados pelo canal de plantão informado na intranet.",
+          "distance": 0.508919358253479
+        },
+        {
+          "source": "onboarding.html",
+          "category": "operacional",
+          "location": "seção: document",
+          "citation_id": 2,
+          "source_path": "operacional/onboarding.html",
+          "excerpt": "Onboarding NexaCorp\nGuia de Onboarding\nNo primeiro dia, o colaborador deve concluir a ativação da conta corporativa e configurar autenticação em dois fatores.\nNa primeira semana, são obrigatórios os treinamentos de segurança da informação, LGPD e código de conduta.\nO acesso a sistemas internos é solicitado pela liderança por meio do portal de serviços.\nProblemas de acesso devem ser direcionados ao Service Desk no portal interno.",
+          "distance": 0.5694035291671753
+        },
+        {
+          "source": "codigo_conduta.json",
+          "category": "legal",
+          "location": "seção: document",
+          "citation_id": 3,
+          "source_path": "legal/codigo_conduta.json",
+          "excerpt": "{\n\"canal_de_denuncias\": \"Canal de Ética NexaCorp, disponível na intranet e com opção de relato anônimo.\",\n\"documento\": \"Código de Conduta NexaCorp\",\n\"principios\": [\n\"Agir com integridade e respeito em todas as relações profissionais.\",\n\"Não oferecer ou aceitar vantagens indevidas.\",\n\"Proteger informações confidenciais e dados pessoais.\",\n\"Comunicar conflitos de interesse ao time de Compliance.\"\n],\n\"responsavel\": \"Jurídico e Compliance\",\n\"versao\": \"1.0\"\n}",
+          "distance": 0.6034316420555115
+        }
+      ],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-childcare",
+      "question": "Qual o valor do auxílio creche?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "abstained",
+      "answer": "Não encontrei essa informação nos documentos disponíveis. Consulte a área responsável ou solicite a atualização da base de conhecimento.",
+      "evidence": [],
+      "review": {
+        "facts_supported": null,
+        "citations_supported": null,
+        "notes": ""
+      }
+    },
+    {
+      "id": "h-bonus",
+      "question": "Qual a regra de pagamento do bônus anual?",
+      "expected_sources": [],
+      "expected_facts": [],
+      "status": "error",
+      "error_type": "RuntimeError",
+      "error_code": null
+    }
+  ],
+  "complete": false
+}

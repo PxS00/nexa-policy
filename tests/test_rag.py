@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from src.config import Settings
 from src.models import SearchResult
 from src.rag import FALLBACK_ANSWER, RagAgent
@@ -14,7 +16,7 @@ class FakeAiClient:
 
     def generate(self, prompt: str) -> str:
         self.generated_prompt = prompt
-        return "O pedido de férias deve ser enviado com 30 dias de antecedência."
+        return "O pedido de férias deve ser enviado com 30 dias de antecedência [FONTE 1]."
 
 
 class FakeVectorStore:
@@ -85,7 +87,7 @@ def test_agent_falls_back_when_search_is_not_relevant():
     assert ai_client.generated_prompt is None
 
 
-def test_agent_uses_only_best_semantic_match():
+def test_agent_preserves_multiple_sources_for_compound_questions():
     ai_client = FakeAiClient()
     store = FakeVectorStore(
         [
@@ -111,7 +113,61 @@ def test_agent_uses_only_best_semantic_match():
     )
     agent = RagAgent(make_settings(), ai_client, store)
 
-    response = agent.ask("Quantos dias de férias os colaboradores possuem?")
+    response = agent.ask("Quantos dias de férias tenho e qual o benefício para cursos?")
 
-    assert [source.source for source in response.sources] == ["politica_ferias.md"]
-    assert "faq.md" not in (ai_client.generated_prompt or "")
+    assert [source.source for source in response.sources] == ["politica_ferias.md", "faq.md"]
+    assert "faq.md" in ai_client.generated_prompt
+    assert [s.citation_id for s in response.sources] == [1, 2]
+    assert response.sources[1].excerpt == store.results[1].text
+
+
+@pytest.mark.parametrize("question", ["", "   ", "x" * 2001])
+def test_invalid_question_does_not_call_provider(question):
+    class NoCalls(FakeAiClient):
+        def embed_query(self, text):
+            pytest.fail("Invalid input must not call the provider")
+    with pytest.raises(ValueError):
+        RagAgent(make_settings(), NoCalls(), FakeVectorStore([])).ask(question)
+
+
+def test_retrieval_ranks_filters_and_bounds_results_without_generation():
+    ai = FakeAiClient()
+    distances = [0.6, 0.1, float("nan"), float("inf"), 0.65, 0.66]
+    store = FakeVectorStore([SearchResult(str(d), {}, d) for d in distances])
+    # Deliberately return more results than requested to exercise the application boundary.
+    store.search = lambda *_: store.results
+    agent = RagAgent(make_settings(), ai, store)
+    assert [r.distance for r in agent.retrieve("Férias?")] == [0.1, 0.6, 0.65]
+    assert ai.generated_prompt is None
+
+
+def test_model_abstention_does_not_attach_sources():
+    ai = FakeAiClient()
+    ai.generate = lambda _: FALLBACK_ANSWER + "\n"
+    response = RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")
+    assert response.answer == FALLBACK_ANSWER
+    assert not response.sources
+
+
+def test_same_filename_in_different_folders_keeps_distinct_evidence():
+    results = [SearchResult("Trecho " + folder, {"source": "policy.md", "source_path": folder + "/policy.md"}, 0.2)
+               for folder in ("rh", "legal")]
+    response = RagAgent(make_settings(), FakeAiClient(), FakeVectorStore(results)).ask("Políticas?")
+    assert [s.source_path for s in response.sources] == ["rh/policy.md", "legal/policy.md"]
+
+
+def test_empty_index_abstains_without_generation():
+    ai = FakeAiClient()
+    response = RagAgent(make_settings(), ai, FakeVectorStore([])).ask("Férias?")
+    assert response.answer == FALLBACK_ANSWER
+    assert not response.sources
+    assert ai.generated_prompt is None
+
+
+@pytest.mark.parametrize("answer", ["Resposta sem referência.", "Resposta [FONTE 0].", "Resposta [FONTE 2].", "Resposta [FONTE 1] e [FONTE 99]."])
+def test_invalid_or_missing_citations_trigger_abstention(answer):
+    ai = FakeAiClient()
+    ai.generate = lambda _: answer
+    response = RagAgent(make_settings(), ai, FakeVectorStore([SearchResult("Texto", {}, 0.2)])).ask("Pergunta?")
+    assert response.answer == FALLBACK_ANSWER
+    assert response.sources == ()

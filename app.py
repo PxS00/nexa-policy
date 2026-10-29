@@ -1,15 +1,17 @@
 from __future__ import annotations
 
+from dataclasses import asdict
+
 import streamlit as st
 
-from src.ai_client import GeminiClient
+from src.ai_client import GeminiClient, GroqGenerationClient, OllamaGroqClient
 from src.config import Settings
-from src.indexing import rebuild_index
+from src.indexing import index_fingerprint, rebuild_index
 from src.rag import RagAgent
 from src.vector_store import VectorStore
 
 st.set_page_config(
-    page_title="Alura Corporate Agent",
+    page_title="NexaPolicy",
     page_icon="🤖",
     layout="centered",
 )
@@ -19,13 +21,23 @@ st.set_page_config(
 def build_services():
     settings = Settings.from_env()
     settings.require_api_key()
-    ai_client = GeminiClient(
-        api_key=settings.gemini_api_key,
-        llm_model=settings.llm_model,
-        embedding_model=settings.embedding_model,
-        embedding_dimensions=settings.embedding_dimensions,
-        llm_fallback_model=settings.llm_fallback_model,
-    )
+    settings.require_generation_key()
+    if settings.embedding_provider == "ollama":
+        if settings.llm_provider != "groq":
+            raise ValueError("Embeddings Ollama atualmente exigem LLM_PROVIDER=groq.")
+        ai_client = OllamaGroqClient(settings.ollama_base_url, settings.ollama_model,
+                                     settings.embedding_dimensions, settings.groq_api_key, settings.groq_model)
+    else:
+        client_class = GroqGenerationClient if settings.llm_provider == "groq" else GeminiClient
+        extra = {"groq_api_key": settings.groq_api_key, "groq_model": settings.groq_model} if settings.llm_provider == "groq" else {}
+        ai_client = client_class(
+            api_key=settings.gemini_api_key,
+            llm_model=settings.llm_model,
+            embedding_model=settings.embedding_model,
+            embedding_dimensions=settings.embedding_dimensions,
+            llm_fallback_model=settings.llm_fallback_model,
+            **extra,
+        )
     vector_store = VectorStore(settings.chroma_path, settings.chroma_collection)
     agent = RagAgent(settings, ai_client, vector_store)
     return settings, ai_client, vector_store, agent
@@ -41,18 +53,22 @@ def render_sources(sources: list[dict]) -> None:
             category = source.get("category") or "geral"
             location = source.get("location") or "documento"
 
-            st.write(f"📄 {source_name}")
+            st.write(f"[FONTE {source.get('citation_id', 1)}] {source.get('source_path') or source_name}")
             st.caption(f"Categoria: {category} · Localização: {location}")
+            st.text(source.get("excerpt", ""))
+            if "distance" in source:
+                st.caption(f"Distância de cosseno: {source['distance']:.3f} (menor = mais próximo; não é probabilidade)")
 
 
-st.title("Alura Corporate Agent")
-st.caption("Assistente corporativo com RAG baseado exclusivamente na base documental da empresa fictícia NexaCorp.")
+st.title("NexaPolicy")
+st.caption("Consulte políticas de férias, reembolsos e onboarding da empresa fictícia NexaCorp com evidências documentais.")
+st.caption("Demonstração de portfólio com dados fictícios. Confira os trechos recuperados antes de tomar decisões.")
 
 try:
     settings, ai_client, vector_store, agent = build_services()
 except Exception as exc:
     st.error(str(exc))
-    st.info("Configure a variável GEMINI_API_KEY antes de iniciar a aplicação.")
+    st.info("Confira as chaves e o provedor no arquivo .env.")
     st.stop()
 
 with st.sidebar:
@@ -81,6 +97,15 @@ if vector_store.count() == 0:
         st.error(f"Não foi possível preparar a base: {exc}")
         st.stop()
 
+try:
+    saved_fingerprint = vector_store.fingerprint()
+    if not saved_fingerprint or saved_fingerprint != index_fingerprint(settings):
+        st.warning("A base ou a configuração de embeddings mudou (ou o índice é antigo). Reindexe para continuar.")
+        st.stop()
+except (OSError, ValueError) as exc:
+    st.warning(f"Não foi possível verificar a versão da base: {exc}")
+    st.stop()
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -102,14 +127,7 @@ if question:
                 response = agent.ask(question)
 
             st.markdown(response.answer)
-            sources = [
-                {
-                    "source": source.source,
-                    "category": source.category,
-                    "location": source.location,
-                }
-                for source in response.sources
-            ]
+            sources = [asdict(source) for source in response.sources]
             render_sources(sources)
             st.session_state.messages.append(
                 {"role": "assistant", "content": response.answer, "sources": sources}
