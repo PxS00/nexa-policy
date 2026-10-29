@@ -1,0 +1,152 @@
+{
+  "scope": "retrieval_only",
+  "cases": 6,
+  "answerable_cases": 4,
+  "unanswerable_cases": 2,
+  "metrics": {
+    "mean_source_recall_at_k": 1.0,
+    "source_mrr_at_k": 1.0,
+    "all_sources_found_rate": 1.0,
+    "correct_abstention_rate": 0.5
+  },
+  "results": [
+    {
+      "id": "n-remote-education",
+      "question": "Quantos dias de trabalho remoto são permitidos e qual a verba anual para cursos?",
+      "expected_sources": [
+        "comunicacao/faq.md"
+      ],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.43313539028167725,
+        0.5672622323036194,
+        0.5746935606002808,
+        0.6499223709106445
+      ],
+      "retrieval_ms": 262.0755000098143,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "n-hotel-vacation",
+      "question": "Qual a antecedência para pedir férias e o teto por diária de hospedagem?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.5129234194755554,
+        0.5315230488777161
+      ],
+      "retrieval_ms": 48.85859999922104,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "n-onboarding-education",
+      "question": "Quais treinamentos devo concluir na primeira semana e qual é o orçamento anual para certificações?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html",
+        "financeiro/politica_reembolso.csv",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.5622453093528748,
+        0.5744675397872925,
+        0.5810987949371338,
+        0.6281142234802246
+      ],
+      "retrieval_ms": 39.910799998324364,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "n-ethics-vacation",
+      "question": "Como fazer uma denúncia ética anônima e por qual canal esclarecer dúvidas sobre férias?",
+      "expected_sources": [
+        "legal/codigo_conduta.json",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "legal/codigo_conduta.json",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.5236794948577881,
+        0.5526342391967773,
+        0.5817251801490784
+      ],
+      "retrieval_ms": 124.89160000404809,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "n-dental",
+      "question": "Qual é o valor mensal do plano odontológico?",
+      "expected_sources": [],
+      "retrieved_sources": [],
+      "distances": [],
+      "retrieval_ms": 48.678899998776615,
+      "correct_abstention": true
+    },
+    {
+      "id": "n-maternity",
+      "question": "Quantos dias dura a licença maternidade na NexaCorp?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "comunicacao/faq.md",
+        "operacional/onboarding.html",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.35731106996536255,
+        0.4314531087875366,
+        0.5198339223861694,
+        0.576251208782196
+      ],
+      "retrieval_ms": 93.48090000275988,
+      "correct_abstention": false
+    }
+  ],
+  "run": {
+    "timestamp_utc": "2026-10-29T17:13:25.038503+00:00",
+    "revision": "de729fdb3cf835820f9ea5eed4482ba5bf038f72",
+    "working_tree_dirty": true,
+    "dataset_sha256": "5e5e55d6a2852c606eaf0a03d6174ebc34a8f401114b71b5ad82c0537b8f5176",
+    "corpus_sha256": "58739b233aa27b6b75d4fd9cab1b25d0c51761abcb82a0240ad2ac4d5906c883",
+    "index": {
+      "documents": 5,
+      "chunks": 5
+    },
+    "settings": {
+      "embedding_provider": "ollama",
+      "embedding_model": "gemini-embedding-001",
+      "ollama_model": "embeddinggemma",
+      "embedding_dimensions": 768,
+      "chunk_size": 1000,
+      "chunk_overlap": 150,
+      "top_k": 4,
+      "max_cosine_distance": 0.65
+    }
+  }
+}

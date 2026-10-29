@@ -1,0 +1,8 @@
+[
+ {"id":"n-remote-education","question":"Quantos dias de trabalho remoto são permitidos e qual a verba anual para cursos?","expected_sources":["comunicacao/faq.md"]},
+ {"id":"n-hotel-vacation","question":"Qual a antecedência para pedir férias e o teto por diária de hospedagem?","expected_sources":["rh/politica_ferias.md","financeiro/politica_reembolso.csv"]},
+ {"id":"n-onboarding-education","question":"Quais treinamentos devo concluir na primeira semana e qual é o orçamento anual para certificações?","expected_sources":["operacional/onboarding.html","comunicacao/faq.md"]},
+ {"id":"n-ethics-vacation","question":"Como fazer uma denúncia ética anônima e por qual canal esclarecer dúvidas sobre férias?","expected_sources":["legal/codigo_conduta.json","rh/politica_ferias.md"]},
+ {"id":"n-dental","question":"Qual é o valor mensal do plano odontológico?","expected_sources":[]},
+ {"id":"n-maternity","question":"Quantos dias dura a licença maternidade na NexaCorp?","expected_sources":[]}
+]
