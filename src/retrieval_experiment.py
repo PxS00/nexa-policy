@@ -16,7 +16,7 @@ from src.vector_store import VectorStore
 def split_question(question):
     # Conservative Portuguese heuristic: only split before an explicit question word.
     parts = re.split(r'\s+e\s+(?=(?:qual|quais|quanto|quantos|quantas|onde|como|por qual)\b)', question, flags=re.I)
-    return [part.strip() for part in parts][:3]
+    return [part.strip() for part in parts] if len(parts) <= 3 else [question.strip()]
 
 
 def main():
