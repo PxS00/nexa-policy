@@ -9,6 +9,7 @@ import chromadb
 from filelock import FileLock
 
 from src.models import SearchResult, TextChunk
+from src.embedding_validation import validate_embeddings
 
 
 class VectorStore:
@@ -47,6 +48,9 @@ class VectorStore:
     def replace_all(self, chunks: list[TextChunk], embeddings: list[list[float]], *, fingerprint: str | None = None) -> None:
         if len(chunks) != len(embeddings):
             raise ValueError("A quantidade de chunks e embeddings deve ser igual.")
+        validate_embeddings(embeddings, len(chunks))
+        if len({chunk.id for chunk in chunks}) != len(chunks):
+            raise ValueError("IDs de chunks duplicados.")
 
         # Stage a complete collection before changing the active pointer.
         stage_name = "stage-" + uuid4().hex
@@ -82,6 +86,9 @@ class VectorStore:
         anchor.modify(metadata=metadata)
 
     def search(self, query_embedding: list[float], top_k: int) -> list[SearchResult]:
+        if top_k <= 0:
+            raise ValueError("top_k deve ser maior que zero.")
+        validate_embeddings([query_embedding], 1)
         if self.count() == 0:
             return []
 

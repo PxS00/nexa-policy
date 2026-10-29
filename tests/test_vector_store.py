@@ -75,3 +75,21 @@ def test_persistent_rebuild_lock_prevents_parallel_rebuilds(tmp_path):
         assert child.returncode == 7
     with second.rebuild_lock():
         pass
+
+
+@pytest.mark.parametrize("embeddings", [[[float("nan"), 0]], [[0, 0]]])
+def test_invalid_replacement_preserves_old_index(embeddings):
+    store = VectorStore(Path("unused"), "test-" + uuid4().hex, persistent=False)
+    store.replace_all([TextChunk("old", "Antigo", {"source": "old.md"})], [[1, 0]], fingerprint="old")
+    with pytest.raises(RuntimeError):
+        store.replace_all([TextChunk("new", "Novo", {"source": "new.md"})], embeddings)
+    assert store.search([1, 0], 1)[0].text == "Antigo"
+    assert store.fingerprint() == "old"
+
+
+def test_duplicate_chunk_ids_do_not_replace_old_index():
+    store = VectorStore(Path("unused"), "test-" + uuid4().hex, persistent=False)
+    store.replace_all([TextChunk("old", "Antigo", {"source": "old.md"})], [[1, 0]])
+    with pytest.raises(ValueError, match="duplicados"):
+        store.replace_all([TextChunk("same", "A", {}), TextChunk("same", "B", {})], [[1, 0], [0, 1]])
+    assert store.search([1, 0], 1)[0].text == "Antigo"

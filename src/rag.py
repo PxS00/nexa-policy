@@ -14,6 +14,10 @@ FALLBACK_ANSWER = (
 )
 
 
+class InvalidCitations(RuntimeError):
+    """Generation failed validation; this does not mean the corpus lacks an answer."""
+
+
 class RagAgent:
     """Retrieval-augmented agent constrained to the indexed corporate knowledge base."""
 
@@ -31,9 +35,13 @@ class RagAgent:
         answer = self._ai_client.generate(prompt)
         if answer.strip() == FALLBACK_ANSWER:
             return AgentResponse(answer=FALLBACK_ANSWER)
-        citations = re.findall(r"\[\s*FONTE\s+(\d+)\s*\]", answer, flags=re.IGNORECASE)
-        if not citations or any(not 1 <= int(citation) <= len(relevant) for citation in citations):
-            return AgentResponse(answer=FALLBACK_ANSWER)
+        markers = re.findall(r"\[\s*FONTE\b", answer, flags=re.IGNORECASE)
+        citations = re.findall(r"\[\s*FONTE\s+([^\]]*)\]", answer, flags=re.IGNORECASE)
+        if (not citations or len(citations) != len(markers)
+                or any(not re.fullmatch(r"[0-9]{1,6}", c.strip()) for c in citations)):
+            raise InvalidCitations("A resposta gerada não apresentou referências válidas. Tente novamente.")
+        if any(not 1 <= int(citation) <= len(relevant) for citation in citations):
+            raise InvalidCitations("A resposta gerada citou uma fonte inexistente. Tente novamente.")
         sources = self._build_sources(relevant, {int(citation) for citation in citations})
         return AgentResponse(answer=answer, sources=sources)
 

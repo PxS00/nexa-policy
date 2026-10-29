@@ -3,15 +3,22 @@ from __future__ import annotations
 from google import genai
 from google.genai import errors, types
 import httpx
+from src.embedding_validation import validate_embeddings
 
 
-RETRYABLE_STATUS_CODES = [408, 429, 500, 502, 503, 504]
+RETRYABLE_STATUS_CODES = [408, 500, 502, 503, 504]
 
 
 class IncompleteGeneration(RuntimeError):
     def __init__(self, reason) -> None:
         self.reason = str(reason) if reason is not None else "UNKNOWN"
         super().__init__(f"A geração não terminou normalmente (motivo: {self.reason}). Tente novamente.")
+
+
+class ProviderRequestError(RuntimeError):
+    def __init__(self, provider: str, code: int | None = None) -> None:
+        self.code = code
+        super().__init__(f"Falha na API {provider}" + (f" (HTTP {code})." if code else ". Verifique a conexão e tente novamente."))
 
 
 class GeminiClient:
@@ -57,7 +64,7 @@ class GeminiClient:
                 output_dimensionality=self._embedding_dimensions,
             ),
         )
-        return [embedding.values for embedding in response.embeddings or []]
+        return validate_embeddings([embedding.values for embedding in response.embeddings or []], len(texts), self._embedding_dimensions)
 
     def embed_query(self, text: str) -> list[float]:
         response = self._client.models.embed_content(
@@ -70,7 +77,7 @@ class GeminiClient:
         )
         if not response.embeddings:
             raise RuntimeError("A API Gemini não retornou embedding para a consulta.")
-        return response.embeddings[0].values
+        return validate_embeddings([response.embeddings[0].values], 1, self._embedding_dimensions)[0]
 
     def generate(self, prompt: str) -> str:
         try:
@@ -113,22 +120,33 @@ class GroqGenerationClient(GeminiClient):
         self._groq_model = groq_model
 
     def generate(self, prompt: str) -> str:
-        response = httpx.post(
-            "https://api.groq.com/openai/v1/chat/completions",
-            headers={"Authorization": f"Bearer {self._groq_api_key}"},
-            json={"model": self._groq_model, "messages": [{"role": "user", "content": prompt}],
-                  "temperature": 0.2, "max_completion_tokens": 2048},
-            timeout=60.0,
-        )
+        try:
+            response = httpx.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={"Authorization": f"Bearer {self._groq_api_key}"},
+                json={"model": self._groq_model, "messages": [{"role": "user", "content": prompt}],
+                      "temperature": 0.2, "max_completion_tokens": 2048},
+                timeout=60.0,
+            )
+        except httpx.HTTPError:
+            raise ProviderRequestError("Groq") from None
         if response.is_error:
-            raise RuntimeError(f"A API Groq retornou erro HTTP {response.status_code}.")
-        choices = response.json().get("choices") or []
+            raise ProviderRequestError("Groq", response.status_code)
+        try:
+            data = response.json()
+            choices = data.get("choices") or []
+            if not isinstance(choices, list) or (choices and not isinstance(choices[0], dict)):
+                raise ValueError()
+        except (ValueError, AttributeError):
+            raise RuntimeError("A API Groq retornou um formato de resposta inválido.") from None
         if not choices:
             raise RuntimeError("A API Groq não retornou resposta.")
         choice = choices[0]
         if choice.get("finish_reason") != "stop":
             raise IncompleteGeneration(choice.get("finish_reason"))
-        text = (choice.get("message", {}).get("content") or "").strip()
+        message = choice.get("message") or {}
+        text = message.get("content") if isinstance(message, dict) else None
+        text = text.strip() if isinstance(text, str) else ""
         if not text:
             raise RuntimeError("A API Groq retornou uma resposta vazia.")
         return text
@@ -150,12 +168,13 @@ class OllamaEmbeddingClient:
                 "model": self._ollama_model, "input": texts, "truncate": False,
             }, timeout=120.0)
             response.raise_for_status()
-            vectors = response.json().get("embeddings") or []
+            data = response.json()
+            vectors = data.get("embeddings") if isinstance(data, dict) else None
         except httpx.HTTPError as exc:
             raise RuntimeError("Falha ao acessar Ollama. Verifique se está iniciado e se o modelo foi baixado.") from exc
-        if len(vectors) != len(texts) or any(len(v) != self._dimensions for v in vectors):
-            raise RuntimeError("Ollama retornou quantidade ou dimensão de embeddings incompatível.")
-        return vectors
+        except ValueError:
+            raise RuntimeError("Ollama retornou um formato de resposta inválido.") from None
+        return validate_embeddings(vectors, len(texts), self._dimensions)
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
         return self._embed([f"title: none | text: {text}" for text in texts])

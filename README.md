@@ -13,7 +13,7 @@ Não há dados de clientes, métricas de impacto ou uso em produção comprovado
 - Ingestão recursiva de PDF, DOCX, XLSX, PPTX, Markdown, CSV, JSON e HTML, com metadados e IDs SHA-256 determinísticos.
 - Embeddings Gemini e índice ChromaDB persistente, com busca por distância de cosseno.
 - Até `TOP_K` trechos abaixo do limiar, permitindo contexto com múltiplas fontes.
-- Evidências com caminho relativo, localização, texto e distância. Respostas sem citação ou com número de fonte inválido são substituídas pela abstenção. A checagem não verifica se a fonte sustenta a afirmação.
+- Evidências com caminho relativo, localização, texto e distância. Respostas sem citação válida geram erro de validação, distinto da abstenção por ausência de informação. A checagem não verifica se a fonte sustenta a afirmação.
 - Abstenção sem geração quando nenhum trecho passa pelo limiar. A mensagem padrão de abstenção retornada pelo modelo também não recebe fontes.
 - Avaliação de recuperação com 15 perguntas curadas, incluindo duas compostas e quatro sem resposta.
 - Testes sem credenciais, incluindo Chroma real com vetores controlados e interface Streamlit com serviços simulados; workflow de CI.
@@ -106,6 +106,8 @@ Para Ollama executando no Windows com a aplicação no Docker Desktop, o Compose
 
 ## Testes e avaliação
 
+A [matriz de revisão funcional e de confiabilidade](docs/review-scenarios.md) registra os cenários testados, as correções e os riscos ainda abertos. A suíte local desta revisão passou com 92 testes e 87% de cobertura em `src`; cobertura de código não mede qualidade de respostas.
+
 ```bash
 python -m pytest -q
 python -m pytest --cov=src --cov-report=term-missing
@@ -119,7 +121,7 @@ Para medir a recuperação real, configure a chave e execute na raiz do projeto:
 python -m src.evaluation --output evals/reports/retrieval.json
 ```
 
-O comando envia corpus e perguntas ao Gemini para gerar embeddings e pode consumir quota/cobrança. O relatório registra recall de fontes, MRR, recuperação de todas as fontes, abstenção correta, tempo de recuperação, configuração, revisão e hashes do corpus/dataset. [Metodologia](evals/README.md).
+O comando usa o provedor de embeddings configurado: Gemini pode consumir quota/cobrança; Ollama gera os vetores localmente. O relatório registra recall de fontes, MRR, recuperação de todas as fontes, abstenção correta, tempo de recuperação, configuração, revisão e hashes do corpus/dataset. [Metodologia](evals/README.md).
 
 ### Baseline real de recuperação
 
