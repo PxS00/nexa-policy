@@ -8,6 +8,16 @@ Consulte férias, reembolsos, benefícios e onboarding da NexaCorp fictícia. As
 
 [Começar](#executar) · [Arquitetura](#arquitetura) · [Testes e avaliações](#testes-e-avaliação) · [Roteiro da demonstração](docs/demo.md)
 
+## Demonstração
+
+O GIF percorre três situações com a base fictícia: uma resposta com fonte, uma pergunta composta que consulta dois documentos e uma pergunta sem evidência, que recebe uma abstenção.
+
+![Demonstração do NexaPolicy: consulta com fonte, pergunta composta e abstenção](docs/images/nexapolicy-demo.gif)
+
+[Tela inicial](docs/images/nexapolicy-home.png) · [Resposta com fonte](docs/images/nexapolicy-cited-answer.png) · [Pergunta composta e duas fontes](docs/images/nexapolicy-multisource.png) · [Abstenção](docs/images/nexapolicy-abstention.png)
+
+Capturas feitas localmente com documentos fictícios. Elas ilustram exemplos observados e não representam uma garantia geral de precisão.
+
 ## O que este projeto demonstra
 
 - Ingestão recursiva de PDF, DOCX, XLSX, PPTX, Markdown, CSV, JSON e HTML, com metadados e IDs SHA-256 determinísticos.
