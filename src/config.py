@@ -25,6 +25,9 @@ class Settings:
     top_k: int
     max_cosine_distance: float
     llm_fallback_model: str = "gemini-3.5-flash-lite"
+    llm_provider: str = "gemini"
+    groq_api_key: str = ""
+    groq_model: str = "openai/gpt-oss-20b"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -43,11 +46,16 @@ class Settings:
             llm_fallback_model=os.getenv(
                 "LLM_FALLBACK_MODEL", "gemini-3.5-flash-lite"
             ).strip(),
+            llm_provider=os.getenv("LLM_PROVIDER", "gemini").strip().lower(),
+            groq_api_key=os.getenv("GROQ_API_KEY", "").strip(),
+            groq_model=os.getenv("GROQ_MODEL", "openai/gpt-oss-20b").strip(),
         )
         settings.validate()
         return settings
 
     def validate(self) -> None:
+        if self.llm_provider not in {"gemini", "groq"}:
+            raise ValueError("LLM_PROVIDER deve ser gemini ou groq.")
         if self.chunk_size <= 0:
             raise ValueError("CHUNK_SIZE deve ser maior que zero.")
         if self.chunk_overlap < 0 or self.chunk_overlap >= self.chunk_size:
@@ -64,3 +72,7 @@ class Settings:
             raise RuntimeError(
                 "GEMINI_API_KEY não configurada. Copie .env.example para .env e informe a chave."
             )
+
+    def require_generation_key(self) -> None:
+        if self.llm_provider == "groq" and not self.groq_api_key:
+            raise RuntimeError("GROQ_API_KEY não configurada no arquivo .env.")

@@ -9,7 +9,7 @@ from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 
-from src.ai_client import GeminiClient, IncompleteGeneration
+from src.ai_client import GeminiClient, GroqGenerationClient, IncompleteGeneration
 from src.config import Settings
 from src.evaluation import load_cases
 from src.indexing import rebuild_index
@@ -50,8 +50,11 @@ def main():
     cases = load_cases(args.dataset)
     settings = Settings.from_env()
     settings.require_api_key()
-    client = GeminiClient(settings.gemini_api_key, settings.llm_model, settings.embedding_model,
-                          settings.embedding_dimensions, settings.llm_fallback_model)
+    settings.require_generation_key()
+    client_class = GroqGenerationClient if settings.llm_provider == "groq" else GeminiClient
+    extra = {"groq_api_key": settings.groq_api_key, "groq_model": settings.groq_model} if settings.llm_provider == "groq" else {}
+    client = client_class(settings.gemini_api_key, settings.llm_model, settings.embedding_model,
+                          settings.embedding_dimensions, settings.llm_fallback_model, **extra)
     store = VectorStore(settings.chroma_path, "answer-evaluation", persistent=False)
     indexed = rebuild_index(settings, client, store)
     agent = RagAgent(settings, client, store)
@@ -60,7 +63,7 @@ def main():
     report = {"timestamp_utc": datetime.now(timezone.utc).isoformat(),
               "revision": revision.stdout.strip() or None, "working_tree_dirty": bool(dirty.stdout.strip()),
               "dataset_sha256": hashlib.sha256(args.dataset.read_bytes()).hexdigest(),
-              "settings": {k: getattr(settings, k) for k in ("llm_model", "llm_fallback_model", "embedding_model",
+              "settings": {k: getattr(settings, k) for k in ("llm_provider", "groq_model", "llm_model", "llm_fallback_model", "embedding_model",
                            "embedding_dimensions", "chunk_size", "chunk_overlap", "top_k", "max_cosine_distance")},
               "index": asdict(indexed), "total_cases": len(cases), "results": []}
     args.output.parent.mkdir(parents=True, exist_ok=True)

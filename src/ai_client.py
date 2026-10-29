@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from google import genai
 from google.genai import errors, types
+import httpx
 
 
 RETRYABLE_STATUS_CODES = [408, 429, 500, 502, 503, 504]
@@ -98,4 +99,36 @@ class GeminiClient:
         text = (response.text or "").strip()
         if not text:
             raise RuntimeError("A API Gemini retornou uma resposta vazia.")
+        return text
+
+
+class GroqGenerationClient(GeminiClient):
+    """Use Gemini for embeddings and Groq for answer generation."""
+
+    def __init__(self, *args, groq_api_key: str, groq_model: str, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        if not groq_api_key or not groq_model:
+            raise ValueError("Chave e modelo Groq são obrigatórios.")
+        self._groq_api_key = groq_api_key
+        self._groq_model = groq_model
+
+    def generate(self, prompt: str) -> str:
+        response = httpx.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={"Authorization": f"Bearer {self._groq_api_key}"},
+            json={"model": self._groq_model, "messages": [{"role": "user", "content": prompt}],
+                  "temperature": 0.2, "max_completion_tokens": 2048},
+            timeout=60.0,
+        )
+        if response.is_error:
+            raise RuntimeError(f"A API Groq retornou erro HTTP {response.status_code}.")
+        choices = response.json().get("choices") or []
+        if not choices:
+            raise RuntimeError("A API Groq não retornou resposta.")
+        choice = choices[0]
+        if choice.get("finish_reason") != "stop":
+            raise IncompleteGeneration(choice.get("finish_reason"))
+        text = (choice.get("message", {}).get("content") or "").strip()
+        if not text:
+            raise RuntimeError("A API Groq retornou uma resposta vazia.")
         return text

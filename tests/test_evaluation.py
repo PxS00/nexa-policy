@@ -80,7 +80,7 @@ def test_cli_writes_report_without_generation_or_touching_persistent_index(tmp_p
     dataset = tmp_path / "cases.json"
     dataset.write_text(json.dumps([{"id": "q", "question": "Férias?", "expected_sources": ["policy.md"]}]), encoding="utf-8")
     output = tmp_path / "report.json"
-    settings = replace(Settings.from_env(), gemini_api_key="must-not-appear-in-report",
+    settings = replace(Settings.from_env(), gemini_api_key="must-not-appear-in-report", llm_provider="gemini",
                        documents_path=docs, chroma_path=index, embedding_dimensions=2)
 
     class ControlledClient:

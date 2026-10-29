@@ -4,7 +4,7 @@ from dataclasses import asdict
 
 import streamlit as st
 
-from src.ai_client import GeminiClient
+from src.ai_client import GeminiClient, GroqGenerationClient
 from src.config import Settings
 from src.indexing import index_fingerprint, rebuild_index
 from src.rag import RagAgent
@@ -21,12 +21,16 @@ st.set_page_config(
 def build_services():
     settings = Settings.from_env()
     settings.require_api_key()
-    ai_client = GeminiClient(
+    settings.require_generation_key()
+    client_class = GroqGenerationClient if settings.llm_provider == "groq" else GeminiClient
+    extra = {"groq_api_key": settings.groq_api_key, "groq_model": settings.groq_model} if settings.llm_provider == "groq" else {}
+    ai_client = client_class(
         api_key=settings.gemini_api_key,
         llm_model=settings.llm_model,
         embedding_model=settings.embedding_model,
         embedding_dimensions=settings.embedding_dimensions,
         llm_fallback_model=settings.llm_fallback_model,
+        **extra,
     )
     vector_store = VectorStore(settings.chroma_path, settings.chroma_collection)
     agent = RagAgent(settings, ai_client, vector_store)
@@ -58,7 +62,7 @@ try:
     settings, ai_client, vector_store, agent = build_services()
 except Exception as exc:
     st.error(str(exc))
-    st.info("Configure a variável GEMINI_API_KEY antes de iniciar a aplicação.")
+    st.info("Confira as chaves e o provedor no arquivo .env.")
     st.stop()
 
 with st.sidebar:

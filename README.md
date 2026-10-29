@@ -58,6 +58,8 @@ python -m pip install -r requirements-dev.lock
 
 Copie `.env.example` para `.env` (`cp .env.example .env` ou `Copy-Item .env.example .env` no PowerShell). Defina `GEMINI_API_KEY` e confirme modelos disponíveis na sua conta. Os nomes padrão são herdados do projeto original; disponibilidade e quotas não foram revalidadas nesta evolução. Nunca versione a chave.
 
+Para usar Groq na geração, configure `LLM_PROVIDER=groq`, `GROQ_API_KEY` e `GROQ_MODEL` no `.env`. O padrão é `openai/gpt-oss-20b`; confirme sua disponibilidade e limites na conta Groq. O Gemini continua necessário para os embeddings dos documentos e de cada consulta, portanto essa configuração ainda consome quota Gemini. Um teste real com uma pergunta sobre férias produziu resposta correta com citação; isso não constitui avaliação completa de qualidade.
+
 ```bash
 streamlit run app.py
 ```
