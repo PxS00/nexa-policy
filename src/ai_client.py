@@ -132,3 +132,42 @@ class GroqGenerationClient(GeminiClient):
         if not text:
             raise RuntimeError("A API Groq retornou uma resposta vazia.")
         return text
+
+
+class OllamaEmbeddingClient:
+    """Local EmbeddingGemma document and query vectors through Ollama."""
+
+    def __init__(self, base_url: str, model: str, dimensions: int) -> None:
+        self._ollama_url = base_url.rstrip("/")
+        self._ollama_model = model
+        self._dimensions = dimensions
+
+    def _embed(self, texts: list[str]) -> list[list[float]]:
+        if not texts:
+            return []
+        try:
+            response = httpx.post(f"{self._ollama_url}/api/embed", json={
+                "model": self._ollama_model, "input": texts, "truncate": False,
+            }, timeout=120.0)
+            response.raise_for_status()
+            vectors = response.json().get("embeddings") or []
+        except httpx.HTTPError as exc:
+            raise RuntimeError("Falha ao acessar Ollama. Verifique se está iniciado e se o modelo foi baixado.") from exc
+        if len(vectors) != len(texts) or any(len(v) != self._dimensions for v in vectors):
+            raise RuntimeError("Ollama retornou quantidade ou dimensão de embeddings incompatível.")
+        return vectors
+
+    def embed_documents(self, texts: list[str]) -> list[list[float]]:
+        return self._embed([f"title: none | text: {text}" for text in texts])
+
+    def embed_query(self, text: str) -> list[float]:
+        return self._embed([f"task: question answering | query: {text}"])[0]
+
+
+class OllamaGroqClient(OllamaEmbeddingClient, GroqGenerationClient):
+    def __init__(self, base_url: str, embedding_model: str, dimensions: int, groq_api_key: str, groq_model: str) -> None:
+        OllamaEmbeddingClient.__init__(self, base_url, embedding_model, dimensions)
+        if not groq_api_key or not groq_model:
+            raise ValueError("Chave e modelo Groq são obrigatórios.")
+        self._groq_api_key = groq_api_key
+        self._groq_model = groq_model

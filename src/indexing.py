@@ -29,6 +29,9 @@ def index_fingerprint(settings: Settings) -> str:
     data = {"files": files, "embedding_model": settings.embedding_model,
             "embedding_dimensions": settings.embedding_dimensions,
             "chunk_size": settings.chunk_size, "chunk_overlap": settings.chunk_overlap}
+    if settings.embedding_provider == "ollama":
+        data.update(embedding_provider="ollama", embedding_model=settings.ollama_model,
+                    embedding_format="embeddinggemma-qa-v1")
     return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
 
 

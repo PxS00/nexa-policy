@@ -42,11 +42,11 @@ flowchart TD
 
 ## Executar
 
-Requer Python 3.12 e chave Gemini para execução real. Testes não precisam de chave.
+Requer Python 3.12 e uma chave para o provedor de geração escolhido. A combinação padrão usa Gemini; Groq com Ollama requer chave Groq e serviço Ollama local. Testes automatizados não precisam de chave.
 
 ```bash
-git clone https://github.com/PxS00/alura-corporate-agent.git
-cd alura-corporate-agent
+git clone https://github.com/PxS00/nexa-policy.git
+cd nexa-policy
 python -m venv .venv
 ```
 
@@ -56,9 +56,13 @@ Ative com `source .venv/bin/activate` no Linux/macOS ou `.venv\Scripts\Activate.
 python -m pip install -r requirements-dev.lock
 ```
 
-Copie `.env.example` para `.env` (`cp .env.example .env` ou `Copy-Item .env.example .env` no PowerShell). Defina `GEMINI_API_KEY` e confirme modelos disponíveis na sua conta. Os nomes padrão são herdados do projeto original; disponibilidade e quotas não foram revalidadas nesta evolução. Nunca versione a chave.
+Copie `.env.example` para `.env` (`cp .env.example .env` ou `Copy-Item .env.example .env` no PowerShell). Para a configuração padrão, defina `GEMINI_API_KEY` e confirme os modelos disponíveis na sua conta. Nunca versione chaves.
 
-Para usar Groq na geração, configure `LLM_PROVIDER=groq`, `GROQ_API_KEY` e `GROQ_MODEL` no `.env`. O padrão é `openai/gpt-oss-20b`; confirme sua disponibilidade e limites na conta Groq. O Gemini continua necessário para os embeddings dos documentos e de cada consulta, portanto essa configuração ainda consome quota Gemini. Um teste real com uma pergunta sobre férias produziu resposta correta com citação; isso não constitui avaliação completa de qualidade.
+Para usar Groq na geração, configure `LLM_PROVIDER=groq`, `GROQ_API_KEY` e `GROQ_MODEL` no `.env`. O padrão é `openai/gpt-oss-20b`; confirme sua disponibilidade e limites na conta Groq. A geração usa a API Groq e sua quota; uma pergunta de teste sobre férias produziu resposta correta com citação, o que não constitui avaliação completa de qualidade.
+
+Para gerar embeddings localmente sem chave Gemini, instale [Ollama](https://ollama.com/download), execute `ollama pull embeddinggemma` e mantenha o serviço em execução. Configure `EMBEDDING_PROVIDER=ollama`, `OLLAMA_MODEL=embeddinggemma`, `EMBEDDING_DIMENSIONS=768`, `LLM_PROVIDER=groq` e a chave Groq. O Ollama usa prefixos específicos para documentos e perguntas; outros modelos exigem verificar seus próprios requisitos. Embeddings são gerados localmente, mas os trechos recuperados e a pergunta são enviados à Groq para gerar a resposta.
+
+Use uma coleção separada como `CHROMA_COLLECTION=corporate_documents_ollama` e reindexe ao mudar de provedor ou modelo. Distâncias e limiares dependem do modelo: os resultados e o limiar medidos com Gemini não validam a qualidade do EmbeddingGemma. A aplicação bloqueia consultas se o fingerprint do índice não corresponder à configuração.
 
 ```bash
 streamlit run app.py
@@ -71,6 +75,8 @@ Abra [localhost:8501](http://localhost:8501). A primeira execução indexa `docu
 | Variável | Padrão | Uso |
 | --- | --- | --- |
 | `GEMINI_API_KEY` | sem valor | Credencial |
+| `LLM_PROVIDER` / `GROQ_API_KEY` / `GROQ_MODEL` | `gemini` / sem valor / `openai/gpt-oss-20b` | Seleção e configuração da geração Groq |
+| `EMBEDDING_PROVIDER` / `OLLAMA_MODEL` | `gemini` / `embeddinggemma` | Provedor e modelo local de embeddings |
 | `LLM_MODEL` | `gemini-3.5-flash` | Geração |
 | `LLM_FALLBACK_MODEL` | `gemini-3.5-flash-lite` | Alternativa após erro 503 |
 | `EMBEDDING_MODEL` | `gemini-embedding-001` | Embeddings |
@@ -95,6 +101,8 @@ docker compose down
 ```
 
 O volume `chroma-data` mantém o índice. O healthcheck verifica o servidor HTTP, sem garantir disponibilidade do Gemini ou qualidade das respostas.
+
+Para Ollama executando no Windows com a aplicação no Docker Desktop, o Compose aponta para `host.docker.internal:11434`; ajuste `OLLAMA_DOCKER_BASE_URL` se necessário e verifique se o serviço está acessível ao container. Essa conexão não foi validada nesta revisão. Para execução diretamente no Windows, `OLLAMA_BASE_URL` usa `http://127.0.0.1:11434` por padrão.
 
 ## Testes e avaliação
 
@@ -123,6 +131,8 @@ Em 28/10/2026, com Gemini `gemini-embedding-001`, cinco documentos fictícios, l
 | top-4 | 11/11 | 0/4 |
 
 Top-4 recuperou as fontes das duas perguntas compostas; o filtro não rejeitou nenhuma negativa. Isso é um experimento pequeno de recuperação por documento, não uma medida de qualidade de respostas nem resultado em produção. Os relatórios incluem distâncias, tempos, configuração, hash e revisão: [top-1](evals/baselines/retrieval-top1.json) e [top-4](evals/baselines/retrieval-top4.json). A revisão registrada antecede a validação de citações, que não altera a recuperação. [Registro de validação](docs/validation.md).
+
+Com `embeddinggemma` local, top-4 e limiar 0,65, todos os documentos esperados foram recuperados em 11/11 perguntas respondíveis nos dois conjuntos de 15 casos. A recuperação rejeitou 2/4 negativas no conjunto de desenvolvimento e 0/4 no conjunto separado. [Dados de desenvolvimento](evals/baselines/ollama-development.json) e [dados do conjunto separado](evals/baselines/ollama-holdout.json). São amostras pequenas dos mesmos cinco documentos, sem avaliação automática de correção das respostas. Os arquivos foram produzidos com alterações locais ainda não commitadas; a revisão Git registrada não identifica o código completo da execução.
 
 Em uma rodada exploratória de geração com a validação de citações ativa, 10 das 15 perguntas retornaram respostas; cinco falharam por limite de quota (429). As quatro negativas que retornaram resposta receberam a abstenção padrão; uma pergunta respondível também recebeu abstenção e outra resposta ficou incompleta. [Respostas e erros registrados](evals/baselines/answers-exploratory.json). A rodada não mede precisão geral, e a razão da abstenção indevida não foi identificada.
 

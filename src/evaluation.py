@@ -81,7 +81,7 @@ def main() -> None:
     args = parser.parse_args()
     cases = load_cases(args.dataset)
     # Import service dependencies only for the explicit live evaluation command.
-    from src.ai_client import GeminiClient
+    from src.ai_client import GeminiClient, OllamaEmbeddingClient
     from src.config import Settings
     from src.document_loader import SUPPORTED_EXTENSIONS
     from src.indexing import rebuild_index
@@ -89,15 +89,19 @@ def main() -> None:
     from src.vector_store import VectorStore
 
     settings = Settings.from_env()
-    settings.require_api_key()
+    if settings.embedding_provider == "gemini":
+        settings.require_api_key()
     corpus = hashlib.sha256()
     for path in sorted(settings.documents_path.rglob("*")):
         if path.is_file() and path.suffix.lower() in SUPPORTED_EXTENSIONS:
             corpus.update(path.relative_to(settings.documents_path).as_posix().encode())
             corpus.update(hashlib.sha256(path.read_bytes()).digest())
-    client = GeminiClient(settings.gemini_api_key, settings.llm_model,
-                          settings.embedding_model, settings.embedding_dimensions,
-                          settings.llm_fallback_model)
+    if settings.embedding_provider == "ollama":
+        client = OllamaEmbeddingClient(settings.ollama_base_url, settings.ollama_model, settings.embedding_dimensions)
+    else:
+        client = GeminiClient(settings.gemini_api_key, settings.llm_model,
+                              settings.embedding_model, settings.embedding_dimensions,
+                              settings.llm_fallback_model)
     # Never replace the application's persistent collection during evaluation.
     store = VectorStore(settings.chroma_path, "evaluation", persistent=False)
     indexed = rebuild_index(settings, client, store)
@@ -111,7 +115,7 @@ def main() -> None:
                      "dataset_sha256": hashlib.sha256(args.dataset.read_bytes()).hexdigest(),
                      "corpus_sha256": corpus.hexdigest(), "index": asdict(indexed),
                      "settings": {key: getattr(settings, key) for key in
-                                  ("embedding_model", "embedding_dimensions", "chunk_size",
+                                  ("embedding_provider", "embedding_model", "ollama_model", "embedding_dimensions", "chunk_size",
                                    "chunk_overlap", "top_k", "max_cosine_distance")}}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

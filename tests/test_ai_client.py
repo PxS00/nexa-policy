@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import pytest
 from google.genai import types
 
-from src.ai_client import GeminiClient, GroqGenerationClient
+from src.ai_client import GeminiClient, GroqGenerationClient, OllamaEmbeddingClient
 
 
 @pytest.mark.parametrize("reason", [types.FinishReason.MAX_TOKENS, types.FinishReason.SAFETY, None])
@@ -46,3 +46,23 @@ def test_groq_error_does_not_expose_credentials(monkeypatch):
     with pytest.raises(RuntimeError, match="HTTP 429") as exc:
         client.generate("Pergunta")
     assert "test-secret" not in str(exc.value)
+
+
+def test_ollama_uses_distinct_document_and_query_prompts(monkeypatch):
+    response = SimpleNamespace(raise_for_status=Mock(), json=lambda: {"embeddings": [[0.1, 0.2]]})
+    post = Mock(return_value=response)
+    monkeypatch.setattr("src.ai_client.httpx.post", post)
+    client = OllamaEmbeddingClient("http://localhost:11434", "embeddinggemma", 2)
+    assert client.embed_documents(["Férias"]) == [[0.1, 0.2]]
+    assert post.call_args.kwargs["json"]["input"] == ["title: none | text: Férias"]
+    assert post.call_args.kwargs["json"]["truncate"] is False
+    assert client.embed_query("Férias?") == [0.1, 0.2]
+    assert post.call_args.kwargs["json"]["input"] == ["task: question answering | query: Férias?"]
+    assert client.embed_documents([]) == []
+
+
+def test_ollama_rejects_wrong_embedding_dimensions(monkeypatch):
+    response = SimpleNamespace(raise_for_status=Mock(), json=lambda: {"embeddings": [[0.1]]})
+    monkeypatch.setattr("src.ai_client.httpx.post", Mock(return_value=response))
+    with pytest.raises(RuntimeError, match="dimensão"):
+        OllamaEmbeddingClient("http://localhost:11434", "embeddinggemma", 2).embed_query("Pergunta")

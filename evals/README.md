@@ -8,7 +8,7 @@ Na raiz do projeto, com chave e dependências configuradas:
 python -m src.evaluation --dataset evals/policy_questions.json --output evals/reports/retrieval.json
 ```
 
-Reconstrói Chroma em memória com embeddings reais Gemini; não altera a coleção persistida nem chama geração. Pode consumir quota/cobrança. Falhas interrompem a execução sem novo relatório parcial. A saída é sobrescrita: use nomes distintos por experimento.
+Reconstrói Chroma em memória com o provedor de embeddings configurado; não altera a coleção persistida nem chama geração. Com Gemini pode consumir quota/cobrança; com Ollama usa o modelo local. Falhas interrompem a execução sem novo relatório parcial. A saída é sobrescrita: use nomes distintos por experimento.
 
 ## Métricas
 

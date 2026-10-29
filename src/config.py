@@ -28,6 +28,9 @@ class Settings:
     llm_provider: str = "gemini"
     groq_api_key: str = ""
     groq_model: str = "openai/gpt-oss-20b"
+    embedding_provider: str = "gemini"
+    ollama_model: str = "embeddinggemma"
+    ollama_base_url: str = "http://127.0.0.1:11434"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -49,6 +52,9 @@ class Settings:
             llm_provider=os.getenv("LLM_PROVIDER", "gemini").strip().lower(),
             groq_api_key=os.getenv("GROQ_API_KEY", "").strip(),
             groq_model=os.getenv("GROQ_MODEL", "openai/gpt-oss-20b").strip(),
+            embedding_provider=os.getenv("EMBEDDING_PROVIDER", "gemini").strip().lower(),
+            ollama_model=os.getenv("OLLAMA_MODEL", "embeddinggemma").strip(),
+            ollama_base_url=os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").strip().rstrip("/"),
         )
         settings.validate()
         return settings
@@ -56,6 +62,10 @@ class Settings:
     def validate(self) -> None:
         if self.llm_provider not in {"gemini", "groq"}:
             raise ValueError("LLM_PROVIDER deve ser gemini ou groq.")
+        if self.embedding_provider not in {"gemini", "ollama"}:
+            raise ValueError("EMBEDDING_PROVIDER deve ser gemini ou ollama.")
+        if self.embedding_provider == "ollama" and (not self.ollama_model or not self.ollama_base_url):
+            raise ValueError("OLLAMA_MODEL e OLLAMA_BASE_URL são obrigatórios.")
         if self.chunk_size <= 0:
             raise ValueError("CHUNK_SIZE deve ser maior que zero.")
         if self.chunk_overlap < 0 or self.chunk_overlap >= self.chunk_size:
@@ -68,7 +78,7 @@ class Settings:
             raise ValueError("MAX_COSINE_DISTANCE deve estar entre 0 e 2.")
 
     def require_api_key(self) -> None:
-        if not self.gemini_api_key:
+        if (self.embedding_provider == "gemini" or self.llm_provider == "gemini") and not self.gemini_api_key:
             raise RuntimeError(
                 "GEMINI_API_KEY não configurada. Copie .env.example para .env e informe a chave."
             )

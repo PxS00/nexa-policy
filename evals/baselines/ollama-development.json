@@ -1,0 +1,302 @@
+{
+  "scope": "retrieval_only",
+  "cases": 15,
+  "answerable_cases": 11,
+  "unanswerable_cases": 4,
+  "metrics": {
+    "mean_source_recall_at_k": 1.0,
+    "source_mrr_at_k": 0.9545454545454546,
+    "all_sources_found_rate": 1.0,
+    "correct_abstention_rate": 0.5
+  },
+  "results": [
+    {
+      "id": "vacation-days",
+      "question": "Quantos dias de férias tenho e após quanto tempo?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv",
+        "comunicacao/faq.md"
+      ],
+      "distances": [
+        0.44095689058303833,
+        0.6248669624328613,
+        0.6336987018585205
+      ],
+      "retrieval_ms": 979.2397999990499,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "vacation-notice",
+      "question": "Com qual antecedência devo solicitar férias?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.4565253257751465,
+        0.6142386794090271
+      ],
+      "retrieval_ms": 39.99170000315644,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "vacation-split",
+      "question": "Como posso dividir minhas férias?",
+      "expected_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.4783481955528259
+      ],
+      "retrieval_ms": 2439.975700006471,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "meal",
+      "question": "Qual o limite diário de alimentação em viagem e o prazo para pedir reembolso?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.3926085829734802
+      ],
+      "retrieval_ms": 44.36600000190083,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "equipment",
+      "question": "Preciso de aprovação para reembolsar material de trabalho?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "legal/codigo_conduta.json",
+        "comunicacao/faq.md",
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.4915992021560669,
+        0.6156454682350159,
+        0.6192859411239624,
+        0.6423481702804565
+      ],
+      "retrieval_ms": 43.76469999260735,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "education",
+      "question": "Quanto posso usar por ano em cursos e certificações?",
+      "expected_sources": [
+        "comunicacao/faq.md"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "comunicacao/faq.md",
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.5407687425613403,
+        0.599036455154419,
+        0.6486315727233887
+      ],
+      "retrieval_ms": 35.071999998763204,
+      "source_recall": 1.0,
+      "reciprocal_rank": 0.5,
+      "all_sources_found": true
+    },
+    {
+      "id": "remote",
+      "question": "Quantos dias por semana posso trabalhar remotamente?",
+      "expected_sources": [
+        "comunicacao/faq.md"
+      ],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "rh/politica_ferias.md",
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.4943352937698364,
+        0.596398115158081,
+        0.6136888265609741
+      ],
+      "retrieval_ms": 43.98089999449439,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "training",
+      "question": "Quais treinamentos são obrigatórios na primeira semana?",
+      "expected_sources": [
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "operacional/onboarding.html"
+      ],
+      "distances": [
+        0.550079345703125
+      ],
+      "retrieval_ms": 28.17200000572484,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "ethics",
+      "question": "Como comunicar um conflito de interesse?",
+      "expected_sources": [
+        "legal/codigo_conduta.json"
+      ],
+      "retrieved_sources": [
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.6089960336685181
+      ],
+      "retrieval_ms": 18.15250000800006,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "onboarding-education",
+      "question": "Quais treinamentos preciso fazer na primeira semana e qual é a verba anual para cursos?",
+      "expected_sources": [
+        "comunicacao/faq.md",
+        "operacional/onboarding.html"
+      ],
+      "retrieved_sources": [
+        "operacional/onboarding.html",
+        "comunicacao/faq.md",
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.5801390409469604,
+        0.5835623741149902,
+        0.6278808116912842,
+        0.647993803024292
+      ],
+      "retrieval_ms": 28.399799994076602,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "vacation-meal",
+      "question": "Com quanto tempo peço férias e qual o teto de alimentação em viagem?",
+      "expected_sources": [
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv",
+        "rh/politica_ferias.md"
+      ],
+      "distances": [
+        0.5447962880134583,
+        0.5821337699890137
+      ],
+      "retrieval_ms": 30.48349999880884,
+      "source_recall": 1.0,
+      "reciprocal_rank": 1.0,
+      "all_sources_found": true
+    },
+    {
+      "id": "parking",
+      "question": "Qual é o valor do auxílio estacionamento?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "financeiro/politica_reembolso.csv"
+      ],
+      "distances": [
+        0.5976568460464478
+      ],
+      "retrieval_ms": 30.827599999611266,
+      "correct_abstention": false
+    },
+    {
+      "id": "dental",
+      "question": "Qual é a coparticipação do plano odontológico?",
+      "expected_sources": [],
+      "retrieved_sources": [],
+      "distances": [],
+      "retrieval_ms": 30.45239999482874,
+      "correct_abstention": true
+    },
+    {
+      "id": "revenue",
+      "question": "Qual foi o faturamento da NexaCorp em 2025?",
+      "expected_sources": [],
+      "retrieved_sources": [
+        "comunicacao/faq.md",
+        "rh/politica_ferias.md",
+        "operacional/onboarding.html",
+        "legal/codigo_conduta.json"
+      ],
+      "distances": [
+        0.49905264377593994,
+        0.5523703694343567,
+        0.5910201072692871,
+        0.6169627904891968
+      ],
+      "retrieval_ms": 33.0106000037631,
+      "correct_abstention": false
+    },
+    {
+      "id": "weather",
+      "question": "Vai chover amanhã em Curitiba?",
+      "expected_sources": [],
+      "retrieved_sources": [],
+      "distances": [],
+      "retrieval_ms": 43.023700010962784,
+      "correct_abstention": true
+    }
+  ],
+  "run": {
+    "timestamp_utc": "2026-10-29T15:24:02.660927+00:00",
+    "revision": "966fe347925efded00934737999f7dd13d31e684",
+    "working_tree_dirty": true,
+    "dataset_sha256": "535d6e489dfcb45db63c6904e7b2ad2625d16181d426aee1e8bc2629e064e178",
+    "corpus_sha256": "58739b233aa27b6b75d4fd9cab1b25d0c51761abcb82a0240ad2ac4d5906c883",
+    "index": {
+      "documents": 5,
+      "chunks": 5
+    },
+    "settings": {
+      "embedding_provider": "ollama",
+      "embedding_model": "gemini-embedding-001",
+      "ollama_model": "embeddinggemma",
+      "embedding_dimensions": 768,
+      "chunk_size": 1000,
+      "chunk_overlap": 150,
+      "top_k": 4,
+      "max_cosine_distance": 0.65
+    }
+  }
+}

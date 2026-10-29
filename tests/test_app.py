@@ -27,7 +27,7 @@ def test_chat_renders_evidence_and_retains_it_in_history():
             return AgentResponse("São 30 dias [FONTE 1].", (SourceReference(
                 "policy.md", "rh", "seção: document", 1, "rh/policy.md", "Evidência de teste: 30 dias", 0.2),))
 
-    with patch.dict("os.environ", {"GEMINI_API_KEY": "fake-key-no-network", "LLM_PROVIDER": "gemini"}), \
+    with patch.dict("os.environ", {"GEMINI_API_KEY": "fake-key-no-network", "LLM_PROVIDER": "gemini", "EMBEDDING_PROVIDER": "gemini"}), \
          patch("src.ai_client.GeminiClient"), patch("src.vector_store.VectorStore", Store), \
          patch("src.rag.RagAgent", Agent):
         app = AppTest.from_file(Path("app.py").resolve()).run(timeout=20)
