@@ -1,10 +1,15 @@
-# Demonstração curta (aproximadamente 60 segundos)
+# Demonstração do NexaPolicy (60–90 segundos)
 
-Execute a aplicação seguindo o README, com a base fictícia indexada e a API disponível. A indexação e as consultas consomem quota. Uma instância antiga pode exigir reindexação manual.
+A demonstração usa os cinco documentos fictícios de `documents/`. Não mostre chaves no vídeo. A primeira indexação e cada pergunta respondível podem consumir embeddings e chamadas do provedor de geração. Confirme a quota antes de gravar e evite repetir consultas.
 
-1. Apresente o objetivo: localizar regras em documentos de RH, financeiro e onboarding e permitir que o colaborador confira os trechos.
-2. Pergunte: **“Qual a duração mínima dos períodos quando as férias são divididas?”** Abra “Fontes citadas” e mostre a política de férias e a citação. A política estabelece um período de pelo menos 14 dias corridos e os demais de pelo menos 5 dias.
-3. Pergunte: **“Qual o valor do auxílio creche?”** A resposta esperada é abstenção porque essa informação não consta da base. O modelo é não determinístico: verifique a resposta, sem prometer que sempre vai se abster.
-4. Abra o README e mostre a comparação de recuperação: um limiar pode reduzir resultados em perguntas negativas, mas também eliminar evidências relevantes. Apresente uma falha documentada, como `MAX_TOKENS` na pergunta com duas fontes, e explique que a aplicação evita exibir a resposta interrompida.
+## Roteiro
 
-Esses passos são um roteiro para gravação, não uma gravação realizada. As capturas OCI são históricas e não mostram esta revisão.
+1. **Contexto (10 s):** “NexaPolicy busca regras em documentos de RH, reembolso e onboarding e mostra os trechos usados na resposta.” Mostre a base indexada na lateral.
+2. **Pergunta direta (15 s):** “Qual a duração mínima dos períodos quando as férias são divididas?” Abra **Fontes citadas** e confira os 14 dias de um período e 5 dias dos demais em `rh/politica_ferias.md`.
+3. **Pergunta composta (20 s):** “Quem solicita meus acessos internos e onde abro chamados de TI?” Mostre as fontes de onboarding e FAQ. Se vierem trechos extras, indique que a busca pode incluir contexto não citado.
+4. **Limite (15 s):** “Qual o valor do auxílio creche?” A base não contém essa regra; mostre a abstenção esperada. A resposta generativa varia, então não apresente isso como garantia.
+5. **Fecho (10 s):** “É uma demonstração com documentos fictícios. As citações ajudam a conferir a origem, mas não comprovam que cada afirmação esteja correta.”
+
+## Captura
+
+A tela inicial agora oferece três perguntas de exemplo; elas correspondem aos passos 2 a 4. Clique em uma por vez para iniciar a consulta. Grave a tela local após confirmar que a aplicação iniciou e que o índice corresponde aos documentos atuais. Não há gravação versionada neste roteiro; adicione GIF ou vídeo somente depois de conferir a captura e remover dados pessoais da área de trabalho.

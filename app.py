@@ -12,9 +12,40 @@ from src.vector_store import VectorStore
 
 st.set_page_config(
     page_title="NexaPolicy",
-    page_icon="🤖",
+    page_icon="N",
     layout="centered",
 )
+
+
+st.markdown("""
+<style>
+:root { --ink:#172b3a; --muted:#5c6e79; --paper:#f5f7f6; --line:#dbe4e2; --teal:#087f75; }
+.stApp { background:var(--paper); color:var(--ink); }
+.block-container { max-width:900px; padding-top:2.2rem; padding-bottom:3rem; }
+[data-testid="stHeader"] { background:transparent; }
+.hero { background:#fff; border:1px solid var(--line); border-radius:18px; padding:1.5rem 1.7rem; margin:0 0 1.4rem; box-shadow:0 8px 28px #193b3510; }
+.brand { color:var(--teal); font-size:.76rem; font-weight:750; letter-spacing:.14em; text-transform:uppercase; }
+.hero h1 { color:var(--ink); font-size:2rem; letter-spacing:-.04em; margin:.35rem 0 .35rem; }
+.hero p { color:var(--muted); margin:0; font-size:1rem; }
+[data-testid="stChatMessage"] { border:1px solid var(--line); border-radius:15px; padding:.8rem 1rem; }
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]) { background:#fff; }
+[data-testid="stChatInput"] { border-color:#bdcfcb; border-radius:14px; }
+[data-testid="stExpander"] { border:1px solid var(--line); border-radius:12px; background:#fff; }
+[data-testid="stSidebar"] { background:#edf2f0; border-right:1px solid var(--line); }
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] label, [data-testid="stSidebar"] [data-testid="stMetricLabel"],
+[data-testid="stSidebar"] [data-testid="stMetricValue"] { color:var(--ink) !important; }
+.stButton > button { border-radius:10px; border-color:#cbdad6; color:var(--ink); }
+.stButton > button:hover { border-color:var(--teal); color:var(--teal); }
+.stChatInput textarea { color:var(--ink); }
+.suggestions { margin-top:5rem; text-align:center; }
+.suggestions h3 { color:var(--ink); font-size:1.1rem; }
+.suggestions p { color:var(--muted); font-size:.9rem; }
+[data-testid="stMetric"] { background:#fff; border:1px solid var(--line); border-radius:12px; padding:.7rem; }
+.stCaption { color:var(--muted); }
+</style>
+<div class="hero"><div class="brand">NexaPolicy · Base fictícia NexaCorp</div><h1>Encontre a política. Confira a fonte.</h1><p>Respostas documentais com trechos para você verificar. O assistente não aprova solicitações.</p></div>
+""", unsafe_allow_html=True)
 
 
 @st.cache_resource
@@ -65,9 +96,7 @@ def render_sources(sources: list[dict]) -> None:
                     st.caption(f"Distância de cosseno: {source['distance']:.3f} (menor = mais próximo; não é probabilidade)")
 
 
-st.title("NexaPolicy")
-st.caption("Consulte políticas de férias, reembolsos e onboarding da empresa fictícia NexaCorp com evidências documentais.")
-st.caption("Demonstração de portfólio com dados fictícios. Confira os trechos recuperados antes de tomar decisões.")
+st.caption("Políticas de pessoas, reembolsos, conduta e onboarding")
 
 try:
     settings, ai_client, vector_store, agent = build_services()
@@ -119,7 +148,22 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
         render_sources(message.get("sources", []))
 
+if not st.session_state.messages:
+    st.markdown('<div class="suggestions"><h3>Comece com uma destas perguntas</h3><p>Consulte os documentos fictícios e confira as fontes da resposta.</p></div>', unsafe_allow_html=True)
+    suggestions = [
+        "Qual a duração mínima dos períodos quando as férias são divididas?",
+        "Quem solicita meus acessos internos e onde abro chamados de TI?",
+        "Qual o valor do auxílio creche?",
+    ]
+    columns = st.columns(3)
+    for column, suggestion in zip(columns, suggestions):
+        with column:
+            if st.button(suggestion, key=f"suggest-{suggestion}", use_container_width=True):
+                st.session_state.pending_question = suggestion
+
 question = st.chat_input("Pergunte sobre férias, reembolsos, onboarding, conduta ou benefícios...")
+if not question:
+    question = st.session_state.pop("pending_question", None)
 
 if question:
     st.session_state.messages.append({"role": "user", "content": question})
